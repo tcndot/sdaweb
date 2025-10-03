@@ -1,0 +1,147 @@
+/* Reset */
+body, h1, h2, p, a {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Fixed green top bar with phone & whatsapp */
+.fixed-top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #007f3f; /* Green */
+  color: #fff;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 8px 0;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+}
+
+.top-contact span {
+  margin: 0 20px;
+}
+
+.top-contact a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.top-contact a:hover {
+  text-decoration: underline;
+}
+
+/* Body padding for fixed bar */
+body {
+  padding-top: 40px;
+  background: #f4fff4; /* light green background */
+  color: #004d00;
+}
+
+/* Navbar below top bar */
+.navbar {
+  background-color: #009933; /* darker green */
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 10px 5vw;
+  flex-wrap: wrap;
+  border-bottom: 3px solid #00591e;
+}
+
+/* Logo styling */
+.logo {
+  border: 2px solid #004d00;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  font-weight: bold;
+  background-color: #a8e6a3;
+  color: #004d00;
+  margin-right: 30px;
+  flex-shrink: 0;
+}
+
+/* Navigation links */
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 1.5rem;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #a8e6a3;
+}
+
+/* Main content */
+.main-content {
+  margin: 30px 5vw;
+  font-size: 1.1rem;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #a8e6a3;
+}
+
+.main-content h1 {
+  margin-bottom: 15px;
+  color: #007f3f;
+}
+
+/* Footer at bottom */
+.footer {
+  background-color: #007f3f;
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 30px 5vw;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
+
+.footer-section {
+  flex: 1 1 300px;
+  margin: 10px 20px;
+}
+
+.footer-section h2 {
+  margin-bottom: 10px;
+  font-weight: 700;
+  border-bottom: 2px solid #a8e6a3;
+  padding-bottom: 5px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 700px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .nav-links {
+    margin-top: 10px;
+  }
+  
+  .nav-links a {
+    margin: 10px 5px;
+    font-size: 1.2rem;
+  }
+  
+  .footer {
+    flex-direction: column;
+  }
+  
+  .footer-section {
+    margin: 15px 0;
+  }
+}
