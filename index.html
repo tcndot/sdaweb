@@ -7,37 +7,36 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
   <div id="header"></div>
-  <main class="main-content">
-    <h1>Welcome to <span id="company-name-main"></span></h1>
-    <p>
-      We are committed to providing top-notch services and innovative solutions for our clients. 
-      From real estate consulting to property management, our experienced team ensures your needs are met with professionalism and care.
-    </p>
-    <h2>What Makes Us Unique</h2>
-    <ul>
-      <li>Decades of property management experience</li>
-      <li>Personalized consultation and honest deals</li>
-      <li>Hassle-free paperwork and instant support</li>
-      <li>Constant communication and customer care</li>
-    </ul>
-    <h2>Why Choose Us?</h2>
-    <p>
-      We truly care about your dream to own a home and pride ourselves on helping Delhi citizens leave rental stress behind. Let us make your property journey smooth!
-    </p>
-    <h2>Contact Us for More Information</h2>
-    <p>
-      Our representatives are happy to assist—scroll down for address, map link, and our motto.
-    </p>
+
+  <main class="main-content home-hero-row">
+    <div class="home-left">
+      <h1 id="bigHeading"></h1>
+      <p id="subHeading"></p>
+      <a id="knowMoreBtn" class="home-cta-btn" href="#">Know more about us</a>
+    </div>
+    <div class="home-right">
+      <div class="carousel-box">
+        <img id="carouselImage" src="" alt="Gallery Image" class="carousel-img" />
+      </div>
+    </div>
   </main>
+
   <div id="footer"></div>
 
   <script>
     let siteData = {};
+    let homeData = {};
 
-    async function fetchData() {
+    async function fetchSiteData() {
       const response = await fetch("data.json");
       siteData = await response.json();
+    }
+
+    async function fetchHomeData() {
+      const response = await fetch("homepagedata.json");
+      homeData = await response.json();
     }
 
     async function loadHTML(id, url) {
@@ -48,11 +47,12 @@
     }
 
     async function initialize() {
-      await fetchData();
+      await Promise.all([fetchSiteData(), fetchHomeData()]);
       await loadHTML('header', 'header.html');
-      setData(); // populate header
+      setData();
+      setHomeData();
       await loadHTML('footer', 'footer.html');
-      setData(); // populate footer and rest
+      setData();
     }
 
     initialize();
@@ -63,7 +63,6 @@
         const el = document.getElementById(id);
         if (el) el.textContent = text;
       };
-
       const setLink = (id, href, text) => {
         const el = document.getElementById(id);
         if (el) {
@@ -71,26 +70,37 @@
           el.textContent = text;
         }
       };
-
       setText('company-name-top', s.companyNameTop);
-      setText('company-name-main', s.companyName);
       setText('company-name-footer', s.companyName);
-
       setLink('phone-link-top', 'tel:' + s.phone, 'Call ' + s.phone);
       setLink('whatsapp-link-top', 'https://wa.me/' + s.phone, 'WhatsApp ' + s.phone);
       setLink('phone-link-footer', 'tel:' + s.phone, s.phone);
       setLink('email-link', 'mailto:' + s.email, s.email);
-
       setText('main-office', s.mainOffice);
       setText('branch-office', s.branchOffice);
-
       setLink('facebook-link', s.socialLinks.facebook, 'Facebook');
       setLink('youtube-link', s.socialLinks.youtube, 'YouTube');
       setLink('instagram-link', s.socialLinks.instagram, 'Instagram');
-
       const map = document.getElementById('google-map');
       if (map) map.src = s.googleMapsEmbedSrc;
     }
+
+    function setHomeData() {
+      setText('bigHeading', homeData.bigHeading);
+      setText('subHeading', homeData.subHeading);
+      setLink('knowMoreBtn', homeData.ctaLink, homeData.ctaText);
+
+      let images = homeData.carouselImages;
+      let carousel = document.getElementById('carouselImage');
+      let i = 0;
+      function showNextImage() {
+        carousel.src = images[i];
+        i = (i + 1) % images.length;
+      }
+      showNextImage();
+      setInterval(showNextImage, 2500); // rotate images every 2.5 seconds
+    }
   </script>
+
 </body>
 </html>
