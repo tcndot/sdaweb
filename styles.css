@@ -6,14 +6,13 @@ body, h1, h2, p, a, ul, li {
   box-sizing: border-box;
 }
 
-/* Body styles */
 body {
   padding-top: 42px;
   background: #f4fff4;
   color: #004d00;
 }
 
-/* Fixed top bar with phone and WhatsApp */
+/* Fixed top bar with contact buttons */
 .fixed-top-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -40,7 +39,7 @@ body {
   text-decoration: underline;
 }
 
-/* Navigation bar */
+/* Navbar layout */
 .navbar {
   background-color: #009933;
   color: white;
@@ -51,42 +50,54 @@ body {
   flex-wrap: wrap;
 }
 
-/* Logo container */
-.logo-container {
-  width: 80px;
-  height: 80px;
-  margin-right: 15px;
-  flex-shrink: 0;
+/* Logo and name side by side */
+.logo-and-name {
+  display: flex;
+  align-items: center;
 }
 
-/* Company name on top */
+.nav-logo {
+  height: 55px;
+  width: 55px;
+  object-fit: contain;
+  margin-right: 12px;
+  border-radius: 10px;
+  background: white;
+  box-shadow: 0 0 6px #bbb;
+  border: 1.5px solid #eee;
+}
+
 .company-name-top {
   color: white;
   font-weight: 600;
   font-size: 1.2rem;
-  margin-right: 20px;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   align-self: center;
 }
 
-/* Navigation links aligned right */
-.nav-links {
+/* Navigation links as boxes right aligned */
+.nav-links-boxes {
   margin-left: auto;
   display: flex;
+  gap: 12px;
 }
-.nav-links a {
-  color: white;
+.nav-link-box {
+  background: #e6ffe6;
+  color: #007f3f;
+  border-radius: 6px;
+  border: 2px solid #009933;
+  padding: 8px 18px;
   text-decoration: none;
-  margin: 0 15px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: bold;
+  font-size: 1rem;
   text-transform: lowercase;
-  transition: color 0.3s ease;
+  box-shadow: 0 1px 4px #e6ffe6;
+  transition: background 0.2s, color 0.2s;
 }
-
-.nav-links a:hover {
-  color: #FFD700;
+.nav-link-box:hover {
+  background: #007f3f;
+  color: #fff;
 }
 
 /* Main content */
@@ -114,14 +125,15 @@ body {
   margin-bottom: 8px;
 }
 
-/* Footer */
+/* Footer three columns, desktop layout */
 .footer {
   background-color: #007f3f;
   color: white;
   display: flex;
+  flex-direction: row;
   justify-content: space-between;
   padding: 30px 5vw;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   margin-top: 50px;
   font-size: 1.05em;
   align-items: flex-start;
@@ -156,52 +168,37 @@ body {
   color: #e6ffe6;
 }
 
-/* Responsive styles for mobile */
-@media (max-width: 800px) {
+/* Responsive styles for mobile/tabs */
+@media (max-width:900px) {
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .footer-section {
+    margin: 15px 0;
+    min-width: unset;
+  }
+  .footer-section h2 {
+    margin-top: 15px;
+  }
+  .footer iframe {
+    width: 100%;
+    min-width: 0;
+  }
   .navbar {
     flex-direction: column;
     align-items: flex-start;
     padding: 10px 2vw;
   }
-
-  .logo-container {
+  .logo-and-name {
     margin-bottom: 15px;
   }
-
-  .company-name-top {
-    margin-right: 0;
-    margin-bottom: 15px;
-  }
-
-  .nav-links a {
+  .nav-link-box {
     font-size: 1.1rem;
     margin: 10px 10px 0 0;
   }
-
   .main-content {
     margin: 20px 2vw;
     padding: 14px;
   }
-
-  .footer {
-    flex-direction: column;
-    padding: 20px 2vw;
-    font-size: 1em;
-    align-items: stretch;
-  }
-
-  .footer-section {
-    margin: 15px 0;
-    min-width: unset;
-  }
-
-  .footer-section h2 {
-    margin-top: 15px;
-  }
-
-  .footer iframe {
-    width: 100%;
-    min-width: 0;
-  }
 }
-
