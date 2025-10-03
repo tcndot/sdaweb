@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - SDA Promoters</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="header"></div>
+  <main class="main-content">
+    <h1>About Us</h1>
+    <p>About work is in progress. I'll write it till tomorrow and will give it to you to make it HTML.</p>
+  </main>
+  <div id="footer"></div>
+  <script>
+    let siteData = {};
+    async function fetchData() {
+      const response = await fetch("data.json");
+      siteData = await response.json();
+    }
+    async function loadHTML(id, url) {
+      const response = await fetch(url);
+      if(response.ok) {
+        document.getElementById(id).innerHTML = await response.text();
+      }
+    }
+    async function initialize() {
+      await fetchData();
+      await loadHTML('header', 'header.html');
+      setData();
+      await loadHTML('footer', 'footer.html');
+      setData();
+    }
+    initialize();
+    function setData() {
+      const s = siteData;
+      const setText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+      const setLink = (id, href, text) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.href = href;
+          el.textContent = text;
+        }
+      };
+      setText('company-name-top', s.companyNameTop);
+      setText('company-name-footer', s.companyName);
+      setLink('phone-link-top', 'tel:' + s.phone, 'Call ' + s.phone);
+      setLink('whatsapp-link-top', 'https://wa.me/' + s.phone, 'WhatsApp ' + s.phone);
+      setLink('phone-link-footer', 'tel:' + s.phone, s.phone);
+      setLink('email-link', 'mailto:' + s.email, s.email);
+      setText('main-office', s.mainOffice);
+      setText('branch-office', s.branchOffice);
+      setLink('facebook-link', s.socialLinks.facebook, 'Facebook');
+      setLink('youtube-link', s.socialLinks.youtube, 'YouTube');
+      setLink('instagram-link', s.socialLinks.instagram, 'Instagram');
+      const map = document.getElementById('google-map');
+      if (map) map.src = s.googleMapsEmbedSrc;
+    }
+  </script>
+</body>
+</html>
