@@ -10,33 +10,19 @@
 
   <div id="header"></div>
 
-  <main class="main-content home-hero-row">
-    <div class="home-left">
-      <h1 id="bigHeading"></h1>
-      <p id="subHeading"></p>
-      <a id="knowMoreBtn" class="home-cta-btn" href="#">Know more about us</a>
-    </div>
-    <div class="home-right">
-      <div class="carousel-box">
-        <img id="carouselImage" src="" alt="Gallery Image" class="carousel-img" />
-      </div>
-    </div>
+  <main class="main-content">
+    <h1>Welcome to SDA Promoters</h1>
+    <p>Your trusted real estate partner in Delhi NCR.</p>
   </main>
 
   <div id="footer"></div>
 
   <script>
     let siteData = {};
-    let homeData = {};
 
     async function fetchSiteData() {
       const response = await fetch("data.json");
       siteData = await response.json();
-    }
-
-    async function fetchHomeData() {
-      const response = await fetch("homepagedata.json");
-      homeData = await response.json();
     }
 
     async function loadHTML(id, url) {
@@ -47,10 +33,9 @@
     }
 
     async function initialize() {
-      await Promise.all([fetchSiteData(), fetchHomeData()]);
+      await fetchSiteData();
       await loadHTML('header', 'header.html');
       setData();
-      setHomeData();
       await loadHTML('footer', 'footer.html');
       setData();
     }
@@ -83,22 +68,6 @@
       setLink('instagram-link', s.socialLinks.instagram, 'Instagram');
       const map = document.getElementById('google-map');
       if (map) map.src = s.googleMapsEmbedSrc;
-    }
-
-    function setHomeData() {
-      setText('bigHeading', homeData.bigHeading);
-      setText('subHeading', homeData.subHeading);
-      setLink('knowMoreBtn', homeData.ctaLink, homeData.ctaText);
-
-      let images = homeData.carouselImages;
-      let carousel = document.getElementById('carouselImage');
-      let i = 0;
-      function showNextImage() {
-        carousel.src = images[i];
-        i = (i + 1) % images.length;
-      }
-      showNextImage();
-      setInterval(showNextImage, 2500); // rotate images every 2.5 seconds
     }
   </script>
 
