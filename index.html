@@ -8,9 +8,11 @@
 </head>
 <body>
 
+  <!-- Header placeholder -->
   <div id="header"></div>
 
-  <main class="main-content">
+  <!-- Main content -->
+  <main class="main-content" >
     <h1>Welcome to <span id="company-name-main">SDA Promoters</span></h1>
     <p>
       We are committed to providing top-notch services and innovative solutions for our clients. 
@@ -33,32 +35,50 @@
     </p>
   </main>
 
+  <!-- Footer placeholder -->
   <div id="footer"></div>
 
+  <!-- Load data.js first -->
   <script src="data.js"></script>
 
+  <!-- Load header and footer, then fill data -->
   <script>
     async function loadHTML(id, url) {
       try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error('Network response was not ok');
+        if (!response.ok) throw new Error('Failed to load ' + url);
         const html = await response.text();
         document.getElementById(id).innerHTML = html;
       } catch (error) {
-        console.error(`Error loading ${url}:`, error);
+        console.error(error);
       }
     }
 
-    loadHTML('header', 'header.html').then(() => {
+    async function initialize() {
+      await loadHTML('header', 'header.html');
       if(typeof setData === 'function') setData();
-    });
-    loadHTML('footer', 'footer.html');
+      await loadHTML('footer', 'footer.html');
+    }
 
+    initialize();
+
+    // Set all dynamic data from siteData
     function setData() {
-      if(!window.siteData) return;
+      if (!window.siteData) return;
       const s = siteData;
-      const setText = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
-      const setLink = (id, href, text) => { const el = document.getElementById(id); if(el) { el.href = href; el.textContent = text; } };
+
+      const setText = (id, text) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = text;
+      };
+
+      const setLink = (id, href, text) => {
+        const el = document.getElementById(id);
+        if (el) {
+          el.href = href;
+          el.textContent = text;
+        }
+      };
 
       setText('company-name-top', s.companyNameTop);
       setText('company-name-main', s.companyName);
@@ -77,9 +97,9 @@
       setLink('instagram-link', s.socialLinks.instagram, 'Instagram');
 
       const map = document.getElementById('google-map');
-      if(map) map.src = s.googleMapsEmbedSrc;
+      if (map) map.src = s.googleMapsEmbedSrc;
     }
   </script>
+
 </body>
 </html>
-
