@@ -8,11 +8,9 @@
 </head>
 <body>
 
-  <!-- Header placeholder -->
   <div id="header"></div>
 
-  <!-- Main content -->
-  <main class="main-content" >
+  <main class="main-content">
     <h1>Welcome to <span id="company-name-main">SDA Promoters</span></h1>
     <p>
       We are committed to providing top-notch services and innovative solutions for our clients. 
@@ -35,13 +33,10 @@
     </p>
   </main>
 
-  <!-- Footer placeholder -->
   <div id="footer"></div>
 
-  <!-- Load data.js first -->
   <script src="data.js"></script>
 
-  <!-- Load header and footer, then fill data -->
   <script>
     async function loadHTML(id, url) {
       try {
@@ -62,7 +57,6 @@
 
     initialize();
 
-    // Set all dynamic data from siteData
     function setData() {
       if (!window.siteData) return;
       const s = siteData;
