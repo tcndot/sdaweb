@@ -1,4 +1,4 @@
-/* Reset basic elements and box sizing */
+/* Base reset and body styling */
 body, h1, h2, p, a, ul, li {
   margin: 0;
   padding: 0;
@@ -12,7 +12,7 @@ body {
   color: #004d00;
 }
 
-/* Fixed top bar with contact buttons */
+/* Fixed top bar styling */
 .fixed-top-bar {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -39,7 +39,7 @@ body {
   text-decoration: underline;
 }
 
-/* Navbar layout */
+/* Navbar styling */
 .navbar {
   background-color: #009933;
   color: white;
@@ -50,18 +50,17 @@ body {
   flex-wrap: wrap;
 }
 
-/* Logo and name side by side */
 .logo-and-name {
   display: flex;
   align-items: center;
 }
 
 .nav-logo {
-  height: 55px;
-  width: 55px;
+  height: 36px;
+  width: 36px;
   object-fit: contain;
   margin-right: 12px;
-  border-radius: 10px;
+  border-radius: 8px;
   background: white;
   box-shadow: 0 0 6px #bbb;
   border: 1.5px solid #eee;
@@ -73,15 +72,15 @@ body {
   font-size: 1.2rem;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  align-self: center;
 }
 
-/* Navigation links as boxes right aligned */
+/* Navigation links as boxes */
 .nav-links-boxes {
   margin-left: auto;
   display: flex;
   gap: 12px;
 }
+
 .nav-link-box {
   background: #e6ffe6;
   color: #007f3f;
@@ -95,12 +94,13 @@ body {
   box-shadow: 0 1px 4px #e6ffe6;
   transition: background 0.2s, color 0.2s;
 }
+
 .nav-link-box:hover {
   background: #007f3f;
   color: #fff;
 }
 
-/* Main content */
+/* Main content styling */
 .main-content {
   margin: 30px 5vw;
   background: white;
@@ -110,22 +110,83 @@ body {
   box-shadow: 0 0 10px #a8e6a3;
 }
 
-.main-content h1 {
-  margin-bottom: 15px;
+/* Home page hero section */
+.home-hero-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 36px;
+  min-height: 350px;
+}
+
+.home-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding-right: 36px;
+}
+
+#bigHeading {
+  font-size: 2.7rem;
+  font-weight: 800;
   color: #007f3f;
+  margin-bottom: 12px;
 }
 
-.main-content ul {
-  padding-left: 20px;
-  list-style-type: disc;
-  margin: 12px 0;
+#subHeading {
+  font-size: 1.25rem;
+  color: #226b25;
+  margin-bottom: 26px;
 }
 
-.main-content li {
-  margin-bottom: 8px;
+.home-cta-btn {
+  background: #009933;
+  color: #fff;
+  font-size: 1.10rem;
+  font-weight: bold;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 10px;
+  text-decoration: none;
+  box-shadow: 0 1px 6px #a8e6a3;
+  margin-top: 10px;
+  transition: background 0.2s;
+  display: inline-block;
 }
 
-/* Footer three columns, desktop layout */
+.home-cta-btn:hover {
+  background: #065920;
+}
+
+.home-right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-box {
+  background: #e6ffe6;
+  border-radius: 12px;
+  padding: 18px;
+  box-shadow: 0 1px 10px #d0f7c4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 210px;
+  min-height: 210px;
+}
+
+.carousel-img {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  border: 2.5px solid #009933;
+}
+
+/* Footer styling */
 .footer {
   background-color: #007f3f;
   color: white;
@@ -168,8 +229,26 @@ body {
   color: #e6ffe6;
 }
 
-/* Responsive styles for mobile/tabs */
+/* Responsive Styling */
 @media (max-width:900px) {
+  .home-hero-row {
+    flex-direction: column;
+    gap: 24px;
+  }
+  .home-left, .home-right {
+    padding: 0;
+    justify-content: flex-start;
+    align-items: start;
+  }
+  .carousel-box {
+    min-width: 120px;
+    min-height: 120px;
+    padding: 9px;
+  }
+  .carousel-img {
+    max-width: 92vw;
+    max-height: 150px;
+  }
   .footer {
     flex-direction: column;
     align-items: stretch;
