@@ -7,131 +7,75 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="fixed-top-bar">
-    <div class="top-contact">
-      <span><a id="phone-link-top" href="#">Call</a></span>
-      <span><a id="whatsapp-link-top" href="#" target="_blank">WhatsApp</a></span>
-    </div>
-  </div>
 
-  <nav class="navbar">
-    <div class="logo-container">
-      <img id="logo-image" alt="Company Logo" src="" />
-    </div>
-    <div class="company-name-top" id="company-name-top"></div>
-    <div class="nav-links">
-      <a href="index.html" class="nav-link-small">home</a>
-      <a href="about.html" class="nav-link-small">about</a>
-      <a href="careers.html" class="nav-link-small">careers</a>
-      <a href="gallery-blogs.html" class="nav-link-small">gallery & blogs</a>
-    </div>
-  </nav>
+  <!-- Load header dynamically -->
+  <div id="header"></div>
 
   <main class="main-content">
-    <h1>Welcome to <span id="company-name-main">SDA Promoters</span></h1>
-    <p>
-      We are committed to providing top-notch services and innovative solutions for our clients. 
-      From real estate consulting to property management, our experienced team ensures your needs are met with professionalism and care.
-    </p>
-    <h2>What Makes Us Unique</h2>
-    <ul>
-      <li>Decades of property management experience</li>
-      <li>Personalized consultation and honest deals</li>
-      <li>Hassle-free paperwork and instant support</li>
-      <li>Constant communication and customer care</li>
-    </ul>
-    <h2>Why Choose Us?</h2>
-    <p>
-      We truly care about your dream to own a home and pride ourselves on helping Delhi citizens leave rental stress behind. Let us make your property journey smooth!
-    </p>
-    <h2>Contact Us for More Information</h2>
-    <p>
-      Our representatives are happy to assist—scroll down for address, map link, and our motto.
-    </p>
+    <!-- Your page-specific content here -->
   </main>
 
-  <footer class="footer">
-    <div class="footer-section">
-      <h2>Contact Us</h2>
-      <p><span id="company-name-footer"></span></p>
-      <p><strong>Phone:</strong> <a href="#" id="phone-link-footer"></a> (Call & WhatsApp)</p>
-      <p><strong>Email:</strong> <a href="#" id="email-link"></a></p>
-      <p><strong>Main Office:</strong><br><span id="main-office"></span></p>
-      <p><strong>Branch Office:</strong><br><span id="branch-office"></span></p>
-    </div>
-    <div class="footer-section">
-      <h2>Our Office Location</h2>
-      <iframe
-        id="google-map"
-        src=""
-        width="100%"
-        height="150"
-        style="border:1px solid #007f3f; border-radius:5px;"
-        allowfullscreen=""
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade"
-        title="Office Location"
-      ></iframe>
-      <div style="margin-top:10px;">
-        <a href="#">Open in Apple Maps</a><br/>
-        <a href="#">Open in OpenStreetMap</a>
-      </div>
-    </div>
-    <div class="footer-section">
-      <h2>Our Motto</h2>
-      <p style="font-weight:bold; color:#FFD700;">SDA ka sapna, sabka ghar ho apna</p>
-      <p>
-        We deeply understand the pain and struggle of renting in Delhi.
-        Tenant hassles, constant uncertainty, and endless searching take a toll on families.
-        SDA Promoters passionately believes every person should have their own home—a true haven from worry.
-      </p>
-      <p>
-        Our mission is to help Delhiites leave rental woes behind and step into the comfort and pride of ownership.
-        Your dream is our own. We work tirelessly, to turn “Ghar Ho Apna” into reality for all.
-      </p>
-      <div class="footer-social">
-        <p>Connect with us:</p>
-        <a href="#" id="facebook-link" aria-label="Facebook" title="Facebook" target="_blank">Facebook</a> |
-        <a href="#" id="youtube-link" aria-label="YouTube" title="YouTube" target="_blank">YouTube</a> |
-        <a href="#" id="instagram-link" aria-label="Instagram" title="Instagram" target="_blank">Instagram</a>
-      </div>
-    </div>
-  </footer>
+  <!-- Load footer dynamically -->
+  <div id="footer"></div>
 
+  <!-- Load data variables -->
   <script src="data.js"></script>
+
+  <!-- Script to load header & footer HTML -->
   <script>
-    const setData = () => {
-      document.getElementById('logo-image').src = siteData.logoSrc;
-      document.getElementById('company-name-top').textContent = siteData.companyNameTop;
-      document.getElementById('company-name-main').textContent = siteData.companyName;
-      document.getElementById('company-name-footer').textContent = siteData.companyName;
+    async function loadHTML(id, url) {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Network response was not ok');
+        const html = await response.text();
+        document.getElementById(id).innerHTML = html;
+      } catch (error) {
+        console.error(`Error loading ${url}:`, error);
+      }
+    }
+    // Load header and footer and then set data dynamically after header loads
+    loadHTML('header', 'header.html').then(() => {
+      if(typeof setData === 'function') setData();
+    });
+    loadHTML('footer', 'footer.html');
+  </script>
 
-      const phoneTop = document.getElementById('phone-link-top');
-      phoneTop.textContent = "Call " + siteData.phone;
-      phoneTop.href = "tel:" + siteData.phone;
+  <!-- Script to pull the data object and fill DOM elements -->
+  <script>
+    function setData() {
+      if(!window.siteData) return;
+      const s = siteData;
+      const setText = (id, text) => { const el = document.getElementById(id); if(el) el.textContent = text; };
+      const setLink = (id, href, text) => { const el = document.getElementById(id); if(el) { el.href = href; el.textContent = text; } };
 
-      const whatsappTop = document.getElementById('whatsapp-link-top');
-      whatsappTop.textContent = "WhatsApp " + siteData.phone;
-      whatsappTop.href = "https://wa.me/" + siteData.phone;
+      // Logo
+      const logoImg = document.getElementById('logo-image');
+      if(logoImg) logoImg.src = s.logoSrc;
 
-      const phoneFooter = document.getElementById('phone-link-footer');
-      phoneFooter.textContent = siteData.phone;
-      phoneFooter.href = "tel:" + siteData.phone;
+      // Company names
+      setText('company-name-top', s.companyNameTop);
+      setText('company-name-main', s.companyName);
+      setText('company-name-footer', s.companyName);
 
-      const emailLink = document.getElementById('email-link');
-      emailLink.textContent = siteData.email;
-      emailLink.href = "mailto:" + siteData.email;
+      // Phone and WhatsApp links on top and footer
+      setLink('phone-link-top', 'tel:'+s.phone, 'Call ' + s.phone);
+      setLink('whatsapp-link-top', 'https://wa.me/'+s.phone, 'WhatsApp ' + s.phone);
+      setLink('phone-link-footer', 'tel:'+s.phone, s.phone);
+      setLink('email-link', 'mailto:'+s.email, s.email);
 
-      document.getElementById('main-office').textContent = siteData.mainOffice;
-      document.getElementById('branch-office').textContent = siteData.branchOffice;
+      // Office addresses
+      setText('main-office', s.mainOffice);
+      setText('branch-office', s.branchOffice);
 
-      document.getElementById('facebook-link').href = siteData.socialLinks.facebook;
-      document.getElementById('youtube-link').href = siteData.socialLinks.youtube;
-      document.getElementById('instagram-link').href = siteData.socialLinks.instagram;
+      // Social links
+      setLink('facebook-link', s.socialLinks.facebook, 'Facebook');
+      setLink('youtube-link', s.socialLinks.youtube, 'YouTube');
+      setLink('instagram-link', s.socialLinks.instagram, 'Instagram');
 
-      document.getElementById('google-map').src = siteData.googleMapsEmbedSrc;
-    };
-    window.onload = setData;
+      // Embed Google Maps
+      const map = document.getElementById('google-map');
+      if(map) map.src = s.googleMapsEmbedSrc;
+    }
   </script>
 </body>
 </html>
