@@ -1,4 +1,5 @@
 const siteData = {
+  companyNameTop: "SDA Promoters",
   companyName: "SDA Promoters",
   phone: "9999944622",
   email: "info@sdapromoters.com",
