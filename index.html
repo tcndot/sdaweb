@@ -18,11 +18,12 @@
     <div class="logo-container">
       <img id="logo-image" alt="Company Logo" src="" />
     </div>
+    <div class="company-name-top" id="company-name-top"></div>
     <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="careers.html">Careers</a>
-      <a href="gallery-blogs.html">Gallery & Blogs</a>
+      <a href="index.html" class="nav-link-small">home</a>
+      <a href="about.html" class="nav-link-small">about</a>
+      <a href="careers.html" class="nav-link-small">careers</a>
+      <a href="gallery-blogs.html" class="nav-link-small">gallery & blogs</a>
     </div>
   </nav>
 
@@ -99,9 +100,9 @@
 
   <script src="data.js"></script>
   <script>
-    // Load data from data.js and update page
     const setData = () => {
       document.getElementById('logo-image').src = siteData.logoSrc;
+      document.getElementById('company-name-top').textContent = siteData.companyNameTop;
       document.getElementById('company-name-main').textContent = siteData.companyName;
       document.getElementById('company-name-footer').textContent = siteData.companyName;
 
@@ -129,7 +130,7 @@
       document.getElementById('instagram-link').href = siteData.socialLinks.instagram;
 
       document.getElementById('google-map').src = siteData.googleMapsEmbedSrc;
-    }
+    };
     window.onload = setData;
   </script>
 </body>
