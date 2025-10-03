@@ -36,7 +36,8 @@
 
     async function fetchHomeData() {
       try {
-        const response = await fetch("homepagedata.json");
+        // Update path here if needed for subfolder of homepagedata.json
+        const response = await fetch("homepagedata.json"); 
         homeData = await response.json();
         console.log('Loaded homepagedata:', homeData);
       } catch (e) {
