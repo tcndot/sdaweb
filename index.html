@@ -11,13 +11,13 @@
 
   <main class="main-content home-hero-row">
     <div class="home-left">
-      <h1 id="bigHeading">Please wait...</h1>
-      <p id="subHeading"></p>
-      <a id="knowMoreBtn" class="home-cta-btn" href="#">Know more about us</a>
+      <h1 class="bigHeading">Are you ready</h1>
+      <p class="subHeading">to buy the best real estate space in Delhi?</p>
+      <a class="home-cta-btn" href="about.html">Know more about us</a>
     </div>
     <div class="home-right">
       <div class="carousel-box">
-        <img id="carouselImage" src="" alt="Gallery Image" class="carousel-img"/>
+        <img src="images/homepagephoto1.jpg" alt="Gallery Image" class="carousel-img"/>
       </div>
     </div>
   </main>
@@ -25,54 +25,15 @@
   <div id="footerdiv"></div>
 
   <script>
-    function setText(id, value) {
-      const e = document.getElementById(id);
-      if (e) e.textContent = value;
-    }
-    function setAttr(id, attr, value) {
-      const e = document.getElementById(id);
-      if (e) e.setAttribute(attr, value);
-    }
-    let siteData = {};
-
     async function loadHTML(id, url) {
       const response = await fetch(url);
       if (response.ok) {
         document.getElementById(id).innerHTML = await response.text();
       }
     }
-
-    async function fetchSiteData() {
-      const response = await fetch("data.json");
-      siteData = await response.json();
-      setAllData(siteData);
-    }
-
-    function setAllData(d) {
-      // HOMEPAGE
-      setText("bigHeading", d.bigHeading);
-      setText("subHeading", d.subHeading);
-      const btn = document.getElementById("knowMoreBtn");
-      btn.textContent = d.ctaText;
-      btn.href = d.ctaLink;
-      if (d.carouselImages && d.carouselImages.length > 0) {
-        setAttr("carouselImage", "src", d.carouselImages[0]);
-      }
-      // HEADER
-      setText("companyNameTop", d.companyNameTop);
-      setText("topPhone", "Call: " + d.phone);
-      setText("topWhatsapp", "WhatsApp: " + d.phone);
-      // FOOTER
-      setText("companyName", d.companyName);
-      setText("footerPhone", "Phone: " + d.phone);
-      setText("footerEmail", "Email: " + d.email);
-      setAttr("googleMaps", "src", d.googleMapsEmbedSrc);
-    }
-
     async function startPage() {
       await loadHTML("headerdiv", "header.html");
       await loadHTML("footerdiv", "footer.html");
-      await fetchSiteData();
     }
     startPage();
   </script>
