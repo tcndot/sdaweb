@@ -13,8 +13,6 @@
       <h1 id="bigHeading">Please wait...</h1>
       <p id="subHeading"></p>
       <a id="knowMoreBtn" class="home-cta-btn" href="#">Know more about us</a>
-      <!-- TEST FIELD TO SHOW COMPANY NAME FROM NEW JSON -->
-      <div id="testDataField" style="margin-top:20px;font-weight:bold;color:green;"></div>
     </div>
     <div class="home-right">
       <div class="carousel-box">
@@ -24,56 +22,46 @@
   </main>
   <div id="footerdiv"></div>
   <script>
-    // Helper function to set text
+    // Helper functions
     function setText(id, value) {
-      let e = document.getElementById(id);
+      const e = document.getElementById(id);
       if (e) e.textContent = value;
     }
-
-    // Data object for everything
+    function setAttr(id, attr, value) {
+      const e = document.getElementById(id);
+      if (e) e.setAttribute(attr, value);
+    }
     let siteData = {};
 
-    // Fetch everything from one data.json file
     async function fetchSiteData() {
       const response = await fetch("data.json");
       siteData = await response.json();
       setAllData(siteData);
     }
-
-    // Set all fields: header/footer + homepage in one go
     function setAllData(d) {
       // HOMEPAGE
       setText("bigHeading", d.bigHeading);
       setText("subHeading", d.subHeading);
-      let btn = document.getElementById("knowMoreBtn");
+      const btn = document.getElementById("knowMoreBtn");
       btn.textContent = d.ctaText;
       btn.href = d.ctaLink;
-      // Carousel
       if (d.carouselImages && d.carouselImages.length > 0) {
-        document.getElementById("carouselImage").src = d.carouselImages[0];
+        setAttr("carouselImage", "src", d.carouselImages[0]);
       }
-      // TEST (shows loaded company name)
-      setText("testDataField", d.companyNameTop);
-
-      // HEADER + FOOTER (if you have JS code that sets header/footer fields, call it here and pass 'd' for all info)
-      if (typeof setHeaderFooterData === "function") {
-        setHeaderFooterData(d);
-      }
+      // HEADER
+      setText("companyNameTop", d.companyNameTop);
+      setText("topPhone", "Call: " + d.phone);
+      setText("topWhatsapp", "WhatsApp: " + d.phone);
+      // FOOTER
+      setText("companyName", d.companyName);
+      setText("footerPhone", "Phone: " + d.phone);
+      setText("footerEmail", "Email: " + d.email);
+      setAttr("googleMaps", "src", d.googleMapsEmbedSrc);
     }
-
-    // Used if you have header/footer supplied via JS with company/contact data:
-    // function setHeaderFooterData(d) {
-    //   ... (existing code to set header, footer fields from d)
-    // }
-
-    // HTML loader
     async function loadHTML(id, url) {
       const response = await fetch(url);
-      if (response.ok) {
-        document.getElementById(id).innerHTML = await response.text();
-      }
+      if (response.ok) document.getElementById(id).innerHTML = await response.text();
     }
-
     async function init() {
       await loadHTML("headerdiv", "header.html");
       await loadHTML("footerdiv", "footer.html");
