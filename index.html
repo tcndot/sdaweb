@@ -1,89 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>SDA Promoters</title>
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div id="headerdiv"></div>
-    <main class="main-content home-hero-row">
-      <div class="home-left">
-        <h1 id="bigHeading">Please wait...</h1>
-        <p id="subHeading"></p>
-        <a id="knowMoreBtn" class="home-cta-btn" href="#">Know more about us</a>
-        <!-- TEST FIELD TO SHOW COMPANY NAME FROM data.json -->
-        <div id="testDataField" style="margin-top:20px;font-weight:bold;color:green;"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SDA Promoters</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="headerdiv"></div>
+  <main class="main-content home-hero-row">
+    <div class="home-left">
+      <h1 id="bigHeading">Please wait...</h1>
+      <p id="subHeading"></p>
+      <a id="knowMoreBtn" class="home-cta-btn" href="#">Know more about us</a>
+      <!-- TEST FIELD TO SHOW COMPANY NAME FROM NEW JSON -->
+      <div id="testDataField" style="margin-top:20px;font-weight:bold;color:green;"></div>
+    </div>
+    <div class="home-right">
+      <div class="carousel-box">
+        <img id="carouselImage" src="" alt="Gallery Image" class="carousel-img"/>
       </div>
-      <div class="home-right">
-        <div class="carousel-box">
-          <img id="carouselImage" src="" alt="Gallery Image" class="carousel-img"/>
-        </div>
-      </div>
-    </main>
-    <div id="footerdiv"></div>
-    <script>
-      // Helper function to set text
-      function setText(id, value) {
-        let e = document.getElementById(id);
-        if (e) e.textContent = value;
+    </div>
+  </main>
+  <div id="footerdiv"></div>
+  <script>
+    // Helper function to set text
+    function setText(id, value) {
+      let e = document.getElementById(id);
+      if (e) e.textContent = value;
+    }
+
+    // Data object for everything
+    let siteData = {};
+
+    // Fetch everything from one data.json file
+    async function fetchSiteData() {
+      const response = await fetch("data.json");
+      siteData = await response.json();
+      setAllData(siteData);
+    }
+
+    // Set all fields: header/footer + homepage in one go
+    function setAllData(d) {
+      // HOMEPAGE
+      setText("bigHeading", d.bigHeading);
+      setText("subHeading", d.subHeading);
+      let btn = document.getElementById("knowMoreBtn");
+      btn.textContent = d.ctaText;
+      btn.href = d.ctaLink;
+      // Carousel
+      if (d.carouselImages && d.carouselImages.length > 0) {
+        document.getElementById("carouselImage").src = d.carouselImages[0];
       }
+      // TEST (shows loaded company name)
+      setText("testDataField", d.companyNameTop);
 
-      // Site-wide and homepage data
-      let siteData = {};
-      let homeData = {};
-
-      async function fetchSiteData() {
-        const response = await fetch("data.json");
-        siteData = await response.json();
-        setSiteData(siteData);
+      // HEADER + FOOTER (if you have JS code that sets header/footer fields, call it here and pass 'd' for all info)
+      if (typeof setHeaderFooterData === "function") {
+        setHeaderFooterData(d);
       }
+    }
 
-      function setSiteData(s) {
-        // TEST: Display company name from data.json
-        setText("testDataField", s.companyNameTop);
+    // Used if you have header/footer supplied via JS with company/contact data:
+    // function setHeaderFooterData(d) {
+    //   ... (existing code to set header, footer fields from d)
+    // }
 
-        // You can add more fields here to show they load correctly.
+    // HTML loader
+    async function loadHTML(id, url) {
+      const response = await fetch(url);
+      if (response.ok) {
+        document.getElementById(id).innerHTML = await response.text();
       }
+    }
 
-      async function fetchHomeData() {
-        try {
-          const response = await fetch("homepagedata.json");
-          homeData = await response.json();
-          setHomeData(homeData);
-        } catch (e) {
-          console.error("Failed to load homepagedata.json:", e);
-        }
-      }
-
-      function setHomeData(h) {
-        setText("bigHeading", h.bigHeading);
-        setText("subHeading", h.subHeading);
-        let btn = document.getElementById("knowMoreBtn");
-        btn.textContent = h.ctaText;
-        btn.href = h.ctaLink;
-        if (h.carouselImages && h.carouselImages.length > 0) {
-          document.getElementById("carouselImage").src = h.carouselImages[0];
-        }
-      }
-
-      async function loadHTML(id, url) {
-        const response = await fetch(url);
-        if (response.ok) {
-          document.getElementById(id).innerHTML = await response.text();
-        }
-      }
-
-      async function init() {
-        // Load header and footer first
-        await loadHTML("headerdiv", "header.html");
-        await loadHTML("footerdiv", "footer.html");
-        await fetchSiteData();
-        await fetchHomeData();
-      }
-      // Run everything
-      init();
-    </script>
-  </body>
+    async function init() {
+      await loadHTML("headerdiv", "header.html");
+      await loadHTML("footerdiv", "footer.html");
+      await fetchSiteData();
+    }
+    init();
+  </script>
+</body>
 </html>
