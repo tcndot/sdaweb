@@ -27,37 +27,38 @@
       flex-shrink: 0;
     }
     .slideshow-container {
-      width: 100%;
-      height: 1080px; /* fixed height matching image height */
-      max-width: 1920px; /* max width full HD */
+      width: 1080px;
+      height: 1080px;
+      background: black;
       display: flex;
       justify-content: center;
       align-items: center;
-      background: black;
       position: relative;
       overflow: hidden;
       margin: 0 auto;
+      flex-shrink: 0;
     }
     .slideshow-container img {
-      width: 1080px;  /* fixed square size */
-      height: 1080px;
-      object-fit: cover;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
       position: absolute;
       opacity: 0;
       transition: opacity 0.6s ease-in-out;
+      width: auto;
+      height: auto;
     }
     .slideshow-container img.active {
       opacity: 1;
       position: relative;
       z-index: 1;
     }
-    @media (max-width: 1200px) {
+    @media (max-width: 1120px) {
       .slideshow-container {
+        width: 90vw;
         height: auto;
       }
       .slideshow-container img {
-        width: 90vw;
-        height: auto;
         position: relative;
         opacity: 1 !important;
       }
@@ -67,13 +68,8 @@
 <body>
   <div id="headerdiv"></div>
 
-  <div class="slideshow-container">
-    <img src="images/homepagephoto1.jpg" alt="Photo 1" class="active" />
-    <img src="images/homepagephoto2.jpg" alt="Photo 2" />
-    <img src="images/homepagephoto3.jpg" alt="Photo 3" />
-    <img src="images/homepagephoto4.jpg" alt="Photo 4" />
-    <img src="images/homepagephoto5.jpg" alt="Photo 5" />
-    <img src="images/homepagephoto6.jpg" alt="Photo 6" />
+  <div class="slideshow-container" id="image-container">
+    <!-- Single high-quality image from the link will be inserted here -->
   </div>
 
   <div id="footerdiv"></div>
@@ -86,20 +82,24 @@
       }
     }
 
-    function startSlideshow() {
-      const images = document.querySelectorAll('.slideshow-container img');
-      let current = 0;
-      setInterval(() => {
-        images[current].classList.remove('active');
-        current = (current + 1) % images.length;
-        images[current].classList.add('active');
-      }, 2000);
+    // To load the high-quality image, add it to the container
+    function loadHighQualityImage() {
+      const container = document.getElementById('image-container');
+      // Replace the src URL below with your desired high-quality image path
+      const imgUrl = 'https://photos.app.goo.gl/RS8saELneSo3GhCG8'; // replace with direct image link
+      const img = document.createElement('img');
+      img.src = imgUrl; // For actual use, convert the Google Photos link to direct image URL
+      img.alt = "High Quality Image";
+      img.className = 'active';
+      container.innerHTML = ''; // Clear existing content
+      container.appendChild(img);
     }
 
     async function startPage() {
       await loadHTML("headerdiv", "header.html");
       await loadHTML("footerdiv", "footer.html");
-      startSlideshow();
+      loadHighQualityImage(); // Load the high quality image
+      // No need to start a slideshow now, only one image
     }
 
     startPage();
