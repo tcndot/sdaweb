@@ -7,7 +7,23 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div id="headerdiv"></div>
+  <!-- START HEADER -->
+  <div class="top-bar">
+    <span id="topPhone"></span>
+    <span id="topWhatsapp"></span>
+  </div>
+  <div class="logo-bar">
+    <img src="images/logo.png" alt="Logo" class="logo-img">
+    <span id="companyNameTop"></span>
+  </div>
+  <nav class="main-nav">
+    <a href="index.html">home</a>
+    <a href="about.html">about</a>
+    <a href="careers.html">careers</a>
+    <a href="gallery.html">gallery & blogs</a>
+  </nav>
+  <!-- END HEADER -->
+
   <main class="main-content home-hero-row">
     <div class="home-left">
       <h1 id="bigHeading">Please wait...</h1>
@@ -20,9 +36,36 @@
       </div>
     </div>
   </main>
-  <div id="footerdiv"></div>
+
+  <!-- START FOOTER -->
+  <footer>
+    <div class="footer-section">
+      <div>
+        <b>Contact Us</b><br>
+        <span id="companyName"></span><br>
+        <span id="footerPhone"></span><br>
+        <span id="footerEmail"></span>
+      </div>
+      <div>
+        <b>Our Office Location</b><br>
+        <iframe id="googleMaps" src="" width="300" height="200"></iframe>
+      </div>
+      <div>
+        <b>Our Motto</b><br>
+        <span style="color: #2ca047; font-weight: bold;">SDA ka sapna, sabka ghar ho apna</span>
+        <p>
+          We deeply understand the pain and struggle of renting in Delhi. Tenant hassles, constant uncertainty, and endless searching take a toll on families.<br>
+          SDA Promoters passionately believes every person should have their own home—a true haven from worry.
+        </p>
+        <p>
+          Our mission is to help Delhiites leave rental woes behind and step into the comfort and pride of ownership. Your dream is our own. We work tirelessly, to turn “Ghar Ho Apna” into reality for all.
+        </p>
+      </div>
+    </div>
+  </footer>
+  <!-- END FOOTER -->
+
   <script>
-    // Helper functions
     function setText(id, value) {
       const e = document.getElementById(id);
       if (e) e.textContent = value;
@@ -58,16 +101,7 @@
       setText("footerEmail", "Email: " + d.email);
       setAttr("googleMaps", "src", d.googleMapsEmbedSrc);
     }
-    async function loadHTML(id, url) {
-      const response = await fetch(url);
-      if (response.ok) document.getElementById(id).innerHTML = await response.text();
-    }
-    async function init() {
-      await loadHTML("headerdiv", "header.html");
-      await loadHTML("footerdiv", "footer.html");
-      await fetchSiteData();
-    }
-    init();
+    fetchSiteData();
   </script>
 </body>
 </html>
