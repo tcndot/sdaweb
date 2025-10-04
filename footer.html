@@ -1,89 +1,94 @@
 <!-- FOOTER START -->
 <style>
 footer {
-  background-color: #007f3f;
+  background: #038037;
   color: #fff;
-  margin-top: 50px;
 }
 .footer-section {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: stretch;
-  padding: 32px 5vw 22px 5vw;
-  gap: 24px;
+  align-items: flex-start;
+  padding: 36px 5vw 22px 5vw;
+  gap: 34px;
   flex-wrap: wrap;
+  font-size: 1.09em;
 }
-.footer-col {
-  background: #058d42;
-  color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 1px 8px #06592022;
-  padding: 18px 20px;
+.footer-section > div {
   min-width: 220px;
-  max-width: 360px;
+  max-width: 370px;
   flex: 1 1 0;
-  font-size: 1.08em;
-  margin: 0 10px;
   box-sizing: border-box;
 }
-.footer-section > .footer-col {
-  margin-bottom: 0;
-}
 .footer-section b {
-  font-size: 1.1em;
-  color: #cffed5;
+  color: #cdffdb;
+  font-size: 1.07em;
 }
-.footer-section iframe {
-  border-radius: 8px;
+.footer-section a {
+  color: #b4f2ff;
+  text-decoration: underline;
+  display: inline-block;
   margin-top: 8px;
-  width: 98%;
-  background: #fff;
-  box-shadow: 0 0 8px #c7e8b7;
-  min-width: 100px;
-  border: none;
+  margin-right: 20px;
+  font-size: 1em;
 }
-.footer-section span, .footer-section div, .footer-section p {
+.footer-section a:hover {
   color: #fff;
 }
+.footer-section iframe {
+  border-radius: 7px;
+  margin-top: 7px;
+  width: 96%;
+  background: #fff;
+  border: none;
+  min-width: 140px;
+  min-height: 110px;
+  box-shadow: 0 0 5px #bbedbb;
+}
 @media (max-width: 900px) {
-  .footer-section { flex-direction: column; align-items: stretch; gap: 18px; padding: 18px 2vw; }
-  .footer-col { margin: 0 0 14px 0; min-width: unset; max-width: none; }
+  .footer-section {
+    flex-direction: column;
+    gap: 22px;
+    padding: 18px 2vw;
+  }
+  .footer-section > div {
+    max-width: unset;
+    min-width: unset;
+  }
 }
 </style>
 
 <footer>
   <div class="footer-section">
-    <!-- Box 1: Contact Info -->
-    <div class="footer-col">
+    <!-- Contact Us -->
+    <div>
       <b>Contact Us</b><br>
       SDA Promoters<br>
       Phone: 9999944622<br>
-      Email: info@sdapromoters.com
+      Email: info@sdapromoters.com<br>
+      <span style="display:block;margin-top:10px;">
+        C7, Near Ramesh Nagar Metro Station Gate 4, Delhi 110015<br>
+        Pili Building, Opposite Nithari School & Jal Board Pump, Sukhi Nehar Road, Pratap Vihar, Delhi 110086
+      </span>
     </div>
-    <!-- Box 2: Our Offices -->
-    <div class="footer-col">
-      <b>Our Offices</b><br>
-      <div style="margin-bottom:6px;">
-        <b>Main:</b> C7, Near Ramesh Nagar Metro Station Gate 4, Delhi 110015
-      </div>
+    <!-- Our Office Location -->
+    <div>
+      <b>Our Office Location</b><br>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d477.26799166844086!2d77.13274115568447!3d28.65214914859093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d03debc47c96d%3A0xbf7b673c3e8b9daa!2sSDA%20DEVELOPERS%20AND%20PROMOTERS!5e0!3m2!1sen!2sin!4v1759480118040!5m2!1sen!2sin" width="260" height="100"></iframe>
       <div>
-        <b>Branch:</b> Pili Building, Opposite Nithari School & Jal Board Pump, Sukhi Nehar Road, Pratap Vihar, Delhi 110086
+        <a href="https://maps.apple/p/4imLx35NfnggFT">Open in Apple Maps</a>
+        <a href="https://osm.org/go/zmjygoLJ~?m=">Open in OpenStreetMap</a>
       </div>
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d477.26799166844086!2d77.13274115568447!3d28.65214914859093!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d03debc47c96d%3A0xbf7b673c3e8b9daa!2sSDA%20DEVELOPERS%20AND%20PROMOTERS!5e0!3m2!1sen!2sin!4v1759480118040!5m2!1sen!2sin" width="260" height="100" style="border-radius:8px;border:none;margin-top:10px;"></iframe>
     </div>
-    <!-- Box 3: Motto -->
-    <div class="footer-col">
+    <!-- Our Motto -->
+    <div>
       <b>Our Motto</b><br>
-      <span style="color: #2ca047; font-weight: bold;">SDA ka sapna, sabka ghar ho apna</span>
-      <p>
-        We deeply understand the pain and struggle of renting in Delhi.<br>
-        Tenant hassles, constant uncertainty, and endless searching take a toll on families.<br>
-        SDA Promoters passionately believes every person should have their own home—a true haven from worry.
+      <span style="color: #9affb5; font-weight: bold;">SDA ka sapna, sabka ghar ho apna</span>
+      <p style="margin-top:10px;">
+        We deeply understand the pain and struggle of renting in Delhi. Tenant hassles, constant uncertainty, and endless searching take a toll on families. SDA Promoters passionately believes every person should have their own home—a true haven from worry.
       </p>
       <p>
-        Our mission is to help Delhiites leave rental woes behind and step into the comfort and pride of ownership.<br>
-        Your dream is our own. We work tirelessly to turn “Ghar Ho Apna” into reality for all.
+        Our mission is to help Delhiites leave rental woes behind and step into the comfort and pride of ownership. Your dream is our own. We work tirelessly, to turn “Ghar Ho Apna” into reality for all.
       </p>
     </div>
   </div>
