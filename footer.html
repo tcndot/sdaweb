@@ -1,3 +1,57 @@
+<!-- FOOTER START -->
+<style>
+footer {
+  background-color: #007f3f;
+  color: #fff;
+  margin-top: 50px;
+}
+.footer-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  padding: 32px 5vw 22px 5vw;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.footer-col {
+  background: #058d42;
+  color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 1px 8px #06592022;
+  padding: 18px 20px;
+  min-width: 220px;
+  max-width: 360px;
+  flex: 1 1 0;
+  font-size: 1.08em;
+  margin: 0 10px;
+  box-sizing: border-box;
+}
+.footer-section > .footer-col {
+  margin-bottom: 0;
+}
+.footer-section b {
+  font-size: 1.1em;
+  color: #cffed5;
+}
+.footer-section iframe {
+  border-radius: 8px;
+  margin-top: 8px;
+  width: 98%;
+  background: #fff;
+  box-shadow: 0 0 8px #c7e8b7;
+  min-width: 100px;
+  border: none;
+}
+.footer-section span, .footer-section div, .footer-section p {
+  color: #fff;
+}
+@media (max-width: 900px) {
+  .footer-section { flex-direction: column; align-items: stretch; gap: 18px; padding: 18px 2vw; }
+  .footer-col { margin: 0 0 14px 0; min-width: unset; max-width: none; }
+}
+</style>
+
 <footer>
   <div class="footer-section">
     <!-- Box 1: Contact Info -->
@@ -34,3 +88,4 @@
     </div>
   </div>
 </footer>
+<!-- FOOTER END -->
