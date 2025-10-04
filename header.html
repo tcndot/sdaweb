@@ -73,14 +73,29 @@
   background: #007f3f;
   color: #fff;
 }
+  .phone-link {
+  color: #fff;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.phone-link:hover {
+  text-decoration: underline;
+  color: #cdffdb;
+}
+
 </style>
 
 <div class="top-bar">
-  <span class="phone-icon">
-    <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.21.2 2.41.57 3.55a1 1 0 01-.25 1.01l-2.2 2.23z"></path></svg>
-    Call: 9999944622
-  </span>
+  <a href="tel:9999944622" class="phone-link">
+    <span class="phone-icon">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.21.2 2.41.57 3.55a1 1 0 01-.25 1.01l-2.2 2.23z"></path></svg>
+      Call: 9999944622
+    </span>
+  </a>
 </div>
+
 <div class="logo-bar">
   <img src="images/logo.png" alt="Logo of SDA Promoters" class="logo-img">
   <span class="companyNameTop">SDA PROMOTERS</span>
