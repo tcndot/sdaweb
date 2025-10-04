@@ -10,6 +10,12 @@
   align-items: center;
   gap: 12px;
   font-size: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1050;
+  box-sizing: border-box;
 }
 .phone-link {
   color: #fff;
@@ -26,7 +32,7 @@
   margin-right: 7px;
 }
 
-/* Branding and navigation - DESKTOP */
+/* Branding and navigation */
 .header-bar {
   background: #009933;
   color: #fff;
@@ -34,7 +40,8 @@
   align-items: center;
   justify-content: space-between;
   gap: 32px;
-  padding: 15px 5vw;
+  padding: 62px 5vw 16px 5vw; /* Top padding = .top-bar height + some gap */
+  box-sizing: border-box;
 }
 .logo-brand-row {
   display: flex;
@@ -85,7 +92,7 @@
 
 /* MOBILE */
 @media (max-width: 900px) {
-  .header-bar { flex-direction: column; align-items: flex-start; gap: 0; padding: 8px 3vw; }
+  .header-bar { flex-direction: column; align-items: flex-start; gap: 0; padding: 46px 3vw 5px 3vw; }
   .logo-brand-row {
     display: flex;
     flex-direction: row;
