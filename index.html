@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=1080, initial-scale=1" />
   <title>SDA Promoters</title>
   <style>
     html, body {
@@ -12,11 +12,7 @@
       font-family: Arial, sans-serif;
       background: black;
       color: #004d00;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       min-height: 100vh;
-      overflow-x: hidden;
     }
     #headerdiv, #footerdiv {
       background: #004d00;
@@ -26,50 +22,31 @@
       width: 100%;
       flex-shrink: 0;
     }
-    .slideshow-container {
-      width: 1080px;
-      height: 1080px;
-      background: black;
+    .centered-embed {
       display: flex;
       justify-content: center;
       align-items: center;
-      position: relative;
-      overflow: hidden;
-      margin: 0 auto;
-      flex-shrink: 0;
-    }
-    .slideshow-container img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-      position: absolute;
-      opacity: 0;
-      transition: opacity 0.6s ease-in-out;
-      width: auto;
-      height: auto;
-    }
-    .slideshow-container img.active {
-      opacity: 1;
-      position: relative;
-      z-index: 1;
+      min-height: 1080px;
+      background: black;
     }
     @media (max-width: 1120px) {
-      .slideshow-container {
-        width: 90vw;
-        height: auto;
-      }
-      .slideshow-container img {
-        position: relative;
-        opacity: 1 !important;
-      }
+      .centered-embed { min-height: 60vw; }
+      .pa-gallery-player-widget { width: 98vw !important; height: auto !important; }
     }
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/publicalbum@latest/embed-ui.min.js" async></script>
 </head>
 <body>
   <div id="headerdiv"></div>
 
-  <div class="slideshow-container" id="image-container">
-    <!-- Single high-quality image from the link will be inserted here -->
+  <div class="centered-embed">
+    <div class="pa-gallery-player-widget"
+      style="width:1080px; height:1080px; display:none;"
+      data-link="https://photos.app.goo.gl/wTfFKFvDwDPDikFh9"
+      data-title="New photo · Saturday, Oct 4 📸"
+      data-description="Tap to view!">
+      <object data="https://lh3.googleusercontent.com/pw/AP1GczPUD-U5edrWV2THlZ3OrZEsUE6Xia4OaKtBm_IQCARsreScPt6MJvsVO16QffjgnYQJkFZnUHeRfkbiN1_JuLZlr0bJfKd7tDthh8_8_F_FpifXbw=w1920-h1080"></object>
+    </div>
   </div>
 
   <div id="footerdiv"></div>
@@ -81,27 +58,10 @@
         document.getElementById(id).innerHTML = await response.text();
       }
     }
-
-    // To load the high-quality image, add it to the container
-    function loadHighQualityImage() {
-      const container = document.getElementById('image-container');
-      // Replace the src URL below with your desired high-quality image path
-      const imgUrl = 'https://photos.app.goo.gl/RS8saELneSo3GhCG8'; // replace with direct image link
-      const img = document.createElement('img');
-      img.src = imgUrl; // For actual use, convert the Google Photos link to direct image URL
-      img.alt = "High Quality Image";
-      img.className = 'active';
-      container.innerHTML = ''; // Clear existing content
-      container.appendChild(img);
-    }
-
     async function startPage() {
       await loadHTML("headerdiv", "header.html");
       await loadHTML("footerdiv", "footer.html");
-      loadHighQualityImage(); // Load the high quality image
-      // No need to start a slideshow now, only one image
     }
-
     startPage();
   </script>
 </body>
