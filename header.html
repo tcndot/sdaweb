@@ -10,7 +10,9 @@
     font-size: 1rem;
     font-weight: bold;
     position: fixed;
-    top: 0; left: 0; width: 100vw;
+    top: 0;
+    left: 0;
+    width: 100vw;
     z-index: 1050;
     box-sizing: border-box;
   }
@@ -21,156 +23,159 @@
     display: flex;
     align-items: center;
   }
-  .phone-link:hover { text-decoration: underline; color: #c8e6c9; }
-  .phone-icon svg { width: 19px; height: 19px; fill: #e8f5e8; margin-right: 7px; }
-
+  .phone-link:hover {
+    text-decoration: underline;
+    color: #c8e6c9;
+  }
+  .phone-icon svg {
+    width: 19px;
+    height: 19px;
+    fill: #e8f5e8;
+    margin-right: 7px;
+  }
   .header-bar {
     display: flex;
     align-items: center;
-    min-height: 84px;
-    height: 100px;
-    width: 100vw;
-    box-sizing: border-box;
-    position: relative;
+    min-height: 80px;
+    padding: 0 5vw;
     background: linear-gradient(135deg, #fff, #f0f7f0);
     margin-top: 40px;
-    padding: 0 5vw;
+    position: relative;
+    box-sizing: border-box;
+    width: 100vw;
+    z-index: 1040;
   }
   .branding-block {
     display: flex;
     align-items: center;
-    gap: 17px;
-    /* Center-left (30% from left on desktop) */
-    position: absolute;
-    left: 30vw;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .branding-link {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    flex-shrink: 0;
+    gap: 16px;
+    flex-shrink: 1;
+    min-width: 0;
   }
   .logo-img {
-    width: 68px;
-    height: 68px;
+    width: 48px;
+    height: 48px;
     object-fit: contain;
-    border-radius: 12px;
-    background: #fff;
-    border: 3px solid #1a3a1a;
-    box-shadow: 0 0 15px rgba(26, 58, 26, 0.18);
+    border-radius: 10px;
     flex-shrink: 0;
   }
   .companyNameTop {
-    font-size: 2rem;
-    font-weight: 900;
-    text-transform: uppercase;
-    letter-spacing: 2.2px;
-    color: #1a3a1a;
-    line-height: 1.11;
-    margin: 0;
-    padding: 0;
-    text-align: left;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2e7d32;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .nav-links {
     display: flex;
+    gap: 24px;
+    margin-left: auto;
     align-items: center;
-    min-width: 0;
-    word-break: break-word;
-    overflow-wrap: break-word;
-    white-space: normal;
+  }
+  .nav-link {
+    text-decoration: none;
+    color: #2e7d32;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 8px 12px;
+    transition: background 0.2s, color 0.2s;
+    border-radius: 6px;
+  }
+  .nav-link:hover {
+    background: #e8f5e8;
+    color: #1a3a1a;
   }
   .simple-hamburger {
-    width: 56px; height: 56px; /* Large on mobile */
-    border: none;
-    background: none;
-    cursor: pointer;
-    display: flex;
+    display: none;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
-    flex-shrink: 0;
-    margin-right: 0;
-    position: relative;
-    z-index: 2;
+    position: absolute;
+    right: 5vw;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1100;
+    background: #2e7d32;
+    border-radius: 10px;
+    width: 58px;
+    height: 58px;
+    cursor: pointer;
+    border: none;
   }
-  .simple-hamburger svg {
-    width: 42px; height: 42px;
-    stroke: #1a3a1a; stroke-width: 3.2; stroke-linecap: round;
+  .hamburger-icon {
+    width: 40px;
+    height: 40px;
+    fill: #fff;
   }
-  .simple-hamburger:focus,.simple-hamburger:active { background: #e0e0e0; outline:none;}
-
-  /* Hide hamburger on desktop, tweak logo/name position */
-  @media (min-width: 991px) {
-    .simple-hamburger { display: none; }
-    .branding-block {
-      left: 27vw;   /* adjust 27vw-34vw for more/less offset */
-      transform: translateY(-50%);
+  @media (max-width: 600px) {
+    .header-bar {
+      padding: 0 3vw;
+      min-height: 56px;
+      margin-top: 44px;
     }
-    .logo-img { width: 68px; height: 68px; }
-    .companyNameTop { font-size: 2rem; }
-  }
-  @media (max-width: 990px) {
-    .header-bar { height: 70px; min-height: 56px; }
-    .branding-block {
-      left: 24vw;
-      transform: translateY(-50%);
-      gap: 10px;
+    .logo-img {
+      width: 36px;
+      height: 36px;
     }
-    .logo-img { width: 36px; height: 36px; }
-    .companyNameTop { font-size: 1rem; }
-  }
-  @media (max-width: 540px) {
-    .header-bar { height: 60px; min-height: 44px; }
     .simple-hamburger {
-      width: 60px; height: 60px; margin-right: 0;
       display: flex;
-      position: absolute;
-      left: 5vw;   /* hard-left, with some space */
-      top: 50%;
-      transform: translateY(-50%);
+      width: 64px;
+      height: 64px;
+      right: 2vw;
+    }
+    .companyNameTop {
+      font-size: 1.1rem;
     }
     .branding-block {
-      left: 32vw;
-      gap: 5px;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
+      gap: 10px;
+      min-width: 0;
+      max-width: 60vw;
     }
-    .logo-img { width: 29px; height: 29px; }
-    .companyNameTop {
-      font-size: 0.9rem;
-      font-weight: 900;
-      text-align: left;
+    .nav-links {
+      display: none;
+    }
+    /* Shrink hamburger if not enough space */
+    .header-bar:has(.simple-hamburger) .simple-hamburger {
+      width: 46px;
+      height: 46px;
+    }
+  }
+  @media (min-width: 601px) {
+    .simple-hamburger {
+      display: none !important;
+    }
+    .nav-links {
       display: flex;
-      align-items: center;
     }
   }
 </style>
-
 <div class="top-bar">
   <a href="tel:9999944622" class="phone-link">
     <span class="phone-icon">
       <svg viewBox="0 0 24 24">
-        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.21.2 2.41.57 3.55a1 1 0 01-.25 1.01l-2.2 2.23z"></path>
+        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 ..."></path>
       </svg>
-      Call: 9999944622
     </span>
+    Call 9999944622
   </a>
 </div>
-
 <div class="header-bar">
-  <button class="simple-hamburger" type="button" aria-label="Show menu">
-    <svg viewBox="0 0 28 28">
-      <line x1="5" y1="7" x2="23" y2="7" />
-      <line x1="5" y1="14" x2="23" y2="14" />
-      <line x1="5" y1="21" x2="23" y2="21" />
-    </svg>
-  </button>
   <div class="branding-block">
-    <a href="https://sdapromoters.com" target="_blank" rel="noopener" class="branding-link">
-      <img src="images/logo.png" alt="SDA Infra & Promoters Logo" class="logo-img" />
-      <span class="companyNameTop">SDA Infra & Promoters</span>
+    <a href="/" class="branding-link">
+      <img src="images/logo.png" alt="Logo" class="logo-img">
+      <span class="companyNameTop">My Website</span>
     </a>
   </div>
+  <nav class="nav-links">
+    <a href="/about" class="nav-link">About</a>
+    <a href="/projects" class="nav-link">Projects</a>
+    <a href="/contact" class="nav-link">Contact</a>
+  </nav>
+  <button class="simple-hamburger" aria-label="Open Menu">
+    <svg class="hamburger-icon" viewBox="0 0 100 100">
+      <rect x="12" y="26" width="76" height="12"></rect>
+      <rect x="12" y="46" width="76" height="12"></rect>
+      <rect x="12" y="66" width="76" height="12"></rect>
+    </svg>
+  </button>
 </div>
