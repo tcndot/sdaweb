@@ -26,12 +26,13 @@
 
   .header-bar {
     display: flex;
-    align-items: center;
+    align-items: center;         /* vertical centering */
     justify-content: space-between;
-    padding: 28px 5vw 20px 5vw;
+    padding: 0 5vw;
     margin-top: 40px;
     background: linear-gradient(135deg, #fff, #f0f7f0);
-    min-height: 78px;
+    min-height: 80px;
+    height: 100px;               /* makes vertical centering easy */
     width: 100vw;
     box-sizing: border-box;
     position: relative;
@@ -39,45 +40,47 @@
   .branding-block {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 18px;
+    gap: 16px;
+    margin-left: 10vw;           /* NOT left, NOT fully center */
     min-width: 0;
-    flex: 1 1 0;
+    flex: 0 1 auto;
   }
   .branding-link {
     display: flex;
     align-items: center;
-    gap: 13px;
+    gap: 11px;
     text-decoration: none;
     flex-shrink: 0;
   }
   .logo-img {
-    width: 70px;
-    height: 70px;
+    width: 68px;
+    height: 68px;
     object-fit: contain;
-    border-radius: 13px;
+    border-radius: 12px;
     background: #fff;
     border: 3px solid #1a3a1a;
     box-shadow: 0 0 15px rgba(26, 58, 26, 0.18);
     flex-shrink: 0;
   }
   .companyNameTop {
-    font-size: 2.35rem;
+    font-size: 2rem;
     font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
+    letter-spacing: 2px;
     color: #1a3a1a;
-    line-height: 1.13;
+    line-height: 1.12;
     margin: 0;
     padding: 0;
-    text-align: center;
+    text-align: left;
     display: flex;
     align-items: center;
     min-width: 0;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
   .simple-hamburger {
-    width: 46px;
-    height: 46px;
+    width: 44px;
+    height: 44px;
     border: none;
     background: none;
     cursor: pointer;
@@ -86,31 +89,41 @@
     justify-content: center;
     border-radius: 6px;
     flex-shrink: 0;
-    margin-left: 14px;
+    margin-left: 12px;
   }
   .simple-hamburger svg {
-    width: 28px; height: 28px;
+    width: 30px; height: 30px;
     stroke: #1a3a1a; stroke-width: 3.2; stroke-linecap: round;
   }
   .simple-hamburger:focus,.simple-hamburger:active { background: #e0e0e0; outline:none;}
 
-  @media (max-width:990px) {
-    .header-bar { min-height: 65px; padding: 16px 3vw 12px 3vw; }
+  @media (max-width: 990px) {
+    .header-bar {
+      min-height: 56px; height: auto; padding: 10px 3vw 9px 3vw;
+    }
+    .branding-block {
+      gap: 9px;
+      margin-left: 0;       /* Remove horizontal offset */
+    }
     .logo-img { width: 38px; height: 38px; border-radius: 9px;}
-    .companyNameTop { font-size: 1.15rem; }
-    .simple-hamburger { width: 30px; height: 30px; margin-left: 6px;}
-    .branding-block { gap: 8px;}
+    .companyNameTop { font-size: 1.05rem; }
+    .simple-hamburger { width: 32px; height: 32px; margin-left: 7px;}
   }
-  @media (max-width:540px) {
-    .header-bar { min-height: 44px; padding: 8px 2vw 8px 2vw; align-items: center;}
+  @media (max-width: 540px) {
+    .header-bar {
+      min-height: 36px; height: auto; padding: 7px 2vw 5px 2vw;
+      align-items: center;
+    }
     .branding-block {
       gap: 5px;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+      margin-left: 0;
+      width: 100%;
     }
-    .logo-img { width: 26px; height: 26px;}
+    .logo-img { width: 23px; height: 23px;}
     .companyNameTop {
-      font-size: 0.98rem;
+      font-size: 0.82rem;
       font-weight: 900;
       text-align: center;
       display: flex;
@@ -118,18 +131,21 @@
       justify-content: center;
       width: 100%;
     }
-    .simple-hamburger { width: 19px; height: 19px; }
+    .simple-hamburger { width: 18px; height: 18px; margin-left: 5px;}
   }
 </style>
 
 <div class="top-bar">
   <a href="tel:9999944622" class="phone-link">
     <span class="phone-icon">
-      <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.21.2 2.41.57 3.55a1 1 0 01-.25 1.01l-2.2 2.23z"></path></svg>
+      <svg viewBox="0 0 24 24">
+        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.21.2 2.41.57 3.55a1 1 0 01-.25 1.01l-2.2 2.23z"></path>
+      </svg>
       Call: 9999944622
     </span>
   </a>
 </div>
+
 <div class="header-bar">
   <div class="branding-block">
     <a href="https://sdapromoters.com" target="_blank" rel="noopener" class="branding-link">
