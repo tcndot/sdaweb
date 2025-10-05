@@ -1,0 +1,103 @@
+<style>
+.top-bar {
+  background: linear-gradient(135deg, #1a3a1a, #2e7d32);
+  color: #e8f5e8;
+  padding: 8px 5vw;
+  font-weight: bold;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  font-size: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1050;
+  box-sizing: border-box;
+}
+.phone-link {
+  color: #e8f5e8;
+  text-decoration: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+.phone-link:hover { text-decoration: underline; color: #c8e6c9; }
+.phone-icon svg {
+  width: 19px;
+  height: 19px;
+  fill: #e8f5e8;
+  margin-right: 7px;
+}
+
+/* Branding and navigation */
+.header-bar {
+  background: linear-gradient(135deg, #ffffff, #f0f7f0);
+  color: #1a3a1a;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 62px 5vw 16px 5vw; /* Top padding = .top-bar height + some gap */
+  box-sizing: border-box;
+}
+.logo-brand-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.logo-img {
+  width: 70px;
+  height: 70px;
+  max-width: 82px;
+  max-height: 82px;
+  object-fit: contain;
+  border-radius: 11px;
+  background: #fff;
+  border: 3px solid #1a3a1a;
+  box-shadow: 0 0 10px rgba(26, 58, 26, 0.15);
+  display: inline-block;
+}
+.companyNameTop {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  white-space: nowrap;
+  background: linear-gradient(135deg, #1a3a1a, #2e7d32);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
+  .header-bar { flex-direction: column; align-items: flex-start; gap: 0; padding: 46px 3vw 5px 3vw; }
+  .logo-brand-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 6px;
+    width: 100%;
+  }
+  .logo-img { width: 36px; height: 36px; border-radius: 6px; box-shadow: 0 0 4px rgba(26, 58, 26, 0.1); }
+  .companyNameTop { font-size: 1.1rem; margin-left: 6px; letter-spacing: 1.1px;}
+}
+</style>
+
+<div class="top-bar">
+  <a href="tel:9999944622" class="phone-link">
+    <span class="phone-icon">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.21.2 2.41.57 3.55a1 1 0 01-.25 1.01l-2.2 2.23z"></path></svg>
+      Call: 9999944622
+    </span>
+  </a>
+</div>
+<div class="header-bar">
+  <div class="logo-brand-row">
+    <img src="images/logo.png" alt="Logo of SDA Infra & Promoters" class="logo-img">
+    <span class="companyNameTop">SDA Infra & Promoters</span>
+  </div>
+</div>
+
