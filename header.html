@@ -27,91 +27,128 @@
     fill: #e8f5e8;
     margin-right: 7px;
   }
-  
+
   .header-bar {
-    background: linear-gradient(135deg, #fff, #f0f7f0);
-    margin-top: 40px; /* below top-bar */
-    width: 100vw;
-    min-height: 60px;
-    padding: 36px 0 10px 0;
-    box-sizing: border-box;
-    position: relative;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding: 44px 4vw 16px 4vw;
+    box-sizing: border-box;
+    margin-top: 40px;
+    min-height: 84px;
+    background: linear-gradient(135deg, #fff, #f0f7f0);
+    position: relative;
+    width: 100vw;
   }
-  .center-header-content {
-    position: absolute;
-    left: 50%; top: 50%; transform: translate(-50%,-50%);
-    display: flex; align-items: center;
-    gap: 13px;
+  .logo-text-group {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-grow: 1;
     min-width: 0;
-    max-width: 90vw;
-    pointer-events: auto;
-    z-index: 2;
   }
   .logo-link {
     display: flex;
     align-items: center;
     text-decoration: none;
-    min-width: 0;
-    gap: 9px;
-  }
-  .logo-img {
-    width: 38px;
-    height: 38px;
-    object-fit: contain;
-    border-radius: 8px;
-    background: #fff;
-    border: 2px solid #1a3a1a;
+    gap: 13px;
     flex-shrink: 0;
   }
+  .logo-img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    border-radius: 13px;
+    background: #fff;
+    border: 3px solid #1a3a1a;
+    box-shadow: 0 0 12px rgba(26, 58, 26, 0.17);
+  }
   .companyNameTop {
-    font-size: 1.13rem;
+    font-size: 2.1rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
-    background: linear-gradient(135deg,#1a3a1a,#2e7d32);
-    -webkit-background-clip:text;
-    -webkit-text-fill-color:transparent;
-    background-clip:text;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 54vw;
-    display: block;
+    letter-spacing: 2.5px;
+    color: #1a3a1a;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 66vw;
   }
   .simple-hamburger {
-    position: absolute;
-    right: 18px; top: 50%; transform: translateY(-50%);
-    width: 36px; height: 36px; border: none; background: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; border-radius: 5px; flex-shrink: 0;
-    z-index: 3;
+    width: 52px;
+    height: 52px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    flex-shrink: 0;
+    margin-left: 24px;
   }
   .simple-hamburger svg {
-    width: 26px; height: 26px; stroke: #1a3a1a; stroke-width: 3.1; stroke-linecap: round;
+    width: 34px;
+    height: 34px;
+    stroke: #1a3a1a;
+    stroke-width: 3.2;
+    stroke-linecap: round;
   }
-  .simple-hamburger:focus, .simple-hamburger:active {background: #e0e0e0; outline:none;}
+  .simple-hamburger:focus,
+  .simple-hamburger:active {
+    background: #e0e0e0;
+    outline: none;
+  }
 
-  @media (min-width:700px) {
-    .header-bar { min-height: 92px; }
-    .center-header-content { gap: 18px; max-width: 65vw;}
-    .logo-img { width: 54px; height: 54px;}
-    .companyNameTop { font-size: 1.62rem; max-width: 32vw;}
-    .simple-hamburger { width: 44px; height: 44px;}
+  /* RESPONSIVE FOR TABLET AND DOWN */
+  @media (max-width:990px) {
+    .header-bar {
+      min-height: 74px;
+      padding: 36px 3vw 14px 3vw;
+    }
+    .logo-img {
+      width: 50px; height: 50px; border-radius: 9px;
+    }
+    .companyNameTop {
+      font-size: 1.35rem;
+      letter-spacing: 1.1px;
+      max-width: 72vw;
+    }
+    .simple-hamburger {
+      width: 40px; height: 40px; margin-left: 13px;
+    }
+    .logo-text-group { gap: 15px; }
   }
-  @media (min-width:1200px) {
-    .header-bar { min-height: 124px;}
-    .center-header-content { max-width: 45vw;}
-    .logo-img { width: 72px; height: 72px;}
-    .companyNameTop { font-size: 2.35rem; max-width: 18vw;}
-    .simple-hamburger { width: 54px; height: 54px;}
+
+  /* MOBILE: INCREASE HEIGHT & FONT */
+  @media (max-width:540px) {
+    .header-bar {
+      min-height: 68px;
+      padding: 18px 2vw 10px 2vw;
+    }
+    .logo-img {
+      width: 38px; height: 38px; border-radius: 7px;
+    }
+    .companyNameTop {
+      font-size: 1rem;
+      max-width: 56vw;
+      letter-spacing: 0.7px;
+    }
+    .simple-hamburger {
+      width: 34px; height: 34px;
+      margin-left: 5px;
+    }
+    .logo-text-group { gap: 9px;}
   }
-  @media (max-width:430px) {
-    .center-header-content { max-width: 62vw;}
-    .companyNameTop { font-size: 0.86rem; max-width: 21vw; }
-    .logo-img { width: 27px; height: 27px;}
-    .simple-hamburger { width: 25px; height: 25px;}
+
+  /* TINY PHONES: DON'T CUT IT TOO MUCH */
+  @media (max-width:380px) {
+    .companyNameTop {
+      font-size: 0.85rem;
+      max-width: 33vw;
+    }
+    .logo-img { width: 29px; height: 29px; }
+    .simple-hamburger { width: 24px; height: 24px; }
   }
 </style>
 
@@ -123,18 +160,19 @@
     </span>
   </a>
 </div>
+
 <div class="header-bar">
-  <div class="center-header-content">
-    <a href="https://sdapromoters.com" class="logo-link" target="_blank" rel="noopener">
+  <div class="logo-text-group">
+    <a href="https://sdapromoters.com" target="_blank" rel="noopener" class="logo-link">
       <img src="images/logo.png" alt="SDA Infra & Promoters Logo" class="logo-img" />
       <span class="companyNameTop">SDA Infra & Promoters</span>
     </a>
   </div>
   <button class="simple-hamburger" type="button" aria-label="Show menu">
     <svg viewBox="0 0 28 28">
-      <line x1="5" y1="7" x2="23" y2="7" />
-      <line x1="5" y1="14" x2="23" y2="14" />
-      <line x1="5" y1="21" x2="23" y2="21" />
+      <line x1="5" y1="7" x2="23" y2="7"></line>
+      <line x1="5" y1="14" x2="23" y2="14"></line>
+      <line x1="5" y1="21" x2="23" y2="21"></line>
     </svg>
   </button>
 </div>
