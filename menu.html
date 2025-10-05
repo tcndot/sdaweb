@@ -1,5 +1,5 @@
 <style>
-  /* Hamburger Toggle Button */
+  /* Hamburger Button */
   .hamburger {
     width: 30px;
     height: 24px;
@@ -27,7 +27,7 @@
     transform: translateY(-10px) rotate(-45deg);
   }
 
-  /* Navigation menu */
+  /* Navigation styling */
   nav.main-nav {
     display: flex;
     gap: 22px;
@@ -49,11 +49,11 @@
     color: #e8f5e8;
   }
 
-  /* Responsive: mobile view */
+  /* Mobile responsive */
   @media (max-width: 900px) {
     nav.main-nav {
       position: fixed;
-      top: 70px; /* Adjust if header height changes */
+      top: 70px; /* adjust if header height changes */
       right: 0;
       background: #2e7d32;
       flex-direction: column;
@@ -66,6 +66,9 @@
       gap: 20px;
       z-index: 1000;
     }
+    nav.main-nav.active {
+      transform: translateX(0);
+    }
     nav.main-nav a {
       border-left: 4px solid transparent;
       font-size: 1.2rem;
@@ -75,8 +78,14 @@
       background: #1a3a1a;
       border-left: 4px solid #e8f5e8;
     }
-    nav.main-nav.active {
-      transform: translateX(0);
+    .hamburger {
+      display: block;
+    }
+  }
+  /* Show hamburger only on mobile */
+  @media (min-width: 901px) {
+    .hamburger {
+      display: none;
     }
   }
 </style>
