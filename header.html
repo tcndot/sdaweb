@@ -35,29 +35,32 @@
     background: linear-gradient(135deg, #ffffff, #f0f7f0);
     color: #1a3a1a;
     display: flex;
+    justify-content: center;
     align-items: center;
-    justify-content: space-between;
-    padding: 62px 5vw 16px 5vw;
-    gap: 24px;
+    height: 100px; /* slightly shorter */
+    padding: 0 5vw;
     box-sizing: border-box;
     position: relative;
-    margin-top: 40px;
+    margin-top: 40px; /* avoid overlap with fixed top-bar */
   }
   .logo-brand-row {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 16px;
   }
   .logo-img {
     width: 70px;
     height: 70px;
-    max-width: 82px;
-    max-height: 82px;
+    cursor: pointer;
     object-fit: contain;
     border-radius: 11px;
     background: #fff;
     border: 3px solid #1a3a1a;
     box-shadow: 0 0 10px rgba(26, 58, 26, 0.15);
+    transition: transform 0.3s ease;
+  }
+  .logo-img:hover {
+    transform: scale(1.05);
   }
   .companyNameTop {
     font-size: 2rem;
@@ -69,75 +72,22 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-  }
-
-  .hamburger {
-    width: 30px;
-    height: 24px;
-    cursor: pointer;
-    display: inline-block;
-    position: relative;
-    z-index: 1201;
-  }
-  .hamburger svg {
-    width: 30px;
-    height: 24px;
-    fill: none;
-    stroke: #1a3a1a;
-    stroke-width: 3;
-    stroke-linecap: round;
-    transition: all 0.3s ease;
-  }
-  .hamburger.open svg #line1 {
-    transform: translateY(10px) rotate(45deg);
-  }
-  .hamburger.open svg #line2 {
-    opacity: 0;
-  }
-  .hamburger.open svg #line3 {
-    transform: translateY(-10px) rotate(-45deg);
-  }
-
-  nav.main-nav {
-    position: fixed;
-    top: 70px;
-    right: 0;
-    background: #2e7d32;
-    flex-direction: column;
-    width: 250px;
-    height: 100vh;
-    transform: translateX(100%);
-    transition: transform 0.4s ease;
-    box-shadow: -2px 0 10px rgba(0,0,0,0.15);
-    padding-top: 60px;
-    gap: 20px;
-    z-index: 1000;
-    display: flex;
-  }
-  nav.main-nav.active {
-    transform: translateX(0);
-  }
-  nav.main-nav a {
-    border-left: 4px solid transparent;
-    font-size: 1.2rem;
-    padding: 12px 20px;
-    background: #e8f5e8;
-    color: #1a3a1a;
-    border-radius: 6px;
-    border: 2px solid #2e7d32;
-    text-decoration: none;
-    font-weight: bold;
-    box-shadow: 0 1px 4px rgba(26, 58, 26, 0.1);
-    transition: background 0.23s, color 0.23s;
-  }
-  nav.main-nav a:hover {
-    background: #1a3a1a;
-    border-left: 4px solid #e8f5e8;
-    color: #e8f5e8;
+    cursor: default;
   }
 
   @media (max-width: 900px) {
-    /* no changes needed, styles already made to slide nav menu in mobile */
+    .header-bar {
+      height: 80px;
+      padding: 0 3vw;
+    }
+    .logo-img {
+      width: 50px;
+      height: 50px;
+    }
+    .companyNameTop {
+      font-size: 1.5rem;
+      letter-spacing: 1.5px;
+    }
   }
 </style>
 
@@ -152,40 +102,9 @@
 
 <div class="header-bar">
   <div class="logo-brand-row">
-    <img src="images/logo.png" alt="Logo of SDA Infra & Promoters" class="logo-img">
+    <a href="https://sdapromoters.com" target="_blank" rel="noopener">
+      <img src="images/logo.png" alt="SDA Infra & Promoters Logo" class="logo-img" />
+    </a>
     <span class="companyNameTop">SDA Infra & Promoters</span>
   </div>
-
-  <div class="hamburger" id="hamburgerToggle" role="button" aria-label="Toggle menu" tabindex="0">
-    <svg viewBox="0 0 30 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-      <line id="line1" x1="0" y1="3" x2="30" y2="3" />
-      <line id="line2" x1="0" y1="12" x2="30" y2="12" />
-      <line id="line3" x1="0" y1="21" x2="30" y2="21" />
-    </svg>
-  </div>
-
-  <nav class="main-nav" id="mainNav" aria-expanded="false" aria-label="Primary navigation">
-    <a href="index.html">Home</a>
-    <a href="about.html">About Us</a>
-    <a href="careers.html">Careers</a>
-    <a href="gallery.html">Gallery & Blogs</a>
-  </nav>
 </div>
-
-<script>
-  const hamburger = document.getElementById('hamburgerToggle');
-  const nav = document.getElementById('mainNav');
-
-  hamburger.addEventListener('click', () => {
-    const expanded = hamburger.classList.toggle('open');
-    nav.classList.toggle('active');
-    hamburger.setAttribute('aria-expanded', expanded);
-  });
-
-  hamburger.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
-      e.preventDefault();
-      hamburger.click();
-    }
-  });
-</script>
