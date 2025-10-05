@@ -13,9 +13,23 @@
     z-index: 1050;
     box-sizing: border-box;
   }
-  .phone-link { color: #e8f5e8; text-decoration: none; cursor: pointer; display: flex; align-items: center; }
-  .phone-link:hover { text-decoration: underline; color: #c8e6c9; }
-  .phone-icon svg { width: 19px; height: 19px; fill: #e8f5e8; margin-right: 7px; }
+  .phone-link {
+    color: #e8f5e8;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .phone-link:hover {
+    text-decoration: underline;
+    color: #c8e6c9;
+  }
+  .phone-icon svg {
+    width: 19px;
+    height: 19px;
+    fill: #e8f5e8;
+    margin-right: 7px;
+  }
 
   .header-bar {
     display: flex;
@@ -29,6 +43,7 @@
     box-sizing: border-box;
     position: relative;
   }
+
   .simple-hamburger {
     border: none;
     background: none;
@@ -42,9 +57,15 @@
     transition: width 0.3s, height 0.3s;
   }
   .simple-hamburger svg {
-    stroke: #1a3a1a; stroke-width: 3.2; stroke-linecap: round;
+    stroke: #1a3a1a;
+    stroke-width: 3.2;
+    stroke-linecap: round;
   }
-  .simple-hamburger:focus,.simple-hamburger:active { background: #e0e0e0; outline:none;}
+  .simple-hamburger:focus,
+  .simple-hamburger:active {
+    background: #e0e0e0;
+    outline: none;
+  }
 
   .branding-block {
     display: flex;
@@ -90,16 +111,35 @@
     transition: font-size 0.3s;
     white-space: normal;
   }
-  .flex-spacer { flex: 1 1 0; min-width: 0; }
+
+  .flex-spacer {
+    flex: 1 1 0;
+    min-width: 0;
+  }
 
   @media (min-width: 991px) {
-    .header-bar { justify-content: flex-start; }
-    .branding-block { margin-left: 12vw; }
-    .simple-hamburger { width: 44px; height: 44px; }
-    .logo-img { width: 64px; height: 64px; }
-    .companyNameTop { font-size: 2rem; }
-    .flex-spacer { display: block; }
+    .header-bar {
+      justify-content: flex-start;
+    }
+    .branding-block {
+      margin-left: 12vw;
+    }
+    .simple-hamburger {
+      width: 44px;
+      height: 44px;
+    }
+    .logo-img {
+      width: 64px;
+      height: 64px;
+    }
+    .companyNameTop {
+      font-size: 2rem;
+    }
+    .flex-spacer {
+      display: block;
+    }
   }
+
   @media (max-width: 990px) {
     .header-bar {
       min-height: 60px;
@@ -108,8 +148,8 @@
       justify-content: space-between;
     }
     .simple-hamburger {
-      width: 44px;  /* reduced */
-      height: 44px; /* reduced */
+      width: 44px;
+      height: 44px;
       margin-left: auto;
       margin-right: 0;
     }
@@ -124,16 +164,21 @@
       min-width: 0;
     }
     .logo-img {
-      width: 48px;  /* increased */
-      height: 48px; /* increased */
+      width: 48px;
+      height: 48px;
     }
     .companyNameTop {
-      font-size: 1.5rem; /* increased */
+      font-size: 1.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
     }
     .flex-spacer {
       display: none;
     }
   }
+
   @media (max-width: 540px) {
     .header-bar {
       min-height: 36px;
@@ -159,6 +204,10 @@
     .companyNameTop {
       font-size: 1.25rem;
       font-weight: 900;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-width: 0;
     }
   }
 </style>
@@ -184,9 +233,9 @@
   <span class="flex-spacer"></span>
   <button class="simple-hamburger" type="button" aria-label="Show menu">
     <svg viewBox="0 0 28 28">
-      <line x1="5" y1="7" x2="23" y2="7" />
-      <line x1="5" y1="14" x2="23" y2="14" />
-      <line x1="5" y1="21" x2="23" y2="21" />
+      <line x1="5" y1="7" x2="23" y2="7"></line>
+      <line x1="5" y1="14" x2="23" y2="14"></line>
+      <line x1="5" y1="21" x2="23" y2="21"></line>
     </svg>
   </button>
 </div>
