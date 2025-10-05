@@ -29,9 +29,8 @@
     box-sizing: border-box;
     position: relative;
   }
+
   .simple-hamburger {
-    width: 62px;
-    height: 62px;
     border: none;
     background: none;
     cursor: pointer;
@@ -44,10 +43,9 @@
     transition: width 0.3s, height 0.3s;
   }
   .simple-hamburger svg {
-    width: 50px; height: 50px;
     stroke: #1a3a1a; stroke-width: 3.2; stroke-linecap: round;
   }
-  .simple-hamburger:focus,.simple-hamburger:active { background: #e0e0e0; outline:none;}
+  .simple-hamburger:focus, .simple-hamburger:active { background: #e0e0e0; outline:none; }
 
   .branding-block {
     display: flex;
@@ -103,20 +101,64 @@
     .companyNameTop { font-size: 2rem; }
     .flex-spacer { display: block; }
   }
+
   @media (max-width: 990px) {
-    .header-bar { min-height: 60px; height: auto; padding: 7px 2vw; }
-    .simple-hamburger { width: 66px; height: 66px; }
-    .branding-block { margin-left: 0; gap: 10px; }
-    .logo-img { width: 36px; height: 36px; }
-    .companyNameTop { font-size: 1.15rem; }
-    .flex-spacer { display: none; }
+    .header-bar {
+      min-height: 60px;
+      height: auto;
+      padding: 7px 2vw;
+      justify-content: space-between;
+    }
+    .simple-hamburger {
+      width: 66px;
+      height: 66px;
+      margin-left: auto;
+      margin-right: 0;
+    }
+    .simple-hamburger svg {
+      width: 50px;
+      height: 50px;
+    }
+    .branding-block {
+      margin-left: 0;
+      gap: 10px;
+      flex-shrink: 1;
+      min-width: 0;
+    }
+    .logo-img {
+      width: 36px;
+      height: 36px;
+    }
+    .companyNameTop {
+      font-size: 1.15rem;
+    }
+    .flex-spacer {
+      display: none;
+    }
   }
+
   @media (max-width: 540px) {
-    .header-bar { min-height: 36px; height: auto; padding: 2px 1vw 2px 1vw;}
-    .simple-hamburger { width: 72px; height: 72px; }
-    .branding-block { margin-left: 0; gap: 7px;}
-    .logo-img { width: 26px; height: 26px;}
-    .companyNameTop { font-size: 0.9rem; font-weight: 900; }
+    .header-bar {
+      min-height: 36px;
+      height: auto;
+      padding: 2px 1vw 2px 1vw;
+    }
+    .simple-hamburger {
+      width: 72px;
+      height: 72px;
+    }
+    .branding-block {
+      margin-left: 0;
+      gap: 7px;
+    }
+    .logo-img {
+      width: 26px;
+      height: 26px;
+    }
+    .companyNameTop {
+      font-size: 0.9rem;
+      font-weight: 900;
+    }
   }
 </style>
 
@@ -132,13 +174,6 @@
 </div>
 
 <div class="header-bar">
-  <button class="simple-hamburger" type="button" aria-label="Show menu">
-    <svg viewBox="0 0 28 28">
-      <line x1="5" y1="7" x2="23" y2="7" />
-      <line x1="5" y1="14" x2="23" y2="14" />
-      <line x1="5" y1="21" x2="23" y2="21" />
-    </svg>
-  </button>
   <div class="branding-block">
     <a href="https://sdapromoters.com" target="_blank" rel="noopener" class="branding-link">
       <img src="images/logo.png" alt="SDA Infra & Promoters Logo" class="logo-img" />
@@ -146,4 +181,11 @@
     </a>
   </div>
   <span class="flex-spacer"></span>
+  <button class="simple-hamburger" type="button" aria-label="Show menu">
+    <svg viewBox="0 0 28 28">
+      <line x1="5" y1="7" x2="23" y2="7" />
+      <line x1="5" y1="14" x2="23" y2="14" />
+      <line x1="5" y1="21" x2="23" y2="21" />
+    </svg>
+  </button>
 </div>
