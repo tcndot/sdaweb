@@ -29,7 +29,6 @@
     box-sizing: border-box;
     position: relative;
   }
-
   .simple-hamburger {
     border: none;
     background: none;
@@ -45,7 +44,7 @@
   .simple-hamburger svg {
     stroke: #1a3a1a; stroke-width: 3.2; stroke-linecap: round;
   }
-  .simple-hamburger:focus, .simple-hamburger:active { background: #e0e0e0; outline:none; }
+  .simple-hamburger:focus,.simple-hamburger:active { background: #e0e0e0; outline:none;}
 
   .branding-block {
     display: flex;
@@ -101,7 +100,6 @@
     .companyNameTop { font-size: 2rem; }
     .flex-spacer { display: block; }
   }
-
   @media (max-width: 990px) {
     .header-bar {
       min-height: 60px;
@@ -110,33 +108,32 @@
       justify-content: space-between;
     }
     .simple-hamburger {
-      width: 66px;
-      height: 66px;
+      width: 44px;  /* reduced */
+      height: 44px; /* reduced */
       margin-left: auto;
       margin-right: 0;
     }
     .simple-hamburger svg {
-      width: 50px;
-      height: 50px;
+      width: 38px;
+      height: 38px;
     }
     .branding-block {
       margin-left: 0;
-      gap: 10px;
+      gap: 12px;
       flex-shrink: 1;
       min-width: 0;
     }
     .logo-img {
-      width: 36px;
-      height: 36px;
+      width: 48px;  /* increased */
+      height: 48px; /* increased */
     }
     .companyNameTop {
-      font-size: 1.15rem;
+      font-size: 1.5rem; /* increased */
     }
     .flex-spacer {
       display: none;
     }
   }
-
   @media (max-width: 540px) {
     .header-bar {
       min-height: 36px;
@@ -144,19 +141,23 @@
       padding: 2px 1vw 2px 1vw;
     }
     .simple-hamburger {
-      width: 72px;
-      height: 72px;
+      width: 44px;
+      height: 44px;
+    }
+    .simple-hamburger svg {
+      width: 38px;
+      height: 38px;
     }
     .branding-block {
       margin-left: 0;
-      gap: 7px;
+      gap: 8px;
     }
     .logo-img {
-      width: 26px;
-      height: 26px;
+      width: 40px;
+      height: 40px;
     }
     .companyNameTop {
-      font-size: 0.9rem;
+      font-size: 1.25rem;
       font-weight: 900;
     }
   }
