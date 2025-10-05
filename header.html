@@ -1,110 +1,86 @@
 <style>
-  .top-bar {
-    background: linear-gradient(135deg, #1a3a1a, #2e7d32);
-    color: #e8f5e8;
-    padding: 8px 5vw;
-    font-weight: bold;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 12px;
-    font-size: 1rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    z-index: 1050;
-    box-sizing: border-box;
-  }
-  .phone-link {
-    color: #e8f5e8;
-    text-decoration: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-  }
-  .phone-link:hover { text-decoration: underline; color: #c8e6c9; }
-  .phone-icon svg {
-    width: 19px;
-    height: 19px;
-    fill: #e8f5e8;
-    margin-right: 7px;
-  }
-
   .header-bar {
     background: linear-gradient(135deg, #ffffff, #f0f7f0);
     color: #1a3a1a;
     display: flex;
-    justify-content: center;
     align-items: center;
-    height: 100px; /* slightly shorter */
-    padding: 0 5vw;
+    justify-content: center; /* center horizontally */
+    padding: 20px 5vw;
     box-sizing: border-box;
     position: relative;
-    margin-top: 40px; /* avoid overlap with fixed top-bar */
+    gap: 1rem;
+    min-height: 80px;
   }
   .logo-brand-row {
     display: flex;
     align-items: center;
-    gap: 16px;
+    justify-content: center;
+    gap: 20px;
+    max-width: 100%;
+  }
+  a.logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
   }
   .logo-img {
-    width: 70px;
-    height: 70px;
-    cursor: pointer;
+    width: 60px;
+    height: 60px;
     object-fit: contain;
     border-radius: 11px;
     background: #fff;
     border: 3px solid #1a3a1a;
     box-shadow: 0 0 10px rgba(26, 58, 26, 0.15);
-    transition: transform 0.3s ease;
-  }
-  .logo-img:hover {
-    transform: scale(1.05);
+    flex-shrink: 0;
   }
   .companyNameTop {
-    font-size: 2rem;
+    font-size: 1.4rem;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
+    letter-spacing: 2px;
     white-space: nowrap;
     background: linear-gradient(135deg, #1a3a1a, #2e7d32);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    cursor: default;
+  }
+  .hamburger-placeholder {
+    width: 40px; /* reserved space for future hamburger */
+    height: 60px;
+    flex-shrink: 0;
   }
 
-  @media (max-width: 900px) {
+  /* Larger screens */
+  @media(min-width: 900px) {
     .header-bar {
-      height: 80px;
-      padding: 0 3vw;
+      min-height: 110px;
+      padding: 30px 8vw;
     }
     .logo-img {
-      width: 50px;
-      height: 50px;
+      width: 82px;
+      height: 82px;
     }
     .companyNameTop {
-      font-size: 1.5rem;
-      letter-spacing: 1.5px;
+      font-size: 2rem;
+      letter-spacing: 3px;
+    }
+    .hamburger-placeholder {
+      width: 60px;
+      height: 82px;
     }
   }
 </style>
 
-<div class="top-bar">
-  <a href="tel:9999944622" class="phone-link">
-    <span class="phone-icon">
-      <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.21.2 2.41.57 3.55a1 1 0 01-.25 1.01l-2.2 2.23z"></path></svg>
-      Call: 9999944622
-    </span>
-  </a>
-</div>
-
 <div class="header-bar">
   <div class="logo-brand-row">
-    <a href="https://sdapromoters.com" target="_blank" rel="noopener">
+    <a href="https://sdapromoters.com" target="_blank" rel="noopener" class="logo-link" aria-label="SDA Infra & Promoters Home">
       <img src="images/logo.png" alt="SDA Infra & Promoters Logo" class="logo-img" />
+      <span class="companyNameTop">SDA Infra & Promoters</span>
     </a>
-    <span class="companyNameTop">SDA Infra & Promoters</span>
+  </div>
+  
+  <div class="hamburger-placeholder" aria-hidden="true">
+    <!-- Empty space reserved for hamburger menu -->
   </div>
 </div>
