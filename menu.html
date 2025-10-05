@@ -1,0 +1,138 @@
+<style>
+  /* Top bar and branding omitted for brevity; include your previous styles */
+  
+  /* Hamburger Toggle Button Styles */
+  .hamburger {
+    width: 30px;
+    height: 24px;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    z-index: 1100;
+  }
+  .hamburger svg {
+    width: 30px;
+    height: 24px;
+    fill: none;
+    stroke: #1a3a1a;
+    stroke-width: 3;
+    stroke-linecap: round;
+    transition: all 0.3s ease;
+  }
+  /* Navigation Styles */
+  nav.main-nav {
+    position: fixed;
+    top: 70px; /* assuming header height */
+    right: 0;
+    background: #2e7d32;
+    width: 250px;
+    height: 100vh;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.15);
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 1000;
+  }
+  nav.main-nav a {
+    color: #e8f5e8;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 12px 20px;
+    font-size: 1.2rem;
+    border-left: 4px solid transparent;
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+  nav.main-nav a:hover {
+    background: #1a3a1a;
+    border-left: 4px solid #e8f5e8;
+  }
+  /* Active menu visible */
+  nav.main-nav.active {
+    transform: translateX(0);
+  }
+
+  /* Hamburger open animation */
+  .hamburger.open svg #line1 {
+    transform: translateY(10px) rotate(45deg);
+  }
+  .hamburger.open svg #line2 {
+    opacity: 0;
+  }
+  .hamburger.open svg #line3 {
+    transform: translateY(-10px) rotate(-45deg);
+  }
+
+  /* Responsive desktop style: always show nav horizontally */
+  @media (min-width: 901px) {
+    nav.main-nav {
+      position: static;
+      height: auto;
+      width: auto;
+      transform: none !important;
+      flex-direction: row;
+      background: transparent;
+      padding-top: 0;
+      box-shadow: none;
+      gap: 32px;
+    }
+    nav.main-nav a {
+      border-left: none;
+      padding: 0;
+      font-size: 1rem;
+      color: #1a3a1a;
+    }
+    nav.main-nav a:hover {
+      background: transparent;
+      border-left: none;
+      color: #2e7d32;
+    }
+    .hamburger {
+      display: none;
+    }
+  }
+</style>
+
+<div class="header-bar" style="position: relative; padding-left: 5vw; padding-right: 5vw;">
+  <div style="display: flex; align-items: center; gap: 24px;">
+    <img src="images/logo.png" alt="SDA Logo" class="logo-img" />
+    <span class="companyNameTop">SDA Infra & Promoters</span>
+    
+    <div class="hamburger" id="hamburgerToggle" role="button" aria-label="Toggle menu" tabindex="0">
+      <svg viewBox="0 0 30 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+        <line id="line1" x1="0" y1="3" x2="30" y2="3" />
+        <line id="line2" x1="0" y1="12" x2="30" y2="12" />
+        <line id="line3" x1="0" y1="21" x2="30" y2="21" />
+      </svg>
+    </div>
+
+  </div>
+
+  <nav class="main-nav" id="mainNav" aria-expanded="false" aria-label="Primary">
+    <a href="index.html">Home</a>
+    <a href="about.html">About Us</a>
+    <a href="careers.html">Careers</a>
+    <a href="gallery.html">Gallery & Blogs</a>
+  </nav>
+</div>
+
+<script>
+  const hamburger = document.getElementById('hamburgerToggle');
+  const nav = document.getElementById('mainNav');
+
+  hamburger.addEventListener('click', () => {
+    const expanded = hamburger.classList.toggle('open');
+    nav.classList.toggle('active');
+    hamburger.setAttribute('aria-expanded', expanded);
+  });
+
+  // Accessibility: toggle with Enter or Spacebar keys
+  hamburger.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+      e.preventDefault();
+      hamburger.click();
+    }
+  });
+</script>
