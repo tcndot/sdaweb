@@ -1,89 +1,99 @@
 <style>
-.top-bar {
-  background: linear-gradient(135deg, #1a3a1a, #2e7d32);
-  color: #e8f5e8;
-  padding: 8px 5vw;
-  font-weight: bold;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 12px;
-  font-size: 1rem;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  z-index: 1050;
-  box-sizing: border-box;
-}
-.phone-link {
-  color: #e8f5e8;
-  text-decoration: none;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-}
-.phone-link:hover { text-decoration: underline; color: #c8e6c9; }
-.phone-icon svg {
-  width: 19px;
-  height: 19px;
-  fill: #e8f5e8;
-  margin-right: 7px;
-}
+  .top-bar {
+    background: linear-gradient(135deg, #1a3a1a, #2e7d32);
+    color: #e8f5e8;
+    padding: 8px 5vw;
+    font-weight: bold;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;
+    font-size: 1rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    z-index: 1050;
+    box-sizing: border-box;
+  }
+  .phone-link {
+    color: #e8f5e8;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+  }
+  .phone-link:hover { text-decoration: underline; color: #c8e6c9; }
+  .phone-icon svg {
+    width: 19px;
+    height: 19px;
+    fill: #e8f5e8;
+    margin-right: 7px;
+  }
 
-/* Branding and navigation */
-.header-bar {
-  background: linear-gradient(135deg, #ffffff, #f0f7f0);
-  color: #1a3a1a;
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  padding: 62px 5vw 16px 5vw; /* Top padding = .top-bar height + some gap */
-  box-sizing: border-box;
-}
-.logo-brand-row {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-}
-.logo-img {
-  width: 70px;
-  height: 70px;
-  max-width: 82px;
-  max-height: 82px;
-  object-fit: contain;
-  border-radius: 11px;
-  background: #fff;
-  border: 3px solid #1a3a1a;
-  box-shadow: 0 0 10px rgba(26, 58, 26, 0.15);
-  display: inline-block;
-}
-.companyNameTop {
-  font-size: 2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 2.5px;
-  white-space: nowrap;
-  background: linear-gradient(135deg, #1a3a1a, #2e7d32);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* MOBILE */
-@media (max-width: 900px) {
-  .header-bar { flex-direction: column; align-items: flex-start; gap: 0; padding: 46px 3vw 5px 3vw; }
+  .header-bar {
+    background: linear-gradient(135deg, #ffffff, #f0f7f0);
+    color: #1a3a1a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 62px 5vw 16px 5vw;
+    gap: 24px;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 40px; /* To avoid overlap with fixed .top-bar */
+  }
   .logo-brand-row {
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 6px;
-    width: 100%;
+    gap: 24px;
   }
-  .logo-img { width: 36px; height: 36px; border-radius: 6px; box-shadow: 0 0 4px rgba(26, 58, 26, 0.1); }
-  .companyNameTop { font-size: 1.1rem; margin-left: 6px; letter-spacing: 1.1px;}
-}
+  .logo-img {
+    width: 70px;
+    height: 70px;
+    max-width: 82px;
+    max-height: 82px;
+    object-fit: contain;
+    border-radius: 11px;
+    background: #fff;
+    border: 3px solid #1a3a1a;
+    box-shadow: 0 0 10px rgba(26, 58, 26, 0.15);
+  }
+  .companyNameTop {
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    white-space: nowrap;
+    background: linear-gradient(135deg, #1a3a1a, #2e7d32);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Mobile adjustments */
+  @media (max-width: 900px) {
+    .header-bar {
+      flex-wrap: nowrap;
+      padding: 46px 3vw 5px 3vw;
+      overflow: visible;
+    }
+    .logo-brand-row {
+      gap: 10px;
+      flex-grow: 0;
+      flex-shrink: 0;
+    }
+    .logo-img {
+      width: 36px;
+      height: 36px;
+      border-radius: 6px;
+      box-shadow: 0 0 4px rgba(26, 58, 26, 0.1);
+    }
+    .companyNameTop {
+      font-size: 1.1rem;
+      letter-spacing: 1.1px;
+    }
+  }
 </style>
 
 <div class="top-bar">
@@ -94,10 +104,25 @@
     </span>
   </a>
 </div>
+
 <div class="header-bar">
   <div class="logo-brand-row">
     <img src="images/logo.png" alt="Logo of SDA Infra & Promoters" class="logo-img">
     <span class="companyNameTop">SDA Infra & Promoters</span>
   </div>
+
+  <!-- Menu placeholder -->
+  <div id="menuContainer"></div>
 </div>
 
+<script>
+  async function loadMenu() {
+    const response = await fetch('menu.html');
+    if (response.ok) {
+      document.getElementById('menuContainer').innerHTML = await response.text();
+    } else {
+      console.error('Failed to load menu.html');
+    }
+  }
+  loadMenu();
+</script>
