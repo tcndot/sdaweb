@@ -30,7 +30,6 @@
     fill: #e8f5e8;
     margin-right: 7px;
   }
-
   .header-bar {
     display: flex;
     align-items: center;
@@ -43,7 +42,6 @@
     box-sizing: border-box;
     position: relative;
   }
-
   .simple-hamburger {
     border: none;
     background: none;
@@ -51,7 +49,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
+    border-radius: 8px;
     flex-shrink: 0;
     margin-right: 0;
     transition: width 0.3s, height 0.3s;
@@ -66,7 +64,6 @@
     background: #e0e0e0;
     outline: none;
   }
-
   .branding-block {
     display: flex;
     align-items: center;
@@ -89,7 +86,7 @@
     border-radius: 12px;
     background: #fff;
     border: 3px solid #1a3a1a;
-    flex-shrink: 1;
+    flex-shrink: 0;
     transition: width 0.3s, height 0.3s;
   }
   .companyNameTop {
@@ -111,37 +108,15 @@
     transition: font-size 0.3s;
     white-space: normal;
   }
-
-  .flex-spacer {
-    flex: 1 1 0;
-    min-width: 0;
-  }
-
+  .flex-spacer { flex: 1 1 0; min-width: 0; }
   @media (min-width: 991px) {
-    .header-bar {
-      justify-content: flex-start;
-    }
-    .branding-block {
-      margin-left: 12vw;
-    }
-    .simple-hamburger {
-      width: 44px;
-      height: 44px;
-      background: none;
-      padding: 0;
-    }
-    .logo-img {
-      width: 64px;
-      height: 64px;
-    }
-    .companyNameTop {
-      font-size: 2rem;
-    }
-    .flex-spacer {
-      display: block;
-    }
+    .header-bar { justify-content: flex-start; }
+    .branding-block { margin-left: 12vw; }
+    .simple-hamburger { width: 44px; height: 44px; background: none; padding: 0; }
+    .logo-img { width: 64px; height: 64px; }
+    .companyNameTop { font-size: 2rem; }
+    .flex-spacer { display: block; }
   }
-
   @media (max-width: 990px) {
     .header-bar {
       display: flex;
@@ -153,62 +128,64 @@
       width: 100vw;
       box-sizing: border-box;
     }
-
     .branding-block {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      min-width: 0;
       flex-shrink: 1;
       flex-grow: 1;
-      min-width: 0;
-      margin-left: 0;
+      /* reserve space for hamburger */
+      max-width: calc(100vw - 60px);
       overflow: hidden;
+      margin-left: 0;
     }
-
+    .logo-img {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+    }
     .companyNameTop {
+      font-size: 1.3rem;
+      font-weight: 900;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      font-size: 1.5rem;
       flex-shrink: 1;
-      margin-right: 10px;
-      min-width: 0;
+      min-width: 0;     
+      margin-right: 0;
+      letter-spacing: 1px;
     }
-
-    .logo-img {
-      width: 48px;
-      height: 48px;
-    }
-
     .simple-hamburger {
       width: 44px;
       height: 44px;
-      margin-left: auto;
-      background-color: rgba(0, 0, 0, 0.1);
-      border-radius: 4px;
-      padding: 4px;
+      background-color: rgba(0,0,0,0.07);
+      border-radius: 8px;
       flex-shrink: 0;
+      margin-left: 0;
+      margin-right: 0;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       transition: width 0.3s, height 0.3s;
     }
     .simple-hamburger svg {
-      width: 38px;
-      height: 38px;
+      width: 32px;
+      height: 32px;
       transition: width 0.3s, height 0.3s;
     }
   }
-
   @media (max-width: 540px) {
     .header-bar {
       min-height: 36px;
-      height: auto;
       padding: 2px 1vw 2px 1vw;
     }
     .simple-hamburger {
-      width: 36px; /* smaller on small mobile */
+      width: 36px;
       height: 36px;
-      background-color: rgba(0, 0, 0, 0.1);
-      border-radius: 4px;
+      background-color: rgba(0,0,0,0.07);
+      border-radius: 8px;
       padding: 3px;
     }
     .simple-hamburger svg {
@@ -216,21 +193,16 @@
       height: 28px;
     }
     .branding-block {
-      margin-left: 0;
       gap: 8px;
     }
     .logo-img {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
     }
     .companyNameTop {
-      font-size: 1.25rem;
-      font-weight: 900;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-width: 0;
-      margin-right: 8px;
+      font-size: 1.1rem;
+      margin-right: 0;
+      letter-spacing: 0.5px;
     }
   }
 </style>
@@ -239,7 +211,7 @@
   <a href="tel:9999944622" class="phone-link">
     <span class="phone-icon">
       <svg viewBox="0 0 24 24">
-        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.21.2 2.41.57 3.55a1 1 0 01-.25 1.01l-2.2 2.23z"></path>
+        <path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.36 11.36 0 003.55.57 1 1 0 011 1V21a1 1 0 01-1 1A17 17 0 013 5a1 1 0 011-1h3.5a1 1 0 011 1c0 1.21.2 2.41.57 3.55a1 1 0 01-.25 1.01l-2.2 2.23z" />
       </svg>
       Call: 9999944622
     </span>
@@ -253,7 +225,6 @@
       <span class="companyNameTop">SDA Infra & Promoters</span>
     </a>
   </div>
-  <span class="flex-spacer"></span>
   <button class="simple-hamburger" type="button" aria-label="Show menu">
     <svg viewBox="0 0 28 28">
       <line x1="5" y1="7" x2="23" y2="7" />
