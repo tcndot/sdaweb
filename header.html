@@ -78,8 +78,8 @@
 
   @media (min-width: 991px) {
     .header-bar { justify-content: space-between; }
-    .branding-block { margin-left: 12vw; }
-    .logo-img { width: 64px; height: 64px; margin-left: 0; }
+    .branding-block { margin-left: 12vw;}
+    .logo-img { width: 64px; height: 64px; margin-left: 0;}
     .companyNameTop { font-size: 2rem; }
     .flex-spacer { display: block; flex: 1 1 0; }
   }
@@ -88,11 +88,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 7px 2vw;
       min-height: 60px;
       height: auto;
       width: 100vw;
       box-sizing: border-box;
+      padding: 0;      /* remove desktop padding */
     }
     .branding-block {
       display: flex;
@@ -104,13 +104,17 @@
       flex-grow: 1;
       max-width: 100vw;
       overflow: hidden;
-      margin-left: 0;
+      margin: 0;
+      padding-left: 10px;   /* left gap */
+      padding-right: 10px;  /* right gap */
+      width: 100%;
+      box-sizing: border-box;
     }
     .logo-img {
       width: 40px;
       height: 40px;
       flex-shrink: 0;
-      margin-left: 10px; /* small left gap on mobile */
+      margin-left: 0;     /* logo flush w/ branding-block, branding-block takes gap */
     }
     .companyNameTop {
       font-size: 1.8rem;
@@ -127,12 +131,14 @@
   @media (max-width: 540px) {
     .header-bar {
       min-height: 36px;
-      padding: 2px 1vw 2px 1vw;
+      padding: 0;
       justify-content: center;
     }
     .branding-block {
       gap: 8px;
       max-width: 100vw;
+      padding-left: 10px;
+      padding-right: 10px;
     }
     .logo-img { width: 36px; height: 36px; }
     .companyNameTop {
