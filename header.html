@@ -121,6 +121,7 @@
       border-radius: 8px;
       flex-shrink: 0;
       transition: background 0.3s;
+      touch-action: manipulation; /* Improves touch responsiveness */
     }
     .simple-hamburger svg {
       stroke: #1a3a1a;
@@ -300,22 +301,39 @@
         <line class="line1" x1="5" y1="7" x2="23" y2="7" />
         <line class="line2" x1="5" y1="14" x2="23" y2="14" />
         <line class="line3" x1="5" y1="21" x2="23" y2="21" />
-      </svg20;</button>
-    </div>
-
-    <nav class="nav-menu">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="careers.html">Careers</a>
-      <a href="blogs.html">Blogs</a>
-      <a href="gallery.html">Gallery</a>
-    </nav>
+      </svg>
+    </button>
   </div>
 
+  <nav class="nav-menu">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="careers.html">Careers</a>
+    <a href="blogs.html">Blogs</a>
+    <a href="gallery.html">Gallery</a>
+  </nav>
+
   <script>
-    document.querySelector('.simple-hamburger').addEventListener('click', function () {
-      this.classList.toggle('active');
-      document.querySelector('.nav-menu').classList.toggle('active');
+    const hamburger = document.querySelector('.simple-hamburger');
+    const navMenu = document.querySelector('.nav-menu');
+
+    // Toggle menu on hamburger click/touch
+    ['click', 'touchstart'].forEach(eventType => {
+      hamburger.addEventListener(eventType, function (e) {
+        e.preventDefault(); // Prevent default touch behavior
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+      });
+    });
+
+    // Close menu when clicking/touching outside
+    ['click', 'touchstart'].forEach(eventType => {
+      document.addEventListener(eventType, function (e) {
+        if (!navMenu.contains(e.target) && !hamburger.contains(e.target) && navMenu.classList.contains('active')) {
+          hamburger.classList.remove('active');
+          navMenu.classList.remove('active');
+        }
+      });
     });
   </script>
 </body>
