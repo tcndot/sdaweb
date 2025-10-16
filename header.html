@@ -54,6 +54,8 @@
     border: 3px solid #1a3a1a;
     flex-shrink: 0;
     transition: width 0.3s, height 0.3s;
+    display: block;
+    vertical-align: middle;
   }
   .companyNameTop {
     font-size: 2rem;
@@ -71,6 +73,7 @@
     flex-shrink: 1;
     transition: font-size 0.3s;
     white-space: normal;
+    vertical-align: middle;
   }
 
   /* hamburger icon */
@@ -80,9 +83,14 @@
     border: none;
     cursor: pointer;
     padding: 12px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
   }
   .hamburger-box {
     width: 28px; height: 20px; position: relative;
+    display: inline-block;
   }
   .hamburger-inner,
   .hamburger-inner::before,
@@ -120,9 +128,48 @@
   }
   .overlay.show { opacity: 1; pointer-events: all; }
 
+  /* small-screen scaling kept as before */
   @media (max-width: 540px) {
     .logo-img { width: 36px; height: 36px; }
     .companyNameTop { font-size: 1.4rem; }
+  }
+
+  /* ---- MOBILE ONLY ADJUSTMENTS: keep name on 1 line + edge padding + vertical centering ---- */
+  @media (max-width: 768px) {
+    /* keep full name in one line and scale down slightly */
+    .companyNameTop {
+      white-space: nowrap !important;
+      font-size: clamp(1rem, 4vw, 1.3rem) !important;
+      letter-spacing: 1.5px;
+      line-height: 1;
+    }
+
+    /* ensure logo not touching left edge (uses viewport units to match existing layout) */
+    .branding-block {
+      margin-left: 4vw !important;
+    }
+
+    /* ensure hamburger not at screen edge and vertically centered */
+    .hamburger {
+      margin-right: 4vw !important;
+      padding-right: 0;
+      align-self: center !important;
+      height: 44px;
+      width: 44px;
+      border-radius: 8px;
+    }
+    .hamburger-box { margin: 0 auto; position: relative; top: 0; }
+
+    /* force header row to align items center so everything sits on same baseline */
+    .header-bar, .branding-block, .branding-link {
+      align-items: center !important;
+    }
+
+    /* allow brand text to shrink instead of pushing the hamburger down */
+    .brand-text, .companyNameTop, .branding-link { min-width: 0; }
+
+    /* slightly reduce header height on mobile so elements appear aligned */
+    .header-bar { min-height: 70px; height: auto; padding-top: 6px; padding-bottom: 6px; }
   }
 </style>
 
@@ -149,10 +196,9 @@
   </button>
 </div>
 
-<!-- slide nav - content will be loaded from menu.html -->
+<!-- slide nav -->
 <nav id="sideNav" class="side-nav" aria-hidden="true" aria-label="Main menu">
   <div id="sideNavInner" aria-live="polite">
-    <!-- menu.html will be inserted here -->
     <div style="color:#666">Loading menu…</div>
   </div>
 </nav>
@@ -165,7 +211,6 @@
     const sideInner = document.getElementById('sideNavInner');
     const overlay = document.getElementById('overlay');
 
-    // Load menu.html into sideNavInner
     async function loadMenu() {
       try {
         const url = new URL('menu.html', location.href).href;
@@ -179,7 +224,6 @@
       }
     }
 
-    // open/close helpers
     function openNav(){
       side.classList.add('open');
       overlay.classList.add('show');
@@ -187,7 +231,6 @@
       btn.setAttribute('aria-expanded','true');
       side.setAttribute('aria-hidden','false');
       document.documentElement.style.overflow='hidden';
-      // focus first link
       const a = side.querySelector('a');
       if (a) a.focus();
     }
@@ -204,7 +247,6 @@
     btn.addEventListener('click', async ()=>{
       const expanded = btn.getAttribute('aria-expanded') === 'true';
       if (expanded) return closeNav();
-      // if menu not loaded yet, load it first (so links exist when opened)
       if (!sideInner.querySelector('ul')) {
         await loadMenu();
       }
@@ -212,19 +254,9 @@
     });
 
     overlay.addEventListener('click', closeNav);
-
-    // close when a link is clicked (mobile behavior)
-    side.addEventListener('click', (e) => {
-      if (e.target.tagName === 'A') closeNav();
-    });
-
-    // close on ESC
+    side.addEventListener('click', (e) => { if (e.target.tagName === 'A') closeNav(); });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && side.classList.contains('open')) closeNav();
     });
-
-    // optional: preload menu in background so opening is instant next time
-    // (uncomment if you want to always fetch immediately)
-    // loadMenu();
   })();
 </script>
