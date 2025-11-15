@@ -44,7 +44,6 @@
 
   /* For other main sections: keep a comfortable readable gutter (no huge white margins) */
   .sda-main-wrap,
-  #sda-why-inner,
   .sda-stats-inner,
   .contact-wrap,
   .sda-footer-inner {
@@ -56,7 +55,7 @@
   }
 
   /* If any inner wrappers still add extra 20px causing larger gaps, reduce them slightly */
-  .sda-main-wrap, .sda-stats-inner, #sda-why-inner {
+  .sda-main-wrap, .sda-stats-inner {
     padding-left: 18px !important;
     padding-right: 18px !important;
   }
@@ -271,7 +270,8 @@
      MAIN: about + slideshow (unchanged, self-contained)
      =========================================================== -->
 <main class="sda-main-root">
-  <style>
+    <!--
+     <style>
     .sda-main-root { font-family: Inter, Arial, sans-serif; color:#111; background:#fbfbf9; padding:28px 0 60px; }
     .sda-main-wrap { max-width:1120px; margin:0 auto; padding:0 20px; display:grid; grid-template-columns:1fr 520px; gap:22px; align-items:start; }
     @media (max-width:880px) { .sda-main-wrap { grid-template-columns:1fr; } }
@@ -303,18 +303,197 @@
       .sda-slide.s1 { opacity:1; }
     }
   </style>
+          -->
+     <style>
+    /* main area — no extra outer padding so content fills the centered area */
+    .sda-main-root { font-family: Inter, Arial, sans-serif; color:#111; background:#fbfbf9; padding:0 0 40px; }
+
+    /* two equal columns on desktop so left becomes prominent (left half), images on right */
+    .sda-main-wrap {
+      max-width:1600px;
+      margin:0 auto;
+      padding:0; /* remove side-padding as requested */
+      display:grid;
+      /*grid-template-columns: 1fr 1fr; */ 
+      grid-template-columns: 1.25fr 0.75fr;
+
+      gap:18px;
+      align-items:start;
+    }
+   /* Equal height fix for desktop */
+@media (min-width: 881px) {
+  .sda-main-wrap {
+    align-items: stretch !important;
+  }
+  .sda-about-card,
+  .sda-slideshow {
+    height: 100% !important;
+  }
+}
+
+    /* mobile: single column — about first, slideshow (photos) below */
+    @media (max-width:880px) {
+      .sda-main-wrap {
+        grid-template-columns: 1fr;
+        padding: 12px; /* small page padding on mobile for tap targets */
+        gap:12px;
+      }
+    }
+
+    /* ABOUT CARD — make it visually prominent (bigger lead text, tighter layout) */
+    .sda-about-card {
+      background:#fff;
+      border-radius:12px;
+      padding:28px; /* inner padding keeps text readable; tweak as needed */
+      box-shadow: 0 14px 40px rgba(12,20,12,0.06);
+      border: 1px solid rgba(0,0,0,0.03);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .sda-about-card .sda-title { font-size:30px; margin:0 0 10px; font-weight:900; color:#0f3f23; }
+    .sda-about-card .sda-lead { color:#333; margin:0 0 14px; font-size:16px; line-height:1.6; font-weight:600; }
+    .sda-about-card ul { color:#444; padding-left:18px; margin:12px 0 18px; font-weight:600; }
+    .sda-about-card .sda-cta { display:inline-block; padding:10px 14px; border-radius:8px; background:#1f7a3a; color:#fff; font-weight:800; text-decoration:none; }
+
+    /* SLIDESHOW / PHOTOS — occupy right column, remove large internal padding so photos dominate */
+    .sda-slideshow {
+      position:relative;
+      height:420px; /* slightly taller on desktop for visual weight */
+      border-radius:12px;
+      overflow:hidden;
+      background:linear-gradient(180deg,#eef6ee,#f7faf7);
+      box-shadow: 0 10px 30px rgba(12,20,12,0.05);
+    }
+
+    /* reduce slideshow height on smaller breakpoints */
+    @media (max-width:1000px){ .sda-slideshow{ height:340px; } }
+    @media (max-width:880px){ .sda-slideshow{ height:220px; border-radius:10px; } }
+
+    /* slide sizing — keep them full area, background covers */
+    .sda-slide { position:absolute; inset:0; background-size:cover; background-position:center; opacity:0; transform:scale(1.02); transition:opacity .6s ease; will-change:opacity,transform; }
+    .sda-slide.s1 { animation:sdaCycle 18s linear infinite; animation-delay:0s; }
+    .sda-slide.s2 { animation:sdaCycle 18s linear infinite; animation-delay:3s; }
+    .sda-slide.s3 { animation:sdaCycle 18s linear infinite; animation-delay:6s; }
+    .sda-slide.s4 { animation:sdaCycle 18s linear infinite; animation-delay:9s; }
+    .sda-slide.s5 { animation:sdaCycle 18s linear infinite; animation-delay:12s; }
+    .sda-slide.s6 { animation:sdaCycle 18s linear infinite; animation-delay:15s; }
+
+    @keyframes sdaCycle {
+      0% { opacity:1; transform:scale(1); }
+      16.66% { opacity:1; transform:scale(1); }
+      18% { opacity:0; transform:scale(1.02); }
+      100% { opacity:0; transform:scale(1.02); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .sda-slide { animation:none; opacity:0; }
+      .sda-slide.s1 { opacity:1; }
+    }
+       /* MOBILE TIGHTENING — add this at the end of the same style block */
+@media (max-width:880px) {
+  /* make the main wrapper use normal mobile padding and stack nicely */
+  .sda-main-wrap {
+    max-width: 100%;
+    padding: 12px; /* small page padding for mobile */
+    grid-template-columns: 1fr; /* single column: about first, photos below */
+    gap: 12px;
+  }
+
+  /* reduce inner padding so the card is shorter vertically */
+  .sda-about-card {
+    padding: 14px; /* compact but readable */
+  }
+  .sda-about-card .sda-title {
+    font-size: 20px; /* slightly smaller title on mobile */
+    margin-bottom: 8px;
+  }
+  .sda-about-card .sda-lead {
+    font-size: 14px;
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+  .sda-about-card ul {
+    margin: 8px 0 12px;
+    padding-left: 14px;
+    font-size: 14px;
+  }
+
+  /* reduce slideshow height so it doesn't push page too far down */
+  .sda-slideshow {
+    /*height: 180px;*/
+    height: 180px;
+
+    border-radius: 10px;
+  }
+
+  /* if you used larger slide images with box-shadow, tone it down on mobile */
+  .sda-slideshow, .sda-slide {
+    box-shadow: none;
+  }
+}
+  </style>
+
 
   <div class="sda-main-wrap">
     <section class="sda-about-card">
       <h2 class="sda-title">SDA Infra &amp; Promoters</h2>
-      <p class="sda-lead">Delhi-based experts in premium residential plots across Delhi NCR. We focus on verified properties, clear paperwork and honest guidance so every buyer feels confident.</p>
+      <!--p class="sda-lead">Delhi-based experts in premium residential plots across Delhi NCR. We focus on verified properties, clear paperwork and honest guidance so every buyer feels confident.</p>
       <ul>
         <li>Verified listings with clear titles</li>
         <li>On-site visits & complete documentation support</li>
         <li>Local knowledge across Delhi, Gurgaon & Noida</li>
-      </ul>
-      <a class="sda-cta" href="about.html">Read full About page</a>
-      <div style="color:#666;font-size:13px;margin-top:12px">Photos rotate every 3 seconds — swipe on mobile to explore.</div>
+      </ul-->
+      <p class="sda-lead">
+  दिल्ली NCR में प्रीमियम प्लॉट्स ढूँढते समय सबसे ज़रूरी चीज़ होती है—विश्वसनीयता।  
+  SDA Infra & Promoters उन कुछ चुनिंदा फर्मों में से है जो केवल <strong>पूरी तरह वेरीफाइड, कानूनी रूप से सुरक्षित और 
+  लोकेशन-वाइज़ हाई-ग्रोथ</strong> प्लॉट्स ही प्रस्तुत करती है।  
+  यहाँ हर विकल्प सोचा-समझा, क्यूरेटेड और भविष्य की वैल्यू को ध्यान में रखकर चुना जाता है।
+</p>
+
+<ul>
+  <li>Exclusive inventory — सीमित पर बेहतरीन प्रॉपर्टीज़</li>
+  <li>Zero hidden charges — 100% पारदर्शी प्रक्रिया</li>
+  <li>Premium client support — विज़िट, पेपरवर्क और रजिस्ट्री तक साथ</li>
+</ul>
+      <!--<a class="sda-cta" href="about.html">Read full About page</a> -->
+      <div style="text-align:center; margin-top:16px;">
+
+  <a href="about.html"
+     class="sda-cta premium-btn"
+     style="
+       display:inline-block;
+       min-width:260px;
+       padding:14px 30px;
+       border-radius:999px;
+       text-align:center;
+       font-weight:800;
+       background:linear-gradient(135deg,#1f7a3a,#32c56a);
+       color:#fff;
+       box-shadow:0 6px 18px rgba(31,122,58,0.22);
+       transition:all .28s ease;
+       transform:translateY(0);
+     ">
+    Read more
+  </a>
+
+</div>
+
+<style>
+  .premium-btn:hover {
+    background:linear-gradient(135deg,#32c56a,#1f7a3a);
+    box-shadow:0 12px 26px rgba(31,122,58,0.35);
+    transform:translateY(-4px) scale(1.03);
+  }
+
+  .premium-btn:active {
+    transform:translateY(-1px) scale(1.00);
+    box-shadow:0 4px 14px rgba(31,122,58,0.25);
+  }
+</style>
+
+
+      <!--  <div style="color:#666;font-size:13px;margin-top:12px">Photos rotate every 3 seconds — swipe on mobile to explore.</div> -->
     </section>
 
     <aside>
@@ -335,12 +514,112 @@
      STATS SECTION (unchanged)
      =========================================================== -->
 <section class="sda-stats-root" aria-label="Statistics strip">
-  <style>
+      <!-- <style>
     .sda-stats-root { font-family:Inter, Arial, sans-serif; padding:18px 0 48px; background:#fbfbf9; }
     .sda-stats-inner { max-width:1120px; margin:0 auto; padding:0 20px; display:flex; gap:12px; justify-content:space-between; flex-wrap:wrap; text-align:center; }
     .sda-stat { flex:1 1 180px; background:#fff; padding:18px; border-radius:12px; box-shadow:0 6px 18px rgba(12,20,12,0.04); }
     .sda-stat .sda-num { font-size:28px; font-weight:800; margin-bottom:6px; }
     .sda-stat p { margin:0; color:#666; }
+  </style> -->
+  <style>
+    /* STATS — compact on mobile, premium on desktop */
+
+    .sda-stats-root { font-family:Inter, Arial, sans-serif; padding:22px 0 44px; background:#fbfbf9; }
+
+    /* inner wrapper default: centered and constrained for desktop */
+    .sda-stats-inner {
+      max-width:1120px;
+      margin:0 auto;
+      padding:0 18px;
+      display:flex;
+      gap:20px;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      align-items:stretch;
+      text-align:center;
+    }
+
+    /* each stat card (desktop/premium) */
+    .sda-stat {
+      flex:1 1 200px;
+      background:#fff;
+      padding:26px 22px;
+      border-radius:16px;
+      box-shadow: 0 12px 36px rgba(10,20,10,0.06);
+      border: 1px solid rgba(0,0,0,0.035);
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+    .sda-stat:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 50px rgba(8,18,8,0.09);
+    }
+
+    .sda-num {
+      font-size:34px;
+      font-weight:900;
+      margin-bottom:8px;
+      color:#0f3f23;
+      letter-spacing:0.6px;
+    }
+    .sda-stat p {
+      margin:0;
+      color:#6a6f6b;
+      font-size:14px;
+      font-weight:600;
+    }
+
+    /* make cards slightly larger on very wide screens for premium feel */
+    @media (min-width:1200px) {
+      .sda-stat { padding:34px 28px; border-radius:18px; }
+      .sda-num { font-size:40px; }
+      .sda-stat p { font-size:15px; }
+    }
+
+    /* ---------- MOBILE: compact + 2-up grid ---------- */
+    @media (max-width:880px) {
+
+      .sda-stats-root { padding:14px 0 28px; }
+
+      /* convert flex to grid for tighter 2-up layout */
+      .sda-stats-inner {
+        display:grid;
+        grid-template-columns: repeat(2, 1fr); /* two columns */
+        gap:10px;
+        max-width: 920px; /* keeps some left/right breathing room on medium phones */
+        margin: 0 auto;
+        padding: 0 12px;
+      }
+
+      .sda-stat {
+        padding:12px 10px; /* much smaller padding */
+        border-radius:10px;
+        box-shadow: 0 6px 18px rgba(10,20,10,0.04);
+      }
+
+      .sda-num {
+        font-size:20px; /* compact number */
+        font-weight:900;
+        margin-bottom:6px;
+      }
+
+      .sda-stat p {
+        font-size:12px; /* compact label */
+        color:#666;
+        font-weight:600;
+      }
+
+      /* reduce bottom spacing in the entire section */
+      .sda-stats-inner { gap:8px; }
+    }
+
+    /* accessibility / reduced motion: remove hover lift */
+    @media (prefers-reduced-motion: reduce) {
+      .sda-stat { transition:none; transform:none; }
+    }
   </style>
 
   <div class="sda-stats-inner">
