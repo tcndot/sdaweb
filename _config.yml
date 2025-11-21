@@ -1,0 +1,23 @@
+# File: _config.yml
+title: "SDA Promoters"
+email: "sdadevelopers99@gmail.com"
+description: "Real Estate Consultants"
+
+# LIVE site (root domain)
+baseurl: "" # important: empty for sdapromoters.com
+url: "https://sdapromoters.com"
+
+markdown: kramdown
+permalink: /blogs/:title/
+
+plugins: []
+
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+
+---
