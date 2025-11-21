@@ -221,14 +221,26 @@ title: careers
                 consentGiven: form.consent.checked
               };
 
-              // TODO: send `payload` to your backend/email.
-              // For now show success and reset form.
-              confirmationMessage.textContent = 'Your form has been submitted. We have received your details and will contact you as soon as possible.';
-              confirmationMessage.style.display = 'block';
-              submitBtn.style.display = 'none';
-              form.reset();
-              submitBtn.disabled = true;
-              otherQualificationContainer.style.display = 'none';
+              // Send to FormSubmit
+await fetch("https://formsubmit.co/ajax/sdadevelopers99+jobapplication@gmail.com", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body: JSON.stringify(payload)
+});
+
+// Success message
+confirmationMessage.textContent = "Your application has been submitted successfully. We will contact you soon.";
+confirmationMessage.style.display = "block";
+
+// reset form
+form.reset();
+submitBtn.disabled = true;
+submitBtn.style.display = "none";
+otherQualificationContainer.style.display = "none";
+
             } catch (err) {
               console.error(err);
               alert('Error uploading resume. Please try again.');
