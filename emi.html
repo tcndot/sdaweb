@@ -5,172 +5,155 @@ permalink: /emi/
 ---
 
 <style>
-/* Mini centered EMI card (compact, repeatable) */
-.emi-mini-wrapper { display:flex; justify-content:center; padding:18px 8px; }
-.emi-mini-card {
-  width: 380px;
-  max-width: calc(100% - 24px);
-  background: #fff;
-  border-radius: 10px;
-  padding: 12px;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+/* Compact homepage-ready EMI card (no extra text) */
+.emi-card {
+  max-width:540px;
+  padding:12px;
+  border-radius:10px;
+  background:#fff;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-  font-size: 13px;
-  box-sizing: border-box;
+  font-size:13px;
 }
-.emi-mini-title { font-weight:800; font-size:18px; margin:0 0 8px 0; }
-.row { display:flex; gap:8px; align-items:center; }
-.col { display:flex; flex-direction:column; gap:6px; }
-.input { width:100%; padding:8px 10px; border-radius:8px; border:1px solid #e6e7ea; font-size:13px; box-sizing:border-box; }
-.small { font-size:12px; color:#4b5563; }
-.top-total { text-align:right; }
-.top-total .small { margin:0; }
-.top-total .amount { font-weight:800; font-size:14px; margin-top:2px; }
-.select { padding:8px 10px; border-radius:8px; border:1px solid #e6e7ea; background:#fff; font-size:13px; }
-.emi-output { margin-top:10px; padding:10px; border-radius:8px; background:#fbfdff; border:1px solid #eef2f7; text-align:center; }
-.emi-output .label { color:#374151; font-size:13px; }
-.emi-output .value { font-weight:800; font-size:16px; margin-top:6px; }
-@media (max-width:420px){ .emi-mini-card{ width:100%; } .row{ flex-direction:column; } .top-total{ text-align:left; } }
+.header-row { display:flex; gap:12px; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.title { font-weight:800; font-size:18px; margin:0; }
+.grid3 { display:grid; grid-template-columns: repeat(3,1fr); gap:8px; }
+.input, select { padding:8px 10px; border-radius:8px; border:1px solid #e6e7ea; font-size:13px; width:100%; box-sizing:border-box; }
+.small { font-size:12px; color:#4b5563; margin-bottom:6px; display:block; }
+.preset-select { padding:8px 10px; border-radius:8px; border:1px solid #e6e7ea; background:#fff; font-size:13px; width:100%; box-sizing:border-box; }
+.result { margin-top:10px; display:grid; gap:8px; }
+.result-row { display:flex; justify-content:space-between; align-items:center; padding:8px; border-radius:8px; background:#fbfdff; border:1px solid #eef2f7; }
+.kicker { color:#374151; font-size:13px; }
+.value { font-weight:700; }
+@media (max-width:480px){ .grid3{grid-template-columns:1fr;} }
 </style>
 
-<!-- One wrapper can be copied multiple times -->
-<div class="emi-mini-wrapper">
-  <div class="emi-mini-card" data-emi>
-    <div class="emi-mini-title">EMI Calculator</div>
+<div class="emi-card" role="region" aria-labelledby="emi-title">
+  <div class="header-row">
+    <div class="title" id="emi-title">EMI Calculator</div>
+    <div style="text-align:right;">
+      <div class="small">Property total</div>
+      <div id="top_property" class="value">₹ 0</div>
+    </div>
+  </div>
 
-    <!-- Rate / Gaj / Property total row -->
-    <div class="row" style="align-items:end;">
-      <div style="flex:1;" class="col">
-        <label class="small">Rate (₹)</label>
-        <input class="input js-rate" type="number" min="500" step="500" value="20000" inputmode="numeric" />
-      </div>
-
-      <div style="width:96px;" class="col">
-        <label class="small">Gaj</label>
-        <input class="input js-gaj" type="number" min="1" step="1" value="100" inputmode="numeric" />
-      </div>
-
-      <div style="width:120px;" class="top-total">
-        <div class="small">Property total</div>
-        <div class="amount js-property">₹ 0</div>
-      </div>
+  <div class="grid3">
+    <div>
+      <label class="small">Rate (₹)</label>
+      <input id="rate" class="input" type="number" min="500" step="500" value="20000" inputmode="numeric" />
     </div>
 
-    <!-- months + down payment row -->
-    <div class="row" style="margin-top:10px;">
-      <div style="flex:1;" class="col">
-        <label class="small">Months</label>
-        <select class="select js-months" aria-label="Tenure">
-          <option value="12">12</option>
-          <option value="18">18</option>
-          <option value="24">24</option>
-          <option value="30">30</option>
-          <option value="36" selected>36</option>
-        </select>
-      </div>
-
-      <div style="width:160px;" class="col">
-        <label class="small">Down payment</label>
-        <select class="select js-down" aria-label="Down percent">
-          <option value="10">10%</option>
-          <option value="15">15%</option>
-          <option value="20" selected>20%</option>
-          <option value="25">25%</option>
-          <option value="30">30%</option>
-          <option value="33">33%</option>
-          <option value="40">40%</option>
-          <option value="50">50%</option>
-        </select>
-      </div>
+    <div>
+      <label class="small">Gaj</label>
+      <input id="gaj" class="input" type="number" min="1" step="1" value="100" inputmode="numeric" />
     </div>
 
-    <!-- single output: EMI -->
-    <div class="emi-output" aria-live="polite">
-      <div class="label">EMI (monthly)</div>
-      <div class="value js-emi">₹ 0</div>
+    <div>
+      <label class="small">Tenure (months)</label>
+      <select id="months" class="input" aria-label="Tenure">
+        <option value="12">12</option>
+        <option value="18">18</option>
+        <option value="24">24</option>
+        <option value="30">30</option>
+        <option value="36" selected>36</option>
+      </select>
     </div>
+  </div>
+
+  <div style="margin-top:10px;">
+    <label class="small">Down payment</label>
+    <select id="down_select" class="preset-select" aria-label="Down payment percent">
+      <option value="10">10%</option>
+      <option value="15">15%</option>
+      <option value="20" selected>20%</option>
+      <option value="25">25%</option>
+      <option value="30">30%</option>
+      <option value="33">33%</option>
+      <option value="40">40%</option>
+      <option value="50">50%</option>
+    </select>
+  </div>
+
+  <div class="result" aria-live="polite" id="results">
+    <div class="result-row"><div class="kicker">Property</div><div class="value" id="res_property">₹ 0</div></div>
+    <div class="result-row"><div class="kicker">Down</div><div class="value" id="res_down">₹ 0</div></div>
+    <div class="result-row"><div class="kicker">Loan</div><div class="value" id="res_loan">₹ 0</div></div>
+    <div class="result-row"><div class="kicker">Monthly</div><div class="value" id="res_monthly">₹ 0</div></div>
   </div>
 </div>
 
 <script>
 (function(){
-  // initialize all instances (so you can paste the component multiple times)
-  document.querySelectorAll('[data-emi]').forEach(initCard);
+  // elements
+  const rateEl = document.getElementById('rate');
+  const gajEl = document.getElementById('gaj');
+  const monthsEl = document.getElementById('months');
+  const downSelect = document.getElementById('down_select');
 
-  function initCard(card) {
-    const rateEl = card.querySelector('.js-rate');
-    const gajEl = card.querySelector('.js-gaj');
-    const monthsEl = card.querySelector('.js-months');
-    const downEl = card.querySelector('.js-down');
+  const topPropertyEl = document.getElementById('top_property');
+  const resProperty = document.getElementById('res_property');
+  const resDown = document.getElementById('res_down');
+  const resLoan = document.getElementById('res_loan');
+  const resMonthly = document.getElementById('res_monthly');
 
-    const propEl = card.querySelector('.js-property');
-    const emiEl = card.querySelector('.js-emi');
-
-    // helpers
-    function fmt0(n){ return new Intl.NumberFormat('en-IN', {maximumFractionDigits:0}).format(Math.round(n||0)); }
-    function safeNum(v){ const n = Number(v); return isFinite(n) ? n : 0; }
-
-    // enforce steps & integer rules
-    function normalizeInputs() {
-      // rate step 500 min 500
-      let rate = Math.round(safeNum(rateEl.value) / 500) * 500;
-      if (!isFinite(rate) || rate < 500) rate = 500;
-      rateEl.value = rate;
-
-      // gaj integer min 1
-      let g = Math.floor(safeNum(gajEl.value));
-      if (!isFinite(g) || g < 1) g = 1;
-      gajEl.value = g;
-    }
-
-    // update down select labels to include rupee amount (e.g. "20% — ₹ 40,000")
-    function refreshDownLabels(property) {
-      // property in rupees
-      Array.from(downEl.options).forEach(opt=>{
-        const pct = parseInt(opt.value,10) || 0;
-        const amt = Math.round(property * (pct/100));
-        opt.textContent = pct + '% — ₹ ' + fmt0(amt);
-      });
-    }
-
-    // compute EMI and update UI
-    function recompute() {
-      normalizeInputs();
-      const rate = safeNum(rateEl.value);
-      const gaj = safeNum(gajEl.value);
-      const months = Math.max(1, parseInt(monthsEl.value,10) || 1);
-      const pct = Math.max(0, parseInt(downEl.value,10) || 0);
-
-      const property = Math.round(rate * gaj);
-      const downAmount = Math.round(property * (pct/100));
-      const loan = Math.max(0, property - downAmount);
-
-      // monthly EMI = loan / months, rounded to integer rupees
-      const emi = months > 0 ? Math.round(loan / months) : Math.round(loan);
-
-      // update top property
-      propEl.textContent = '₹ ' + fmt0(property);
-      // update down labels so percent options show rupee values
-      refreshDownLabels(property);
-      // update EMI
-      emiEl.textContent = '₹ ' + fmt0(emi);
-    }
-
-    // events: all changes update immediately
-    ['input','change'].forEach(ev=>{
-      rateEl.addEventListener(ev, recompute);
-      gajEl.addEventListener(ev, recompute);
-      monthsEl.addEventListener(ev, recompute);
-      downEl.addEventListener(ev, recompute);
-    });
-
-    // ensure no jumpy focus: nothing else triggers focus
-
-    // initial compute
-    recompute();
+  // helpers
+  function intVal(v){ // ensure integer, no decimals
+    let n = parseInt(String(v).replace(/\D/g,''), 10);
+    if (!isFinite(n)) n = 0;
+    return n;
   }
+  function safeNum(v){ // allow numeric like "12345" or numeric input
+    const n = Number(v);
+    return isFinite(n) ? n : 0;
+  }
+  function fmt(n){ return new Intl.NumberFormat('en-IN', {maximumFractionDigits:0}).format(Math.round(n || 0)); }
+
+  // main compute
+  function recompute() {
+    // ensure inputs are valid integers by rules:
+    // rate step 500, gaj step 1
+    let rate = Math.max(500, Math.round(safeNum(rateEl.value) / 500) * 500);
+    if (rate < 500) rate = 500;
+    // enforce integer and step
+    rateEl.value = rate;
+
+    let gaj = Math.max(1, Math.floor(safeNum(gajEl.value)));
+    if (!gaj || gaj < 1) gaj = 1;
+    gajEl.value = gaj;
+
+    const months = parseInt(monthsEl.value, 10) || 12;
+    const pct = parseInt(downSelect.value, 10) || 20;
+
+    const property = rate * gaj;
+    const downAmount = Math.round(property * (pct/100));
+    const loan = Math.max(0, property - downAmount);
+
+    // monthly rounded nearest rupee (no decimals)
+    const monthly = months > 0 ? Math.round(loan / months) : Math.round(loan);
+
+    // update top and results
+    topPropertyEl.textContent = '₹ ' + fmt(property);
+    resProperty.textContent = '₹ ' + fmt(property);
+    resDown.textContent = '₹ ' + fmt(downAmount) + ' (' + pct + '%)';
+    resLoan.textContent = '₹ ' + fmt(loan);
+    resMonthly.textContent = '₹ ' + fmt(monthly);
+  }
+
+  // live update on any input change
+  ['input','change'].forEach(evt=>{
+    rateEl.addEventListener(evt, recompute);
+    gajEl.addEventListener(evt, recompute);
+    monthsEl.addEventListener(evt, recompute);
+    downSelect.addEventListener(evt, recompute);
+  });
+
+  // prevent focus jump or auto-focus: no focus calls anywhere
+
+  // initial compute
+  recompute();
 })();
 </script>
+
 
 
 
