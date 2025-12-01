@@ -5,208 +5,159 @@ permalink: /emi/
 ---
 
 <style>
-/* EMI card (kept compact & theme-friendly) */
-.emi-card {
-  max-width: 760px;
-  margin: 1.2rem auto;
-  padding: 1.2rem;
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-  background: #fff;
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+.emi-mini {
+  max-width: 520px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+  font-size: 13px;
 }
-.emi-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); }
-.label { font-size: 0.85rem; color: #374151; margin-bottom: 6px; display:block; }
-.input, .select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #e5e7eb; font-size:1rem; box-sizing:border-box; }
-.btn { margin-top:6px; padding:10px 14px; border-radius:8px; border:0; cursor:pointer; background:#0ea5a4; color:white; font-weight:600; }
-.small { font-size:0.9rem; color:#4b5563; }
-.results { margin-top:1rem; display:grid; gap:8px; }
-.result-row { display:flex; justify-content:space-between; padding:10px; border-radius:8px; background:#f8fafc; align-items:center; }
-.kicker { font-size:0.85rem; color:#6b7280; }
-.value { font-weight:700; font-size:1.05rem; color:#0f172a; }
-.note { font-size:0.85rem; color:#6b7280; margin-top:8px; }
-.toggle { display:flex; gap:8px; align-items:center; margin-bottom:6px; }
-.warning { color:#b91c1c; font-size:0.85rem; margin-top:6px; }
-@media (max-width:420px){ .emi-card{padding:1rem} .value{font-size:1rem} }
+.emi-row { display:flex; gap:8px; align-items:center; }
+.emi-row.col { flex-direction:column; align-items:stretch; }
+.emi-title { font-weight:800; font-size:18px; margin:0 0 8px 0; }
+.input, select { padding:8px 10px; border-radius:8px; border:1px solid #e6e7ea; font-size:13px; width:100%; box-sizing:border-box; }
+.small { font-size:12px; color:#6b7280; }
+.grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; }
+.grid-2 { display:grid; grid-template-columns: repeat(2, 1fr); gap:8px; }
+.btn { padding:8px 10px; border-radius:8px; border:0; background:#0ea5a4; color:#fff; font-weight:700; cursor:pointer; font-size:13px; }
+.result { margin-top:8px; display:flex; justify-content:space-between; align-items:center; padding:8px; border-radius:8px; background:#f8fafc; }
+.kicker { font-size:12px; color:#374151; }
+.value { font-weight:700; }
+.toggle { display:flex; gap:8px; align-items:center; }
+.radio-label { font-size:13px; color:#374151; }
+@media (max-width:480px) {
+  .grid { grid-template-columns: 1fr; }
+  .grid-2 { grid-template-columns: 1fr; }
+}
 </style>
 
-<div class="emi-card" role="region" aria-labelledby="emi-heading">
-  <h2 id="emi-heading">EMI Calculator (Zero-interest)</h2>
-  <p class="small">Price = <strong>Price per gaj</strong> × <strong>How many gaj</strong>. Down payment can be entered as % or ₹ amount. Tenure limited to 36 months.</p>
+<div class="emi-mini" aria-labelledby="emi-mini-title">
+  <div class="emi-title" id="emi-mini-title">EMI Calculator</div>
 
-  <div class="emi-grid" style="margin-top:0.6rem;">
+  <div class="grid">
     <div>
-      <label class="label" for="pricePerGaj">Price per gaj (₹)</label>
-      <input id="pricePerGaj" class="input" type="number" min="0" step="1" value="150000" />
+      <label class="small">Rate (₹)</label>
+      <input id="emi_rate" class="input" type="number" min="0" step="1" value="20000" />
     </div>
 
     <div>
-      <label class="label" for="gajCount">How many gaj</label>
-      <input id="gajCount" class="input" type="number" min="0" step="0.1" value="100" />
-    </div>
-
-    <div style="grid-column: span 2;">
-      <label class="label">Down payment input type</label>
-      <div class="toggle" role="radiogroup" aria-label="Down payment type">
-        <label><input type="radio" name="downType" value="percent" checked> Percent (%)</label>
-        <label><input type="radio" name="downType" value="amount"> Amount (₹)</label>
-      </div>
-
-      <div id="downPercentWrap" style="margin-top:6px;">
-        <label class="label" for="downPercent">Down payment (%)</label>
-        <input id="downPercent" class="input" type="number" min="0" max="100" step="0.1" value="10" />
-      </div>
-
-      <div id="downAmountWrap" style="display:none;margin-top:6px;">
-        <label class="label" for="downAmountInput">Down payment amount (₹)</label>
-        <input id="downAmountInput" class="input" type="number" min="0" step="1" value="0" />
-      </div>
+      <label class="small">Gaj</label>
+      <input id="emi_gaj" class="input" type="number" min="0" step="0.1" placeholder="" value="" />
     </div>
 
     <div>
-      <label class="label" for="months">Tenure (months)</label>
-      <input id="months" class="input" type="number" min="1" max="36" step="1" value="36" />
-      <div class="small">Maximum allowed: 36 months.</div>
+      <label class="small">Tenure</label>
+      <select id="emi_months" class="input" aria-label="Tenure months">
+        <option value="12">12</option>
+        <option value="18">18</option>
+        <option value="24">24</option>
+        <option value="30">30</option>
+        <option value="36" selected>36</option>
+      </select>
+    </div>
+  </div>
+
+  <div style="margin-top:8px;" class="grid-2">
+    <div>
+      <label class="small">Down payment</label>
+      <div class="toggle" style="margin-top:6px;">
+        <label class="radio-label"><input type="radio" name="emi_down_type" value="percent" checked> %</label>
+        <label class="radio-label"><input type="radio" name="emi_down_type" value="amount"> ₹</label>
+      </div>
+
+      <div id="emi_down_pct_wrap" style="margin-top:6px;">
+        <input id="emi_down_pct" class="input" type="number" min="0" max="100" step="0.1" value="20" />
+      </div>
+
+      <div id="emi_down_amt_wrap" style="display:none;margin-top:6px;">
+        <input id="emi_down_amt" class="input" type="number" min="0" step="1" value="0" />
+      </div>
     </div>
 
     <div style="display:flex;flex-direction:column;justify-content:flex-end;">
-      <label class="label" style="visibility:hidden">calc</label>
-      <button id="calcBtn" class="btn">Calculate EMI</button>
+      <button id="emi_calc_btn" class="btn">Calculate</button>
     </div>
   </div>
 
-  <div class="results" id="results" aria-live="polite">
-    <div class="result-row"><div class="kicker">Property price</div><div id="propertyPrice" class="value">—</div></div>
-    <div class="result-row"><div class="kicker">Down payment amount</div><div id="downAmount" class="value">—</div></div>
-    <div class="result-row"><div class="kicker">Loan amount (principal)</div><div id="loanAmount" class="value">—</div></div>
-    <div class="result-row"><div class="kicker">Monthly EMI</div><div id="emi" class="value">—</div></div>
-    <div class="result-row"><div class="kicker">Total payment (principal)</div><div id="totalPayment" class="value">—</div></div>
+  <div id="emi_results" style="margin-top:10px;">
+    <div class="result"><div class="kicker">Property</div><div class="value" id="emi_prop">₹ 0</div></div>
+    <div class="result" style="margin-top:6px;"><div class="kicker">Down</div><div class="value" id="emi_down">₹ 0</div></div>
+    <div class="result" style="margin-top:6px;"><div class="kicker">Loan</div><div class="value" id="emi_loan">₹ 0</div></div>
+    <div class="result" style="margin-top:6px;"><div class="kicker">Monthly</div><div class="value" id="emi_monthly">₹ 0</div></div>
   </div>
-
-  <div id="warn" class="warning" role="status" aria-live="polite" style="display:none;"></div>
-
-  <p class="note">Note: Interest input removed — this calculates a simple zero-interest monthly installment (loan / months). If you want interest included later (monthly or annual), tell me which one and I'll add it back.</p>
 </div>
 
 <script>
 (function(){
-  // Utilities
-  function fmt(n){ return new Intl.NumberFormat('en-IN', {maximumFractionDigits:2}).format(n); }
-  function q(id){ return document.getElementById(id); }
+  const rate = id('emi_rate');
+  const gaj = id('emi_gaj');
+  const months = id('emi_months');
 
-  // Inputs
-  const pricePerGaj = q('pricePerGaj');
-  const gajCount = q('gajCount');
-  const months = q('months');
+  const downPctWrap = id('emi_down_pct_wrap');
+  const downAmtWrap = id('emi_down_amt_wrap');
+  const downPct = id('emi_down_pct');
+  const downAmt = id('emi_down_amt');
 
-  const downPercentWrap = q('downPercentWrap');
-  const downAmountWrap = q('downAmountWrap');
-  const downPercent = q('downPercent');
-  const downAmountInput = q('downAmountInput');
+  const calcBtn = id('emi_calc_btn');
 
-  const calcBtn = q('calcBtn');
+  const propEl = id('emi_prop');
+  const downEl = id('emi_down');
+  const loanEl = id('emi_loan');
+  const monthlyEl = id('emi_monthly');
 
-  // Results
-  const propertyPriceEl = q('propertyPrice');
-  const downAmountEl = q('downAmount');
-  const loanAmountEl = q('loanAmount');
-  const emiEl = q('emi');
-  const totalPaymentEl = q('totalPayment');
-  const warnEl = q('warn');
-
-  // Max tenure enforcement
-  function enforceMaxMonths() {
-    let m = parseInt(months.value,10) || 0;
-    if (m > 36) {
-      months.value = 36;
-      showWarning('Tenure capped to 36 months.');
-    }
-  }
-
-  // Warning helper
-  let warnTimer = null;
-  function showWarning(msg) {
-    clearTimeout(warnTimer);
-    warnEl.style.display = 'block';
-    warnEl.textContent = msg;
-    warnTimer = setTimeout(()=>{ warnEl.style.display='none'; }, 5000);
-  }
-
-  // Down payment type toggle
-  document.querySelectorAll('input[name="downType"]').forEach(r=>{
+  // down type toggle
+  document.querySelectorAll('input[name="emi_down_type"]').forEach(r=>{
     r.addEventListener('change', function(){
       if (this.value === 'percent') {
-        downPercentWrap.style.display = '';
-        downAmountWrap.style.display = 'none';
+        downPctWrap.style.display = '';
+        downAmtWrap.style.display = 'none';
       } else {
-        downPercentWrap.style.display = 'none';
-        downAmountWrap.style.display = '';
+        downPctWrap.style.display = 'none';
+        downAmtWrap.style.display = '';
       }
     });
   });
 
-  function calculate() {
-    warnEl.style.display = 'none';
-    // values
-    const ppg = parseFloat(pricePerGaj.value) || 0;
-    const gaj = parseFloat(gajCount.value) || 0;
-    let n = parseInt(months.value,10) || 0;
-    if (n <= 0) { showWarning('Enter a valid tenure (months).'); n = 1; months.value = 1; }
+  function fmt(n){ return new Intl.NumberFormat('en-IN', {maximumFractionDigits:2}).format(n); }
+  function safeNum(v){ const n = parseFloat(v); return isFinite(n) ? n : 0; }
 
-    // enforce max 36
-    if (n > 36) { n = 36; months.value = 36; showWarning('Tenure capped to 36 months.'); }
+  function calculate(){
+    const r = safeNum(rate.value);
+    const g = safeNum(gaj.value);
+    const m = parseInt(months.value,10) || 12;
 
-    const propertyPrice = ppg * gaj;
-
-    // down payment type
-    const downType = document.querySelector('input[name="downType"]:checked').value;
-    let downAmt = 0;
-    if (downType === 'percent') {
-      const pct = parseFloat(downPercent.value) || 0;
-      let pctClamped = Math.max(0, Math.min(100, pct));
-      if (pct !== pctClamped) { downPercent.value = pctClamped; showWarning('Down percent clamped to 0-100%.'); }
-      downAmt = propertyPrice * (pctClamped / 100);
+    const property = r * g;
+    let down = 0;
+    if (document.querySelector('input[name="emi_down_type"]:checked').value === 'percent') {
+      const pct = Math.max(0, Math.min(100, safeNum(downPct.value)));
+      down = property * (pct/100);
     } else {
-      downAmt = parseFloat(downAmountInput.value) || 0;
-      if (downAmt < 0) { downAmountInput.value = 0; downAmt = 0; showWarning('Down amount cannot be negative.'); }
+      down = Math.max(0, safeNum(downAmt.value));
+      if (down > property) down = property;
     }
 
-    // Cap down amount to property price
-    if (downAmt > propertyPrice) {
-      downAmt = propertyPrice;
-      if (downType === 'amount') downAmountInput.value = Math.round(downAmt);
-      else {
-        const newPct = (propertyPrice === 0) ? 100 : (propertyPrice ? (downAmt / propertyPrice * 100) : 0);
-        downPercent.value = Math.min(100, newPct.toFixed(2));
-      }
-      showWarning('Down payment cannot exceed property price — capped.');
-    }
+    const loan = Math.max(0, property - down);
+    const monthly = m > 0 ? (loan / m) : 0;
 
-    const principal = Math.max(0, propertyPrice - downAmt);
-
-    // zero-interest EMI
-    const monthlyEMI = n > 0 ? (principal / n) : 0;
-    const totalPayment = principal; // no interest included
-
-    // Update UI
-    propertyPriceEl.textContent = propertyPrice ? "₹ " + fmt(propertyPrice) : "₹ 0";
-    downAmountEl.textContent = "₹ " + fmt(downAmt);
-    loanAmountEl.textContent = "₹ " + fmt(principal);
-    emiEl.textContent = monthlyEMI ? "₹ " + fmt(monthlyEMI) : "₹ 0";
-    totalPaymentEl.textContent = "₹ " + fmt(totalPayment);
+    propEl.textContent = "₹ " + fmt(property);
+    downEl.textContent = "₹ " + fmt(down);
+    loanEl.textContent = "₹ " + fmt(loan);
+    monthlyEl.textContent = "₹ " + fmt(monthly);
   }
 
-  // events
   calcBtn.addEventListener('click', calculate);
-  [pricePerGaj, gajCount, downPercent, downAmountInput, months].forEach(el=>{
-    el.addEventListener('keydown', function(e){
-      if (e.key === 'Enter') calculate();
-    });
-  });
 
-  months.addEventListener('input', enforceMaxMonths);
+  // Helpers
+  function id(x){ return document.getElementById(x); }
 
-  // initial calc
+  // initial calc (gaj empty => property 0)
   calculate();
 })();
 </script>
+
+
+
+
+
