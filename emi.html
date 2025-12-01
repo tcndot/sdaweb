@@ -5,7 +5,7 @@ permalink: /emi/
 ---
 
 <style>
-/* Minimal, theme-friendly card style — tweak to match your theme */
+/* EMI card (kept compact & theme-friendly) */
 .emi-card {
   max-width: 760px;
   margin: 1.2rem auto;
@@ -17,7 +17,7 @@ permalink: /emi/
 }
 .emi-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); }
 .label { font-size: 0.85rem; color: #374151; margin-bottom: 6px; display:block; }
-.input, .select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #e5e7eb; font-size:1rem; }
+.input, .select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #e5e7eb; font-size:1rem; box-sizing:border-box; }
 .btn { margin-top:6px; padding:10px 14px; border-radius:8px; border:0; cursor:pointer; background:#0ea5a4; color:white; font-weight:600; }
 .small { font-size:0.9rem; color:#4b5563; }
 .results { margin-top:1rem; display:grid; gap:8px; }
@@ -25,13 +25,14 @@ permalink: /emi/
 .kicker { font-size:0.85rem; color:#6b7280; }
 .value { font-weight:700; font-size:1.05rem; color:#0f172a; }
 .note { font-size:0.85rem; color:#6b7280; margin-top:8px; }
-.copy { background:transparent; border:1px dashed #c7d2fe; padding:6px 8px; border-radius:6px; font-size:0.85rem; cursor:pointer; }
+.toggle { display:flex; gap:8px; align-items:center; margin-bottom:6px; }
+.warning { color:#b91c1c; font-size:0.85rem; margin-top:6px; }
 @media (max-width:420px){ .emi-card{padding:1rem} .value{font-size:1rem} }
 </style>
 
 <div class="emi-card" role="region" aria-labelledby="emi-heading">
-  <h2 id="emi-heading">EMI Calculator</h2>
-  <p class="small">Calculate monthly EMI for a property using price per gaj. All numbers in ₹ (INR).</p>
+  <h2 id="emi-heading">EMI Calculator (Zero-interest)</h2>
+  <p class="small">Price = <strong>Price per gaj</strong> × <strong>How many gaj</strong>. Down payment can be entered as % or ₹ amount. Tenure limited to 36 months.</p>
 
   <div class="emi-grid" style="margin-top:0.6rem;">
     <div>
@@ -44,19 +45,28 @@ permalink: /emi/
       <input id="gajCount" class="input" type="number" min="0" step="0.1" value="100" />
     </div>
 
-    <div>
-      <label class="label" for="downPercent">Down payment (%)</label>
-      <input id="downPercent" class="input" type="number" min="0" max="100" step="0.1" value="10" />
-    </div>
+    <div style="grid-column: span 2;">
+      <label class="label">Down payment input type</label>
+      <div class="toggle" role="radiogroup" aria-label="Down payment type">
+        <label><input type="radio" name="downType" value="percent" checked> Percent (%)</label>
+        <label><input type="radio" name="downType" value="amount"> Amount (₹)</label>
+      </div>
 
-    <div>
-      <label class="label" for="annualRate">Annual interest rate (%)</label>
-      <input id="annualRate" class="input" type="number" min="0" step="0.01" value="8.5" />
+      <div id="downPercentWrap" style="margin-top:6px;">
+        <label class="label" for="downPercent">Down payment (%)</label>
+        <input id="downPercent" class="input" type="number" min="0" max="100" step="0.1" value="10" />
+      </div>
+
+      <div id="downAmountWrap" style="display:none;margin-top:6px;">
+        <label class="label" for="downAmountInput">Down payment amount (₹)</label>
+        <input id="downAmountInput" class="input" type="number" min="0" step="1" value="0" />
+      </div>
     </div>
 
     <div>
       <label class="label" for="months">Tenure (months)</label>
-      <input id="months" class="input" type="number" min="1" step="1" value="240" />
+      <input id="months" class="input" type="number" min="1" max="36" step="1" value="36" />
+      <div class="small">Maximum allowed: 36 months.</div>
     </div>
 
     <div style="display:flex;flex-direction:column;justify-content:flex-end;">
@@ -70,86 +80,133 @@ permalink: /emi/
     <div class="result-row"><div class="kicker">Down payment amount</div><div id="downAmount" class="value">—</div></div>
     <div class="result-row"><div class="kicker">Loan amount (principal)</div><div id="loanAmount" class="value">—</div></div>
     <div class="result-row"><div class="kicker">Monthly EMI</div><div id="emi" class="value">—</div></div>
-    <div class="result-row"><div class="kicker">Total payment (principal + interest)</div><div id="totalPayment" class="value">—</div></div>
-    <div class="result-row"><div class="kicker">Total interest</div><div id="totalInterest" class="value">—</div></div>
+    <div class="result-row"><div class="kicker">Total payment (principal)</div><div id="totalPayment" class="value">—</div></div>
   </div>
 
-  <p class="note">Tip: change <strong>Price per gaj</strong> to match local rates. If interest rate = 0, EMI becomes principal/tenure.</p>
+  <div id="warn" class="warning" role="status" aria-live="polite" style="display:none;"></div>
+
+  <p class="note">Note: Interest input removed — this calculates a simple zero-interest monthly installment (loan / months). If you want interest included later (monthly or annual), tell me which one and I'll add it back.</p>
 </div>
 
 <script>
 (function(){
-  // Helpers
+  // Utilities
   function fmt(n){ return new Intl.NumberFormat('en-IN', {maximumFractionDigits:2}).format(n); }
-  function getEl(id){ return document.getElementById(id); }
+  function q(id){ return document.getElementById(id); }
 
-  const pricePerGaj = getEl('pricePerGaj');
-  const gajCount = getEl('gajCount');
-  const downPercent = getEl('downPercent');
-  const annualRate = getEl('annualRate');
-  const months = getEl('months');
+  // Inputs
+  const pricePerGaj = q('pricePerGaj');
+  const gajCount = q('gajCount');
+  const months = q('months');
 
-  const propertyPriceEl = getEl('propertyPrice');
-  const downAmountEl = getEl('downAmount');
-  const loanAmountEl = getEl('loanAmount');
-  const emiEl = getEl('emi');
-  const totalPaymentEl = getEl('totalPayment');
-  const totalInterestEl = getEl('totalInterest');
-  const calcBtn = getEl('calcBtn');
+  const downPercentWrap = q('downPercentWrap');
+  const downAmountWrap = q('downAmountWrap');
+  const downPercent = q('downPercent');
+  const downAmountInput = q('downAmountInput');
 
-  function calculate() {
-    const ppg = parseFloat(pricePerGaj.value) || 0;
-    const gaj = parseFloat(gajCount.value) || 0;
-    const downPct = parseFloat(downPercent.value) || 0;
-    const annualPct = parseFloat(annualRate.value) || 0;
-    const n = parseInt(months.value, 10) || 0;
+  const calcBtn = q('calcBtn');
 
-    const propertyPrice = ppg * gaj;
-    const downAmount = propertyPrice * (downPct/100);
-    const principal = Math.max(0, propertyPrice - downAmount);
+  // Results
+  const propertyPriceEl = q('propertyPrice');
+  const downAmountEl = q('downAmount');
+  const loanAmountEl = q('loanAmount');
+  const emiEl = q('emi');
+  const totalPaymentEl = q('totalPayment');
+  const warnEl = q('warn');
 
-    let monthlyEMI = 0;
-    let totalPayment = 0;
-    let totalInterest = 0;
-
-    if (n <= 0) {
-      monthlyEMI = 0;
-      totalPayment = 0;
-      totalInterest = 0;
-    } else if (annualPct <= 0) {
-      // zero-interest loan
-      monthlyEMI = principal / n;
-      totalPayment = principal;
-      totalInterest = 0;
-    } else {
-      const monthlyRate = (annualPct/100) / 12;
-      const r = monthlyRate;
-      const pow = Math.pow(1 + r, n);
-      monthlyEMI = principal * r * pow / (pow - 1);
-      totalPayment = monthlyEMI * n;
-      totalInterest = totalPayment - principal;
+  // Max tenure enforcement
+  function enforceMaxMonths() {
+    let m = parseInt(months.value,10) || 0;
+    if (m > 36) {
+      months.value = 36;
+      showWarning('Tenure capped to 36 months.');
     }
-
-    propertyPriceEl.textContent = "₹ " + fmt(propertyPrice);
-    downAmountEl.textContent = "₹ " + fmt(downAmount);
-    loanAmountEl.textContent = "₹ " + fmt(principal);
-    emiEl.textContent = monthlyEMI > 0 ? "₹ " + fmt(monthlyEMI) : "₹ 0";
-    totalPaymentEl.textContent = "₹ " + fmt(totalPayment);
-    totalInterestEl.textContent = "₹ " + fmt(totalInterest);
   }
 
-  // Calculate on button click & live updates
-  calcBtn.addEventListener('click', calculate);
-  [pricePerGaj, gajCount, downPercent, annualRate, months].forEach(el=>{
-    el.addEventListener('keydown', function(e){
-      if (e.key === 'Enter') calculate();
-    });
-    el.addEventListener('input', function(){ /* optional live update: uncomment below */
-      // calculate();
+  // Warning helper
+  let warnTimer = null;
+  function showWarning(msg) {
+    clearTimeout(warnTimer);
+    warnEl.style.display = 'block';
+    warnEl.textContent = msg;
+    warnTimer = setTimeout(()=>{ warnEl.style.display='none'; }, 5000);
+  }
+
+  // Down payment type toggle
+  document.querySelectorAll('input[name="downType"]').forEach(r=>{
+    r.addEventListener('change', function(){
+      if (this.value === 'percent') {
+        downPercentWrap.style.display = '';
+        downAmountWrap.style.display = 'none';
+      } else {
+        downPercentWrap.style.display = 'none';
+        downAmountWrap.style.display = '';
+      }
     });
   });
 
-  // initial calculation
+  function calculate() {
+    warnEl.style.display = 'none';
+    // values
+    const ppg = parseFloat(pricePerGaj.value) || 0;
+    const gaj = parseFloat(gajCount.value) || 0;
+    let n = parseInt(months.value,10) || 0;
+    if (n <= 0) { showWarning('Enter a valid tenure (months).'); n = 1; months.value = 1; }
+
+    // enforce max 36
+    if (n > 36) { n = 36; months.value = 36; showWarning('Tenure capped to 36 months.'); }
+
+    const propertyPrice = ppg * gaj;
+
+    // down payment type
+    const downType = document.querySelector('input[name="downType"]:checked').value;
+    let downAmt = 0;
+    if (downType === 'percent') {
+      const pct = parseFloat(downPercent.value) || 0;
+      let pctClamped = Math.max(0, Math.min(100, pct));
+      if (pct !== pctClamped) { downPercent.value = pctClamped; showWarning('Down percent clamped to 0-100%.'); }
+      downAmt = propertyPrice * (pctClamped / 100);
+    } else {
+      downAmt = parseFloat(downAmountInput.value) || 0;
+      if (downAmt < 0) { downAmountInput.value = 0; downAmt = 0; showWarning('Down amount cannot be negative.'); }
+    }
+
+    // Cap down amount to property price
+    if (downAmt > propertyPrice) {
+      downAmt = propertyPrice;
+      if (downType === 'amount') downAmountInput.value = Math.round(downAmt);
+      else {
+        const newPct = (propertyPrice === 0) ? 100 : (propertyPrice ? (downAmt / propertyPrice * 100) : 0);
+        downPercent.value = Math.min(100, newPct.toFixed(2));
+      }
+      showWarning('Down payment cannot exceed property price — capped.');
+    }
+
+    const principal = Math.max(0, propertyPrice - downAmt);
+
+    // zero-interest EMI
+    const monthlyEMI = n > 0 ? (principal / n) : 0;
+    const totalPayment = principal; // no interest included
+
+    // Update UI
+    propertyPriceEl.textContent = propertyPrice ? "₹ " + fmt(propertyPrice) : "₹ 0";
+    downAmountEl.textContent = "₹ " + fmt(downAmt);
+    loanAmountEl.textContent = "₹ " + fmt(principal);
+    emiEl.textContent = monthlyEMI ? "₹ " + fmt(monthlyEMI) : "₹ 0";
+    totalPaymentEl.textContent = "₹ " + fmt(totalPayment);
+  }
+
+  // events
+  calcBtn.addEventListener('click', calculate);
+  [pricePerGaj, gajCount, downPercent, downAmountInput, months].forEach(el=>{
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter') calculate();
+    });
+  });
+
+  months.addEventListener('input', enforceMaxMonths);
+
+  // initial calc
   calculate();
 })();
 </script>
