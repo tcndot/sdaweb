@@ -1,0 +1,155 @@
+---
+layout: default
+title: EMI Calculator
+permalink: /emi/
+---
+
+<style>
+/* Minimal, theme-friendly card style — tweak to match your theme */
+.emi-card {
+  max-width: 760px;
+  margin: 1.2rem auto;
+  padding: 1.2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+  background: #fff;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+.emi-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit,minmax(180px,1fr)); }
+.label { font-size: 0.85rem; color: #374151; margin-bottom: 6px; display:block; }
+.input, .select { width:100%; padding:10px 12px; border-radius:8px; border:1px solid #e5e7eb; font-size:1rem; }
+.btn { margin-top:6px; padding:10px 14px; border-radius:8px; border:0; cursor:pointer; background:#0ea5a4; color:white; font-weight:600; }
+.small { font-size:0.9rem; color:#4b5563; }
+.results { margin-top:1rem; display:grid; gap:8px; }
+.result-row { display:flex; justify-content:space-between; padding:10px; border-radius:8px; background:#f8fafc; align-items:center; }
+.kicker { font-size:0.85rem; color:#6b7280; }
+.value { font-weight:700; font-size:1.05rem; color:#0f172a; }
+.note { font-size:0.85rem; color:#6b7280; margin-top:8px; }
+.copy { background:transparent; border:1px dashed #c7d2fe; padding:6px 8px; border-radius:6px; font-size:0.85rem; cursor:pointer; }
+@media (max-width:420px){ .emi-card{padding:1rem} .value{font-size:1rem} }
+</style>
+
+<div class="emi-card" role="region" aria-labelledby="emi-heading">
+  <h2 id="emi-heading">EMI Calculator</h2>
+  <p class="small">Calculate monthly EMI for a property using price per gaj. All numbers in ₹ (INR).</p>
+
+  <div class="emi-grid" style="margin-top:0.6rem;">
+    <div>
+      <label class="label" for="pricePerGaj">Price per gaj (₹)</label>
+      <input id="pricePerGaj" class="input" type="number" min="0" step="1" value="150000" />
+    </div>
+
+    <div>
+      <label class="label" for="gajCount">How many gaj</label>
+      <input id="gajCount" class="input" type="number" min="0" step="0.1" value="100" />
+    </div>
+
+    <div>
+      <label class="label" for="downPercent">Down payment (%)</label>
+      <input id="downPercent" class="input" type="number" min="0" max="100" step="0.1" value="10" />
+    </div>
+
+    <div>
+      <label class="label" for="annualRate">Annual interest rate (%)</label>
+      <input id="annualRate" class="input" type="number" min="0" step="0.01" value="8.5" />
+    </div>
+
+    <div>
+      <label class="label" for="months">Tenure (months)</label>
+      <input id="months" class="input" type="number" min="1" step="1" value="240" />
+    </div>
+
+    <div style="display:flex;flex-direction:column;justify-content:flex-end;">
+      <label class="label" style="visibility:hidden">calc</label>
+      <button id="calcBtn" class="btn">Calculate EMI</button>
+    </div>
+  </div>
+
+  <div class="results" id="results" aria-live="polite">
+    <div class="result-row"><div class="kicker">Property price</div><div id="propertyPrice" class="value">—</div></div>
+    <div class="result-row"><div class="kicker">Down payment amount</div><div id="downAmount" class="value">—</div></div>
+    <div class="result-row"><div class="kicker">Loan amount (principal)</div><div id="loanAmount" class="value">—</div></div>
+    <div class="result-row"><div class="kicker">Monthly EMI</div><div id="emi" class="value">—</div></div>
+    <div class="result-row"><div class="kicker">Total payment (principal + interest)</div><div id="totalPayment" class="value">—</div></div>
+    <div class="result-row"><div class="kicker">Total interest</div><div id="totalInterest" class="value">—</div></div>
+  </div>
+
+  <p class="note">Tip: change <strong>Price per gaj</strong> to match local rates. If interest rate = 0, EMI becomes principal/tenure.</p>
+</div>
+
+<script>
+(function(){
+  // Helpers
+  function fmt(n){ return new Intl.NumberFormat('en-IN', {maximumFractionDigits:2}).format(n); }
+  function getEl(id){ return document.getElementById(id); }
+
+  const pricePerGaj = getEl('pricePerGaj');
+  const gajCount = getEl('gajCount');
+  const downPercent = getEl('downPercent');
+  const annualRate = getEl('annualRate');
+  const months = getEl('months');
+
+  const propertyPriceEl = getEl('propertyPrice');
+  const downAmountEl = getEl('downAmount');
+  const loanAmountEl = getEl('loanAmount');
+  const emiEl = getEl('emi');
+  const totalPaymentEl = getEl('totalPayment');
+  const totalInterestEl = getEl('totalInterest');
+  const calcBtn = getEl('calcBtn');
+
+  function calculate() {
+    const ppg = parseFloat(pricePerGaj.value) || 0;
+    const gaj = parseFloat(gajCount.value) || 0;
+    const downPct = parseFloat(downPercent.value) || 0;
+    const annualPct = parseFloat(annualRate.value) || 0;
+    const n = parseInt(months.value, 10) || 0;
+
+    const propertyPrice = ppg * gaj;
+    const downAmount = propertyPrice * (downPct/100);
+    const principal = Math.max(0, propertyPrice - downAmount);
+
+    let monthlyEMI = 0;
+    let totalPayment = 0;
+    let totalInterest = 0;
+
+    if (n <= 0) {
+      monthlyEMI = 0;
+      totalPayment = 0;
+      totalInterest = 0;
+    } else if (annualPct <= 0) {
+      // zero-interest loan
+      monthlyEMI = principal / n;
+      totalPayment = principal;
+      totalInterest = 0;
+    } else {
+      const monthlyRate = (annualPct/100) / 12;
+      const r = monthlyRate;
+      const pow = Math.pow(1 + r, n);
+      monthlyEMI = principal * r * pow / (pow - 1);
+      totalPayment = monthlyEMI * n;
+      totalInterest = totalPayment - principal;
+    }
+
+    propertyPriceEl.textContent = "₹ " + fmt(propertyPrice);
+    downAmountEl.textContent = "₹ " + fmt(downAmount);
+    loanAmountEl.textContent = "₹ " + fmt(principal);
+    emiEl.textContent = monthlyEMI > 0 ? "₹ " + fmt(monthlyEMI) : "₹ 0";
+    totalPaymentEl.textContent = "₹ " + fmt(totalPayment);
+    totalInterestEl.textContent = "₹ " + fmt(totalInterest);
+  }
+
+  // Calculate on button click & live updates
+  calcBtn.addEventListener('click', calculate);
+  [pricePerGaj, gajCount, downPercent, annualRate, months].forEach(el=>{
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter') calculate();
+    });
+    el.addEventListener('input', function(){ /* optional live update: uncomment below */
+      // calculate();
+    });
+  });
+
+  // initial calculation
+  calculate();
+})();
+</script>
