@@ -5,51 +5,49 @@ permalink: /emi/
 ---
 
 <style>
-.emi-mini {
-  max-width: 520px;
-  padding: 10px;
-  border-radius: 10px;
-  background: #ffffff;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+/* Compact homepage-ready EMI card */
+.emi-card {
+  max-width:520px;
+  padding:12px;
+  border-radius:10px;
+  background:#fff;
+  box-shadow:0 6px 18px rgba(0,0,0,0.06);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-  font-size: 13px;
+  font-size:13px;
 }
-.emi-row { display:flex; gap:8px; align-items:center; }
-.emi-row.col { flex-direction:column; align-items:stretch; }
-.emi-title { font-weight:800; font-size:18px; margin:0 0 8px 0; }
+.emi-title { font-weight:800; font-size:18px; margin:0 0 10px 0; }
+.grid3 { display:grid; grid-template-columns: repeat(3,1fr); gap:8px; }
+.grid2 { display:grid; grid-template-columns: repeat(2,1fr); gap:8px; }
 .input, select { padding:8px 10px; border-radius:8px; border:1px solid #e6e7ea; font-size:13px; width:100%; box-sizing:border-box; }
-.small { font-size:12px; color:#6b7280; }
-.grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:8px; }
-.grid-2 { display:grid; grid-template-columns: repeat(2, 1fr); gap:8px; }
-.btn { padding:8px 10px; border-radius:8px; border:0; background:#0ea5a4; color:#fff; font-weight:700; cursor:pointer; font-size:13px; }
-.result { margin-top:8px; display:flex; justify-content:space-between; align-items:center; padding:8px; border-radius:8px; background:#f8fafc; }
-.kicker { font-size:12px; color:#374151; }
+.small { font-size:12px; color:#4b5563; margin-bottom:6px; display:block; }
+.preset-row { display:flex; gap:6px; flex-wrap:wrap; margin-top:8px; }
+.preset { padding:6px 8px; border-radius:8px; border:1px solid #d1d5db; background:#f8fafc; cursor:pointer; font-weight:600; font-size:13px; }
+.preset.selected { border-color:#0ea5a4; background:#e6fffb; }
+.btn-calc { padding:8px 10px; border-radius:8px; border:0; background:#0ea5a4; color:#fff; font-weight:700; cursor:pointer; width:100%; }
+.result { margin-top:10px; display:grid; gap:8px; }
+.result-row { display:flex; justify-content:space-between; align-items:center; padding:8px; border-radius:8px; background:#fbfdff; border:1px solid #eef2f7; }
+.kicker { color:#374151; font-size:13px; }
 .value { font-weight:700; }
-.toggle { display:flex; gap:8px; align-items:center; }
-.radio-label { font-size:13px; color:#374151; }
-@media (max-width:480px) {
-  .grid { grid-template-columns: 1fr; }
-  .grid-2 { grid-template-columns: 1fr; }
-}
+@media (max-width:480px){ .grid3{grid-template-columns:1fr;} .grid2{grid-template-columns:1fr;} }
 </style>
 
-<div class="emi-mini" aria-labelledby="emi-mini-title">
-  <div class="emi-title" id="emi-mini-title">EMI Calculator</div>
+<div class="emi-card" role="region" aria-labelledby="emi-title">
+  <div id="emi-title" class="emi-title">EMI Calculator</div>
 
-  <div class="grid">
+  <div class="grid3" aria-hidden="false">
     <div>
       <label class="small">Rate (₹)</label>
-      <input id="emi_rate" class="input" type="number" min="0" step="1" value="20000" />
+      <input id="rate" class="input" type="number" min="0" step="1" value="20000" />
     </div>
 
     <div>
       <label class="small">Gaj</label>
-      <input id="emi_gaj" class="input" type="number" min="0" step="0.1" placeholder="" value="" />
+      <input id="gaj" class="input" type="number" min="0" step="0.1" value="100" />
     </div>
 
     <div>
-      <label class="small">Tenure</label>
-      <select id="emi_months" class="input" aria-label="Tenure months">
+      <label class="small">Tenure (months)</label>
+      <select id="months" class="input" aria-label="Tenure">
         <option value="12">12</option>
         <option value="18">18</option>
         <option value="24">24</option>
@@ -59,103 +57,239 @@ permalink: /emi/
     </div>
   </div>
 
-  <div style="margin-top:8px;" class="grid-2">
-    <div>
-      <label class="small">Down payment</label>
-      <div class="toggle" style="margin-top:6px;">
-        <label class="radio-label"><input type="radio" name="emi_down_type" value="percent" checked> %</label>
-        <label class="radio-label"><input type="radio" name="emi_down_type" value="amount"> ₹</label>
-      </div>
+  <div style="margin-top:10px;">
+    <div class="small">Down payment</div>
 
-      <div id="emi_down_pct_wrap" style="margin-top:6px;">
-        <input id="emi_down_pct" class="input" type="number" min="0" max="100" step="0.1" value="20" />
-      </div>
-
-      <div id="emi_down_amt_wrap" style="display:none;margin-top:6px;">
-        <input id="emi_down_amt" class="input" type="number" min="0" step="1" value="0" />
-      </div>
+    <!-- Preset percent buttons (showing computed amounts) -->
+    <div id="presetRow" class="preset-row" aria-hidden="false">
+      <!-- Buttons injected by JS -->
     </div>
 
-    <div style="display:flex;flex-direction:column;justify-content:flex-end;">
-      <button id="emi_calc_btn" class="btn">Calculate</button>
+    <!-- manual toggle (percent / amount) -->
+    <div style="margin-top:8px;" class="grid2">
+      <div>
+        <div class="small">Mode</div>
+        <div style="display:flex;gap:8px;margin-top:6px;">
+          <label><input type="radio" name="down_mode" value="percent" checked> %</label>
+          <label><input type="radio" name="down_mode" value="amount"> ₹</label>
+        </div>
+      </div>
+
+      <div>
+        <div class="small">Enter value</div>
+        <input id="down_input" class="input" type="number" min="0" step="0.1" value="20" />
+      </div>
     </div>
   </div>
 
-  <div id="emi_results" style="margin-top:10px;">
-    <div class="result"><div class="kicker">Property</div><div class="value" id="emi_prop">₹ 0</div></div>
-    <div class="result" style="margin-top:6px;"><div class="kicker">Down</div><div class="value" id="emi_down">₹ 0</div></div>
-    <div class="result" style="margin-top:6px;"><div class="kicker">Loan</div><div class="value" id="emi_loan">₹ 0</div></div>
-    <div class="result" style="margin-top:6px;"><div class="kicker">Monthly</div><div class="value" id="emi_monthly">₹ 0</div></div>
+  <div style="margin-top:10px; display:flex; gap:8px;">
+    <button id="calcBtn" class="btn-calc">Calculate</button>
+  </div>
+
+  <div class="result" aria-live="polite" id="results">
+    <div class="result-row"><div class="kicker">Property</div><div class="value" id="res_property">₹ 0</div></div>
+    <div class="result-row"><div class="kicker">Down</div><div class="value" id="res_down">₹ 0</div></div>
+    <div class="result-row"><div class="kicker">Loan</div><div class="value" id="res_loan">₹ 0</div></div>
+    <div class="result-row"><div class="kicker">Monthly</div><div class="value" id="res_monthly">₹ 0</div></div>
   </div>
 </div>
 
 <script>
 (function(){
-  const rate = id('emi_rate');
-  const gaj = id('emi_gaj');
-  const months = id('emi_months');
+  // elements
+  const rate = id('rate');
+  const gaj = id('gaj');
+  const months = id('months');
+  const presetRow = id('presetRow');
+  const downInput = id('down_input');
+  const calcBtn = id('calcBtn');
 
-  const downPctWrap = id('emi_down_pct_wrap');
-  const downAmtWrap = id('emi_down_amt_wrap');
-  const downPct = id('emi_down_pct');
-  const downAmt = id('emi_down_amt');
+  const resProp = id('res_property');
+  const resDown = id('res_down');
+  const resLoan = id('res_loan');
+  const resMonthly = id('res_monthly');
 
-  const calcBtn = id('emi_calc_btn');
+  // Preset percentages requested
+  const PRESETS = [10,15,20,25,30,33,40,50];
 
-  const propEl = id('emi_prop');
-  const downEl = id('emi_down');
-  const loanEl = id('emi_loan');
-  const monthlyEl = id('emi_monthly');
+  let selectedPreset = 20; // default selected percent
+  let mode = 'percent'; // 'percent' or 'amount'
 
-  // down type toggle
-  document.querySelectorAll('input[name="emi_down_type"]').forEach(r=>{
-    r.addEventListener('change', function(){
-      if (this.value === 'percent') {
-        downPctWrap.style.display = '';
-        downAmtWrap.style.display = 'none';
+  // format number for INR
+  function fmt(n){
+    return new Intl.NumberFormat('en-IN', {maximumFractionDigits:2}).format(n || 0);
+  }
+  function id(x){ return document.getElementById(x); }
+  function safeNum(v){ const n = parseFloat(v); return isFinite(n) ? n : 0; }
+
+  // create preset buttons showing percent and computed amount
+  function renderPresets(property){
+    presetRow.innerHTML = '';
+    PRESETS.forEach(pct=>{
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'preset' + (pct === selectedPreset ? ' selected' : '');
+      const amount = property * (pct/100);
+      btn.dataset.pct = String(pct);
+      btn.innerHTML = pct + '%<div style="font-size:12px;font-weight:600;margin-top:4px;">₹ ' + fmt(amount) + '</div>';
+      btn.addEventListener('click', function(){
+        selectedPreset = pct;
+        // set mode to percent and update down input
+        mode = 'percent';
+        document.querySelector('input[name="down_mode"][value="percent"]').checked = true;
+        downInput.value = pct;
+        updatePresetSelection();
+        calculateAndShow();
+        // focus the calculate button for easy flow
+        calcBtn.focus();
+      });
+      presetRow.appendChild(btn);
+    });
+  }
+
+  function updatePresetSelection(){
+    presetRow.querySelectorAll('.preset').forEach(el=>{
+      el.classList.toggle('selected', Number(el.dataset.pct) === Number(selectedPreset));
+    });
+  }
+
+  // calculate values and update UI
+  function calculateAndShow(autoFocusAfterProperty=false){
+    const r = safeNum(rate.value);
+    const g = safeNum(gaj.value);
+    const m = parseInt(months.value,10) || 36;
+    const property = r * g;
+
+    // if down mode is percent set downAmount accordingly; else treat as absolute amount (₹)
+    mode = document.querySelector('input[name="down_mode"]:checked').value;
+    let downAmount = 0;
+    if (mode === 'percent') {
+      const pct = Math.max(0, Math.min(100, safeNum(downInput.value)));
+      downAmount = property * (pct / 100);
+      // keep selectedPreset aligned (if exact match)
+      if (PRESETS.includes(Math.round(pct))) selectedPreset = Math.round(pct);
+    } else {
+      downAmount = Math.max(0, safeNum(downInput.value));
+    }
+
+    if (downAmount > property) downAmount = property;
+
+    const loan = Math.max(0, property - downAmount);
+    const monthly = m > 0 ? (loan / m) : 0;
+
+    // update UI
+    resProp.textContent = '₹ ' + fmt(property);
+    resDown.textContent = '₹ ' + fmt(downAmount);
+    resLoan.textContent = '₹ ' + fmt(loan);
+    resMonthly.textContent = '₹ ' + fmt(monthly);
+
+    // refresh preset buttons amounts and selection
+    renderPresets(property);
+    updatePresetSelection();
+
+    // Auto-focus behavior:
+    // If rate & gaj were just filled and autoFocusAfterProperty===true -> focus months
+    if (autoFocusAfterProperty) {
+      months.focus();
+    }
+  }
+
+  // Input listeners:
+  // When both rate and gaj have values > 0 we calculate property and focus months
+  function onRateOrGajInput(e){
+    const r = safeNum(rate.value);
+    const g = safeNum(gaj.value);
+    if (r > 0 && g > 0) {
+      // show property and move focus to months for quick selection
+      calculateAndShow(true);
+      // once user changes months, focus down payment input
+      months.addEventListener('change', function onceFocus(){
+        downInput.focus();
+        months.removeEventListener('change', onceFocus);
+      });
+    } else {
+      calculateAndShow(false);
+    }
+  }
+
+  // when mode changed toggle downInput value semantics (if switching to percent and we have a preset, set to selectedPreset)
+  document.querySelectorAll('input[name="down_mode"]').forEach(radio=>{
+    radio.addEventListener('change', function(){
+      mode = this.value;
+      if (mode === 'percent') {
+        // if currently an amount greater than zero, convert to percent (if possible)
+        const property = safeNum(rate.value) * safeNum(gaj.value);
+        if (property > 0) {
+          // compute percent from current amount
+          const currAmt = safeNum(downInput.value);
+          const pct = Math.round((currAmt / property) * 10000)/100; // two decimals approx
+          // if a common preset matches approx, set that; else set pct (clamped)
+          downInput.value = Math.max(0, Math.min(100, isFinite(pct) ? pct : selectedPreset));
+        } else {
+          downInput.value = selectedPreset;
+        }
       } else {
-        downPctWrap.style.display = 'none';
-        downAmtWrap.style.display = '';
+        // switching to amount: if percent value exists, convert it to rupees using property
+        const property = safeNum(rate.value) * safeNum(gaj.value);
+        if (property > 0) {
+          const pct = safeNum(downInput.value);
+          const amt = property * (pct/100);
+          downInput.value = Math.round(amt);
+        } else {
+          downInput.value = 0;
+        }
+      }
+      calculateAndShow();
+    });
+  });
+
+  // preset buttons are created inside renderPresets; initial render
+  renderPresets(safeNum(rate.value) * safeNum(gaj.value));
+  updatePresetSelection();
+
+  // wire up events
+  rate.addEventListener('input', onRateOrGajInput);
+  gaj.addEventListener('input', onRateOrGajInput);
+
+  months.addEventListener('change', function(){ 
+    // after months chosen, focus down input for quick flow
+    setTimeout(()=>downInput.focus(), 50);
+    calculateAndShow();
+  });
+
+  downInput.addEventListener('input', function(){
+    // keep percent input clamped if in percent mode
+    if (document.querySelector('input[name="down_mode"]:checked').value === 'percent') {
+      const v = Math.max(0, Math.min(100, safeNum(this.value)));
+      if (v !== Number(this.value)) this.value = v;
+    } else {
+      // amount mode - ensure not negative
+      if (Number(this.value) < 0) this.value = 0;
+    }
+    calculateAndShow();
+  });
+
+  calcBtn.addEventListener('click', function(){
+    calculateAndShow();
+    calcBtn.blur();
+  });
+
+  // Enter key acts like calculate
+  [rate,gaj,downInput,months].forEach(el=>{
+    el.addEventListener('keydown', function(e){
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        calculateAndShow();
       }
     });
   });
 
-  function fmt(n){ return new Intl.NumberFormat('en-IN', {maximumFractionDigits:2}).format(n); }
-  function safeNum(v){ const n = parseFloat(v); return isFinite(n) ? n : 0; }
-
-  function calculate(){
-    const r = safeNum(rate.value);
-    const g = safeNum(gaj.value);
-    const m = parseInt(months.value,10) || 12;
-
-    const property = r * g;
-    let down = 0;
-    if (document.querySelector('input[name="emi_down_type"]:checked').value === 'percent') {
-      const pct = Math.max(0, Math.min(100, safeNum(downPct.value)));
-      down = property * (pct/100);
-    } else {
-      down = Math.max(0, safeNum(downAmt.value));
-      if (down > property) down = property;
-    }
-
-    const loan = Math.max(0, property - down);
-    const monthly = m > 0 ? (loan / m) : 0;
-
-    propEl.textContent = "₹ " + fmt(property);
-    downEl.textContent = "₹ " + fmt(down);
-    loanEl.textContent = "₹ " + fmt(loan);
-    monthlyEl.textContent = "₹ " + fmt(monthly);
-  }
-
-  calcBtn.addEventListener('click', calculate);
-
-  // Helpers
-  function id(x){ return document.getElementById(x); }
-
-  // initial calc (gaj empty => property 0)
-  calculate();
+  // initial calculation
+  calculateAndShow(false);
 })();
 </script>
+
+
 
 
 
