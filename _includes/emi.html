@@ -1,3 +1,27 @@
+{% comment %}
+EMI CALCULATOR INCLUDE — QUICK GUIDE
+
+This file is meant to be included using:
+    {% include emi.html rate=VALUE gaj=VALUE %}
+
+● rate = default rate per gaj (number)
+● gaj  = default total gaj    (number)
+
+Examples:
+    {% include emi.html rate=15000 gaj=100 %}
+    {% include emi.html rate=18000 %}
+    {% include emi.html gaj=200 %}
+
+If no values are passed:
+    rate defaults to 15000
+    gaj  defaults to 100
+
+Only edit the HTML/CSS/JS below if you want to change design or behavior.
+Otherwise, change default values directly from where you include this file.
+
+DO NOT modify IDs (rate, gaj, months, etc.) unless you also update JS.
+{% endcomment %}
+
 {% assign default_rate = include.rate | default: 15000 %}
 {% assign default_gaj  = include.gaj  | default: 100 %}
 
