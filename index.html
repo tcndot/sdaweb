@@ -712,3 +712,90 @@ permalink: /
   </script>
 </section>
 
+<!-- ============================
+     EMI CALCULATOR SECTION
+     ============================ -->
+<section id="emi-section" style="padding:40px 16px; background:#f7faf7; font-family:Inter, Arial;">
+  <div style="max-width:840px; margin:0 auto; background:#fff; border-radius:14px; box-shadow:0 8px 28px rgba(10,30,10,0.06); padding:28px;">
+
+    <h2 style="font-size:22px; font-weight:900; margin:0 0 20px; color:#14532d;">
+      EMI Calculator
+    </h2>
+
+    <div style="display:grid; gap:16px; grid-template-columns:1fr 1fr;">
+      <div>
+        <label>Rate per Gaj (₹)</label>
+        <input id="emi-rate" type="number" value="15000" style="width:100%; padding:12px; border-radius:8px; border:1px solid #ccc;">
+      </div>
+
+      <div>
+        <label>Total Gaj</label>
+        <input id="emi-gaj" type="number" value="100" style="width:100%; padding:12px; border-radius:8px; border:1px solid #ccc;">
+      </div>
+
+      <div>
+        <label>Months</label>
+        <input id="emi-months" type="number" value="12" style="width:100%; padding:12px; border-radius:8px; border:1px solid #ccc;">
+      </div>
+
+      <div>
+        <label>Down Payment %</label>
+        <select id="emi-down" style="width:100%; padding:12px; border-radius:8px; border:1px solid #ccc;">
+          <option value="0">0%</option>
+          <option value="10">10%</option>
+          <option value="20">20%</option>
+          <option value="30">30%</option>
+          <option value="40">40%</option>
+          <option value="50">50%</option>
+        </select>
+      </div>
+    </div>
+
+    <div style="margin-top:24px; padding:16px; background:#f0fdf4; border-radius:12px; font-weight:700;">
+      <div>Total Property Value: <span id="emi-total" style="font-weight:900; color:#0f3f23;">₹ 0</span></div>
+      <div style="margin-top:8px;">Monthly EMI: <span id="emi-result" style="font-weight:900; color:#1f7a3a;">₹ 0</span></div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function(){
+  // ======= CHANGE ONLY THESE TWO DEFAULTS =======
+  const DEFAULT_RATE = 15000;  // EDIT THIS
+  const DEFAULT_GAJ  = 100;    // EDIT THIS
+  // ===============================================
+
+  const r = document.getElementById('emi-rate');
+  const g = document.getElementById('emi-gaj');
+  const m = document.getElementById('emi-months');
+  const d = document.getElementById('emi-down');
+  const total = document.getElementById('emi-total');
+  const emi = document.getElementById('emi-result');
+
+  // apply defaults at load
+  r.value = DEFAULT_RATE;
+  g.value = DEFAULT_GAJ;
+
+  function fmt(x){
+    return new Intl.NumberFormat('en-IN',{maximumFractionDigits:0}).format(x);
+  }
+
+  function calc(){
+    const rate = Number(r.value) || 0;
+    const gaj = Number(g.value) || 0;
+    const months = Number(m.value) || 1;
+    const downPct = Number(d.value) || 0;
+
+    const price = rate * gaj;
+    const down = price * (downPct/100);
+    const loan = price - down;
+    const monthly = Math.round(loan / months);
+
+    total.textContent = "₹ " + fmt(price);
+    emi.textContent = "₹ " + fmt(monthly);
+  }
+
+  [r,g,m,d].forEach(el => el.addEventListener('input', calc));
+  calc();
+})();
+</script>
