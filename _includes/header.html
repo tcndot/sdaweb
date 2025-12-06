@@ -162,9 +162,11 @@ html.menu-open, body.menu-open { overflow:hidden; height:100%; }
 
 
        
-    <!-- 
-       yaha pe puranacheckbox toggle tha mobile me menu kholne ke liye
-       -->
+    <!-- Mobile hamburger button (JS-controlled) -->
+<button class="sda-menu-btn" id="sdaMenuBtn" aria-controls="sdaMobileMenu" aria-expanded="false" aria-label="Toggle menu">
+  <span class="hamb" aria-hidden="true"><span></span><span></span><span></span></span>
+  <span class="sda-menu-text">Menu</span>
+</button>
 
     <div class="sda-mobile-menu" role="menu" aria-hidden="true">
       <a href="{{ '/' | relative_url }}" style="display:block;padding:8px 6px">Home</a>
