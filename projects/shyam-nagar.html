@@ -3,11 +3,25 @@ layout: project
 title: Shyam Nagar
 location: Near Jaunti Border in Haryana
 subtitle: Premium plots in Delhi NCR
-image: /tmp/img1.jpg
-map_image: /assets/sn/map.jpeg   # top map/photo
+
+# Top map/photo (use an asset path; layout will call | relative_url)
+map_image: /assets/sn/map.jpeg
+
+# Main hero image (optional)
+image: /assets/projects/shyam-nagar/cover.jpg
+
+# Gallery (shown in slideshow). Replace with real asset paths.
 gallery:
-  - /tmp/img1.jpg
-  - /tmp/img2.jpg
+  - /assets/projects/shyam-nagar/1.jpg
+  - /assets/projects/shyam-nagar/2.jpg
+
+# Rotating rows (optional). Each row is an array of image paths.
+# You can add/delete rows or images as you like.
+rotating_rows:
+  - [ /assets/projects/shyam-nagar/3.jpg, /assets/projects/shyam-nagar/4.jpg, /assets/projects/shyam-nagar/5.jpg ]
+  - [ /assets/projects/shyam-nagar/6.jpg, /assets/projects/shyam-nagar/7.jpg ]
+  - [ /assets/projects/shyam-nagar/8.jpg, /assets/projects/shyam-nagar/9.jpg, /assets/projects/shyam-nagar/10.jpg ]
+
 points:
   - label: "No. of plots"
     value: "100+"
@@ -15,11 +29,16 @@ points:
     value: "200 - 400 sq yd"
   - label: "Possession"
     value: "Ready to register"
+
 qa:
   - q: "Is registration done?"
     a: "Yes, all clear titles and registered."
   - q: "Are EMI options available?"
     a: "Yes — developer finance + bank loans."
+
+# Optional: uncomment to force a specific URL (use if you rename files or need redirects)
+# permalink: /projects/shyam-nagar/
+
 ---
 <!-- Page content below (this will appear below the details box) -->
-<p>Some longer description and list of amenities...</p>
+<p>Some longer description and list of amenities, approach roads, nearby landmarks, and contact info.</p>
