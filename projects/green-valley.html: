@@ -1,0 +1,25 @@
+---
+layout: project
+title: Green Valley Floors
+location: Green Valley, Sector 45, Noida
+subtitle: Premium plots facing east and 40' main road
+image: /assets/projects/green-valley/cover.jpg
+map_image: /assets/projects/green-valley/map.jpg   # top map/photo
+gallery:
+  - /assets/projects/green-valley/1.jpg
+  - /assets/projects/green-valley/2.jpg
+points:
+  - label: "No. of plots"
+    value: "72"
+  - label: "Plot sizes"
+    value: "200 - 400 sq yd"
+  - label: "Possession"
+    value: "Ready to register"
+qa:
+  - q: "Is registration done?"
+    a: "Yes, all clear titles and registered."
+  - q: "Are EMI options available?"
+    a: "Yes — developer finance + bank loans."
+---
+<!-- Page content below (this will appear below the details box) -->
+<p>Some longer description and list of amenities...</p>
