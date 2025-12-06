@@ -107,7 +107,16 @@ html.menu-open, body.menu-open { overflow:hidden; height:100%; }
 
    
 
-    
+    /* ===== Desktop override: force-hide mobile menu controls ===== */
+@media (min-width: 861px) {
+  .sda-menu-btn { display: none !important; }
+  .sda-mobile-menu { 
+    display: none !important; 
+    opacity: 0 !important; 
+    pointer-events: none !important;
+  }
+  .sda-nav { display: flex !important; }
+}
   </style>
 
   <div class="sda-header-topbar" role="banner">
