@@ -168,7 +168,9 @@ html.menu-open, body.menu-open { overflow:hidden; height:100%; }
   <span class="sda-menu-text">Menu</span>
 </button>
 
-    <div class="sda-mobile-menu" role="menu" aria-hidden="true">
+    
+         <div class="sda-mobile-menu" id="sdaMobileMenu" role="menu" aria-hidden="true">
+
       <a href="{{ '/' | relative_url }}" style="display:block;padding:8px 6px">Home</a>
       <a href="{{ '/about/' | relative_url }}" style="display:block;padding:8px 6px">About Us</a>
       <a href="{{ '/careers/' | relative_url }}" style="display:block;padding:8px 6px">Careers</a>
@@ -176,6 +178,55 @@ html.menu-open, body.menu-open { overflow:hidden; height:100%; }
   </div>
        
   </div>
+     <script>
+document.addEventListener("DOMContentLoaded", function() {
+  const btn = document.getElementById("sdaMenuBtn");
+  const menu = document.getElementById("sdaMobileMenu");
+  if (!btn || !menu) return;
+
+  function openMenu() {
+    btn.classList.add("open");
+    menu.classList.add("open");
+    btn.setAttribute("aria-expanded","true");
+    menu.setAttribute("aria-hidden","false");
+    const first = menu.querySelector("a");
+    if (first) first.focus();
+    document.documentElement.classList.add("menu-open");
+  }
+  function closeMenu() {
+    btn.classList.remove("open");
+    menu.classList.remove("open");
+    btn.setAttribute("aria-expanded","false");
+    menu.setAttribute("aria-hidden","true");
+    btn.focus();
+    document.documentElement.classList.remove("menu-open");
+  }
+
+  // toggle on button click
+  btn.addEventListener("click", function(e){
+    e.stopPropagation();
+    if (menu.classList.contains("open")) closeMenu();
+    else openMenu();
+  });
+
+  // click outside closes menu
+  document.addEventListener("click", function(e){
+    if (!menu.classList.contains("open")) return;
+    if (menu.contains(e.target) || btn.contains(e.target)) return;
+    closeMenu();
+  });
+
+  // escape closes menu
+  document.addEventListener("keydown", function(e){
+    if (e.key === "Escape" && menu.classList.contains("open")) closeMenu();
+  });
+
+  // auto-close on resize to desktop width
+  window.addEventListener("resize", function(){
+    if (window.innerWidth > 860 && menu.classList.contains("open")) closeMenu();
+  });
+});
+</script>
 </header>
 
 
