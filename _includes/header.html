@@ -55,6 +55,76 @@
       z-index:4800;
     }
 
+       /* ----- hamburger button (JS-driven) ----- */
+.sda-menu-btn {
+  display: none; /* shown on mobile via media query below */
+  margin-left: auto;
+  background:#fff;
+  color:#1a3a1a;
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(26,58,26,0.12);
+  font-weight:800;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.sda-menu-btn .hamb { width:18px; height:14px; position:relative; display:inline-block; }
+.sda-menu-btn .hamb span {
+  position:absolute;
+  left:0; right:0;
+  height:2px;
+  background:#163d1b;
+  border-radius:2px;
+  transition: transform .22s ease, opacity .18s ease;
+}
+.sda-menu-btn .hamb span:nth-child(1){ top:0; }
+.sda-menu-btn .hamb span:nth-child(2){ top:6px; }
+.sda-menu-btn .hamb span:nth-child(3){ top:12px; }
+
+/* morph to X when open */
+.sda-menu-btn.open .hamb span:nth-child(1){ transform: translateY(6px) rotate(45deg); }
+.sda-menu-btn.open .hamb span:nth-child(2){ opacity:0; transform: scale(0.8); }
+.sda-menu-btn.open .hamb span:nth-child(3){ transform: translateY(-6px) rotate(-45deg); }
+
+/* animated mobile menu (JS toggles .open) */
+.sda-mobile-menu {
+  display:none;    /* keep hidden until JS toggles class */
+  position:fixed;
+  right:4vw;
+  top: calc(40px + 64px + 8px);
+  width: min(92vw, 320px);
+  background:#fff;
+  color:#12321a;
+  border-radius:10px;
+  padding:10px;
+  box-shadow:0 14px 40px rgba(10,20,10,0.12);
+  z-index:4800;
+
+  opacity:0;
+  transform: translateY(-8px) scale(.99);
+  transition: opacity .28s cubic-bezier(.2,.9,.2,1), transform .28s cubic-bezier(.2,.9,.2,1);
+  pointer-events:none;
+}
+.sda-mobile-menu.open {
+  display:block;
+  opacity:1;
+  transform: translateY(0) scale(1);
+  pointer-events:auto;
+}
+
+/* show hamburger on mobile, hide desktop nav */
+@media (max-width:860px){
+  .sda-nav{ display:none; }
+  .sda-menu-btn{ display:flex; }
+  .sda-branding .sda-logo{ width:44px; height:44px; }
+}
+
+/* optional: prevent body scroll while menu open (only if you want) */
+html.menu-open, body.menu-open { overflow:hidden; height:100%; }
+
    
 
     @media (max-width:860px){
