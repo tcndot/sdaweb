@@ -9,6 +9,9 @@ markdown: kramdown
 collections:
   posts:
     output: true
+  projects:
+    output: true
+    permalink: /projects/:name/
 
 # Default layout for blog posts
 defaults:
@@ -20,6 +23,3 @@ defaults:
 
 # Keep permalinks simple and clean
 permalink: /blogs/:title/
-
-
----
