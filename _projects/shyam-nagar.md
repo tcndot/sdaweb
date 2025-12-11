@@ -24,9 +24,9 @@ rotating_rows:
 
 points:
   - label: "No. of plots"
-    value: "100+"
+    value: "59 plots + different size plots"
   - label: "Plot sizes"
-    value: "200 - 400 sq yd"
+    value: "30-100 gaj"
   - label: "Possession"
     value: "Ready to register"
 
