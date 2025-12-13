@@ -81,4 +81,3 @@ We don't just sell land; we sell freedom from rent. Our core mission is to help 
 ### Area Development Reference
 To see the rapid infrastructure development happening on the Nahra-Nahri Road, watch this reference video:
 
-<a href="https://www.youtube.com/watch?v=CMF1ll-DNbc" target="_blank" style="color:#0044cc; text-decoration:underline;">Watch: Nahra Nahri Road to Sector 9 Bypass Bahadurgarh</a>
