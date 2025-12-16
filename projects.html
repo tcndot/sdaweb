@@ -25,7 +25,7 @@ permalink: /projects/
       <a href="{{ p.url | relative_url }}"
          style="
            display:block;
-           max-width:420px;
+           max-width:380px;
            margin:0 auto 40px auto;
            text-decoration:none;
            color:inherit;
@@ -41,7 +41,7 @@ permalink: /projects/
         <!-- TITLE -->
         <div style="
             text-align:center;
-            padding:16px 14px 12px;
+            padding:14px 14px 10px;
             font-size:20px;
             font-weight:700;
             color:#0f172a;
@@ -50,11 +50,11 @@ permalink: /projects/
           {{ p.title }}
         </div>
 
-        <!-- MEDIA (HEIGHT REDUCED ONLY) -->
+        <!-- MEDIA (PROPORTIONAL, NO CROPPING LOGIC CHANGE) -->
         <div class="project-rotator"
              style="
                width:100%;
-               height:160px;
+               aspect-ratio: {{ p.media_ratio | default: '16/9' }};
                position:relative;
                background:#e5e7eb;
              ">
@@ -146,13 +146,9 @@ permalink: /projects/
 </script>
 
 <style>
-  /* Desktop only: still compact */
   @media (min-width: 768px) {
     a[href^="/projects/"] {
-      max-width: 520px !important;
-    }
-    .project-rotator {
-      height: 220px !important;
+      max-width: 460px !important;
     }
   }
 </style>
