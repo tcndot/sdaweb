@@ -4,9 +4,9 @@ title: Projects
 permalink: /projects/
 ---
 
-<section class="py-12">
+<section style="padding: 60px 0;">
 
-  <h1 class="text-3xl font-extrabold text-center mb-12">
+  <h1 style="text-align:center; font-size:28px; font-weight:800; margin-bottom:50px;">
     Our Projects
   </h1>
 
@@ -15,106 +15,92 @@ permalink: /projects/
   {% for p in projects_sorted %}
     {% if p.title %}
 
-      <!-- CARD WRAPPER (clickable) -->
-      <a href="{{ p.url | relative_url }}"
-         class="block max-w-3xl mx-auto mb-24 border rounded-xl shadow-sm overflow-hidden bg-white hover:shadow-md transition">
+      <!-- OUTER CENTER WRAPPER -->
+      <div style="max-width:900px; margin:0 auto 90px auto;">
 
-        <!-- TITLE -->
-        <div class="p-6 border-b text-center">
-          <h2 class="text-2xl font-bold">
-            {{ p.title }}
-          </h2>
-        </div>
+        <!-- CLICKABLE CARD -->
+        <a href="{{ p.url | relative_url }}"
+           style="display:block; border:1px solid #e5e7eb; border-radius:14px; overflow:hidden; text-decoration:none; color:inherit; background:#fff;">
 
-        <!-- IMAGE AREA -->
-        <div class="relative project-rotator">
+          <!-- TITLE -->
+          <div style="padding:22px; border-bottom:1px solid #eee; text-align:center;">
+            <h2 style="font-size:22px; font-weight:700; margin:0;">
+              {{ p.title }}
+            </h2>
+          </div>
 
-          {% assign slides = "" | split: "" %}
+          <!-- MEDIA AREA -->
+          <div class="project-media" style="position:relative; height:360px; background:#f3f4f6;">
 
-          {%- comment -%} Map first (mini) {%- endcomment -%}
-          {% if p.map_image %}
-            {% assign slides = slides | push: p.map_image %}
-          {% endif %}
+            <!-- MAP (STATIC, ALWAYS VISIBLE) -->
+            {% if p.map_image %}
+              <img src="{{ p.map_image | relative_url }}"
+                   alt="Project map"
+                   style="position:absolute; top:0; left:0; width:100%; height:120px; object-fit:cover; border-bottom:1px solid #ddd;">
+            {% endif %}
 
-          {%- comment -%} Gallery images next {%- endcomment -%}
-          {% if p.gallery %}
-            {% for img in p.gallery limit:2 %}
-              {% assign slides = slides | push: img %}
-            {% endfor %}
-          {% elsif p.image %}
-            {% assign slides = slides | push: p.image %}
-          {% endif %}
-
-          {% if slides.size > 0 %}
-            {% for img in slides %}
-              <img
-                src="{{ img | relative_url }}"
-                alt="{{ p.title }}"
-                class="rot-slide absolute inset-0 w-full object-cover opacity-0 transition-opacity duration-700"
-                data-type="{% if forloop.first %}map{% else %}image{% endif %}"
-                loading="lazy">
-            {% endfor %}
-          {% else %}
-            <div class="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500">
-              No image available
+            <!-- IMAGE SLIDES -->
+            <div class="project-slides" style="position:absolute; top:120px; left:0; right:0; bottom:0;">
+              {% if p.gallery %}
+                {% for img in p.gallery limit:2 %}
+                  <img src="{{ img | relative_url }}"
+                       class="proj-slide"
+                       style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .6s;">
+                {% endfor %}
+              {% elsif p.image %}
+                <img src="{{ p.image | relative_url }}"
+                     class="proj-slide"
+                     style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:1;">
+              {% endif %}
             </div>
-          {% endif %}
-        </div>
 
-        <!-- TEXT (ALWAYS VISIBLE) -->
-        <div class="p-6 text-center">
-          {% if p.listing and p.listing.highlight %}
-            <div class="font-semibold mb-2">
-              {{ p.listing.highlight }}
-            </div>
-          {% endif %}
+          </div>
 
-          {% if p.listing and p.listing.summary %}
-            <div class="text-gray-700">
-              {{ p.listing.summary }}
-            </div>
-          {% endif %}
-        </div>
+          <!-- TEXT (NEVER ROTATES) -->
+          <div style="padding:22px; text-align:center;">
+            {% if p.listing and p.listing.highlight %}
+              <div style="font-weight:600; margin-bottom:6px;">
+                {{ p.listing.highlight }}
+              </div>
+            {% endif %}
 
-      </a>
+            {% if p.listing and p.listing.summary %}
+              <div style="color:#444; line-height:1.5;">
+                {{ p.listing.summary }}
+              </div>
+            {% endif %}
+          </div>
+
+        </a>
+      </div>
 
     {% endif %}
   {% endfor %}
 </section>
 
-<!-- ROTATION SCRIPT -->
 <script>
-  document.querySelectorAll('.project-rotator').forEach(rotator => {
-    const slides = rotator.querySelectorAll('.rot-slide');
+  document.querySelectorAll('.project-slides').forEach(slider => {
+    const slides = slider.querySelectorAll('.proj-slide');
     if (slides.length <= 1) return;
 
     let i = 0;
-
-    slides.forEach(slide => {
-      if (slide.dataset.type === 'map') {
-        slide.style.height = '220px';
-      } else {
-        slide.style.height = '380px';
-      }
-    });
-
-    slides[0].classList.add('opacity-100');
+    slides[0].style.opacity = 1;
 
     setInterval(() => {
-      slides[i].classList.remove('opacity-100');
+      slides[i].style.opacity = 0;
       i = (i + 1) % slides.length;
-      slides[i].classList.add('opacity-100');
+      slides[i].style.opacity = 1;
     }, 3500);
   });
 </script>
 
 <style>
   @media (max-width: 640px) {
-    .rot-slide[data-type="map"] {
-      height: 160px !important;
-    }
-    .rot-slide[data-type="image"] {
+    .project-media {
       height: 240px !important;
+    }
+    .project-media img {
+      height: 90px !important;
     }
   }
 </style>
