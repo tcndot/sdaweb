@@ -488,13 +488,13 @@ permalink: /
     }
 
     .sda-projects-track {
-      display:flex;
-      gap:14px;
-      overflow-x:auto;
-      padding:0 14px 10px;
-      scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;
-    }
+  display:flex;
+  gap:14px;
+  overflow-x:auto;
+  padding:0 calc((100vw - 320px) / 2) 10px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+}
 
     .sda-projects-track::-webkit-scrollbar {
       display:none;
