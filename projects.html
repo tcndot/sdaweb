@@ -4,58 +4,63 @@ title: Projects
 permalink: /projects/
 ---
 
-<section class="projects-list max-w-6xl mx-auto px-4 py-10">
+<section class="max-w-5xl mx-auto px-4 py-12">
 
-  <h2 class="text-3xl font-extrabold mb-10 text-center">Our Projects</h2>
+  <h1 class="text-3xl font-extrabold mb-12 text-center">Our Projects</h1>
 
   {% assign projects_sorted = site.projects | sort: "title" %}
 
   {% for p in projects_sorted %}
     {% if p.title %}
 
-      <article class="project-item mb-20">
+      <article class="mb-24 border rounded-xl overflow-hidden shadow-sm bg-white">
+
+        <!-- TITLE -->
+        <div class="p-6 border-b">
+          <h2 class="text-2xl font-bold">
+            <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          </h2>
+        </div>
 
         <!-- IMAGE ROTATOR -->
-        <a href="{{ p.url | relative_url }}" class="block">
-          <div class="project-rotator relative overflow-hidden rounded-xl shadow-md">
+        <a href="{{ p.url | relative_url }}" class="block project-rotator relative">
 
-            {% assign slides = "" | split: "" %}
+          {% assign slides = "" | split: "" %}
 
-            {% if p.map_image %}
-              {% assign slides = slides | push: p.map_image %}
-            {% endif %}
+          {% if p.map_image %}
+            {% assign slides = slides | push: p.map_image %}
+          {% endif %}
 
-            {% if p.gallery %}
-              {% for img in p.gallery limit:2 %}
-                {% assign slides = slides | push: img %}
-              {% endfor %}
-            {% endif %}
+          {% if p.image %}
+            {% assign slides = slides | push: p.image %}
+          {% endif %}
 
-            {% if slides.size > 0 %}
-              {% for img in slides %}
-                <img
-                  src="{{ img | relative_url }}"
-                  alt="{{ p.title }}"
-                  class="rot-slide absolute inset-0 w-full h-[420px] object-cover opacity-0 transition-opacity duration-700"
-                  loading="lazy">
-              {% endfor %}
-            {% else %}
-              <div class="w-full h-[420px] bg-gray-100 flex items-center justify-center text-gray-400">
-                No image available
-              </div>
-            {% endif %}
+          {% if p.gallery %}
+            {% for img in p.gallery limit:2 %}
+              {% assign slides = slides | push: img %}
+            {% endfor %}
+          {% endif %}
 
-          </div>
+          {% if slides.size > 0 %}
+            {% for img in slides %}
+              <img
+                src="{{ img | relative_url }}"
+                alt="{{ p.title }}"
+                class="rot-slide absolute inset-0 w-full h-[420px] object-cover opacity-0 transition-opacity duration-700"
+                loading="lazy">
+            {% endfor %}
+          {% else %}
+            <div class="w-full h-[420px] bg-gray-200 flex items-center justify-center text-gray-500">
+              No image available
+            </div>
+          {% endif %}
+
         </a>
 
-        <!-- TEXT -->
-        <div class="mt-6 max-w-3xl">
-          <h3 class="text-2xl font-bold mb-2">
-            <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
-          </h3>
-
+        <!-- DESCRIPTION -->
+        <div class="p-6 max-w-3xl">
           {% if p.listing and p.listing.highlight %}
-            <div class="font-semibold mb-1">
+            <div class="font-semibold mb-2">
               {{ p.listing.highlight }}
             </div>
           {% endif %}
@@ -73,31 +78,26 @@ permalink: /projects/
   {% endfor %}
 </section>
 
-<!-- ROTATOR SCRIPT -->
 <script>
   document.querySelectorAll('.project-rotator').forEach(rotator => {
     const slides = rotator.querySelectorAll('.rot-slide');
     if (slides.length <= 1) return;
 
-    let index = 0;
+    let i = 0;
     slides[0].classList.add('opacity-100');
 
     setInterval(() => {
-      slides[index].classList.remove('opacity-100');
-      index = (index + 1) % slides.length;
-      slides[index].classList.add('opacity-100');
-    }, 3500);
+      slides[i].classList.remove('opacity-100');
+      i = (i + 1) % slides.length;
+      slides[i].classList.add('opacity-100');
+    }, 3000);
   });
 </script>
 
 <style>
   @media (max-width: 640px) {
-    .rot-slide,
-    .project-rotator > div {
-      height: 240px !important;
-    }
-    .project-item {
-      margin-bottom: 60px;
+    .rot-slide {
+      height: 220px !important;
     }
   }
 </style>
