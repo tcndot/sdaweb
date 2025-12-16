@@ -4,41 +4,45 @@ title: Projects
 permalink: /projects/
 ---
 
-<section class="max-w-5xl mx-auto px-4 py-12">
+<section class="py-12">
 
-  <h1 class="text-3xl font-extrabold mb-12 text-center">Our Projects</h1>
+  <h1 class="text-3xl font-extrabold text-center mb-12">
+    Our Projects
+  </h1>
 
   {% assign projects_sorted = site.projects | sort: "title" %}
 
   {% for p in projects_sorted %}
     {% if p.title %}
 
-      <article class="mb-24 border rounded-xl overflow-hidden shadow-sm bg-white">
+      <!-- CARD WRAPPER (clickable) -->
+      <a href="{{ p.url | relative_url }}"
+         class="block max-w-3xl mx-auto mb-24 border rounded-xl shadow-sm overflow-hidden bg-white hover:shadow-md transition">
 
         <!-- TITLE -->
-        <div class="p-6 border-b">
+        <div class="p-6 border-b text-center">
           <h2 class="text-2xl font-bold">
-            <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+            {{ p.title }}
           </h2>
         </div>
 
-        <!-- IMAGE ROTATOR -->
-        <a href="{{ p.url | relative_url }}" class="block project-rotator relative">
+        <!-- IMAGE AREA -->
+        <div class="relative project-rotator">
 
           {% assign slides = "" | split: "" %}
 
+          {%- comment -%} Map first (mini) {%- endcomment -%}
           {% if p.map_image %}
             {% assign slides = slides | push: p.map_image %}
           {% endif %}
 
-          {% if p.image %}
-            {% assign slides = slides | push: p.image %}
-          {% endif %}
-
+          {%- comment -%} Gallery images next {%- endcomment -%}
           {% if p.gallery %}
             {% for img in p.gallery limit:2 %}
               {% assign slides = slides | push: img %}
             {% endfor %}
+          {% elsif p.image %}
+            {% assign slides = slides | push: p.image %}
           {% endif %}
 
           {% if slides.size > 0 %}
@@ -46,19 +50,19 @@ permalink: /projects/
               <img
                 src="{{ img | relative_url }}"
                 alt="{{ p.title }}"
-                class="rot-slide absolute inset-0 w-full h-[420px] object-cover opacity-0 transition-opacity duration-700"
+                class="rot-slide absolute inset-0 w-full object-cover opacity-0 transition-opacity duration-700"
+                data-type="{% if forloop.first %}map{% else %}image{% endif %}"
                 loading="lazy">
             {% endfor %}
           {% else %}
-            <div class="w-full h-[420px] bg-gray-200 flex items-center justify-center text-gray-500">
+            <div class="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-500">
               No image available
             </div>
           {% endif %}
+        </div>
 
-        </a>
-
-        <!-- DESCRIPTION -->
-        <div class="p-6 max-w-3xl">
+        <!-- TEXT (ALWAYS VISIBLE) -->
+        <div class="p-6 text-center">
           {% if p.listing and p.listing.highlight %}
             <div class="font-semibold mb-2">
               {{ p.listing.highlight }}
@@ -72,32 +76,45 @@ permalink: /projects/
           {% endif %}
         </div>
 
-      </article>
+      </a>
 
     {% endif %}
   {% endfor %}
 </section>
 
+<!-- ROTATION SCRIPT -->
 <script>
   document.querySelectorAll('.project-rotator').forEach(rotator => {
     const slides = rotator.querySelectorAll('.rot-slide');
     if (slides.length <= 1) return;
 
     let i = 0;
+
+    slides.forEach(slide => {
+      if (slide.dataset.type === 'map') {
+        slide.style.height = '220px';
+      } else {
+        slide.style.height = '380px';
+      }
+    });
+
     slides[0].classList.add('opacity-100');
 
     setInterval(() => {
       slides[i].classList.remove('opacity-100');
       i = (i + 1) % slides.length;
       slides[i].classList.add('opacity-100');
-    }, 3000);
+    }, 3500);
   });
 </script>
 
 <style>
   @media (max-width: 640px) {
-    .rot-slide {
-      height: 220px !important;
+    .rot-slide[data-type="map"] {
+      height: 160px !important;
+    }
+    .rot-slide[data-type="image"] {
+      height: 240px !important;
     }
   }
 </style>
