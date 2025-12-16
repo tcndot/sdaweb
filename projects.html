@@ -1,0 +1,103 @@
+---
+layout: default
+title: Projects
+permalink: /projects/
+---
+
+<section class="projects-list max-w-6xl mx-auto px-4 py-10">
+
+  <h2 class="text-3xl font-extrabold mb-10 text-center">Our Projects</h2>
+
+  {% assign projects_sorted = site.projects | sort: "title" %}
+
+  {% for p in projects_sorted %}
+    {% if p.title %}
+
+      <article class="project-item mb-20">
+
+        <!-- IMAGE ROTATOR -->
+        <a href="{{ p.url | relative_url }}" class="block">
+          <div class="project-rotator relative overflow-hidden rounded-xl shadow-md">
+
+            {% assign slides = "" | split: "" %}
+
+            {% if p.map_image %}
+              {% assign slides = slides | push: p.map_image %}
+            {% endif %}
+
+            {% if p.gallery %}
+              {% for img in p.gallery limit:2 %}
+                {% assign slides = slides | push: img %}
+              {% endfor %}
+            {% endif %}
+
+            {% if slides.size > 0 %}
+              {% for img in slides %}
+                <img
+                  src="{{ img | relative_url }}"
+                  alt="{{ p.title }}"
+                  class="rot-slide absolute inset-0 w-full h-[420px] object-cover opacity-0 transition-opacity duration-700"
+                  loading="lazy">
+              {% endfor %}
+            {% else %}
+              <div class="w-full h-[420px] bg-gray-100 flex items-center justify-center text-gray-400">
+                No image available
+              </div>
+            {% endif %}
+
+          </div>
+        </a>
+
+        <!-- TEXT -->
+        <div class="mt-6 max-w-3xl">
+          <h3 class="text-2xl font-bold mb-2">
+            <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+          </h3>
+
+          {% if p.listing and p.listing.highlight %}
+            <div class="font-semibold mb-1">
+              {{ p.listing.highlight }}
+            </div>
+          {% endif %}
+
+          {% if p.listing and p.listing.summary %}
+            <div class="text-gray-700">
+              {{ p.listing.summary }}
+            </div>
+          {% endif %}
+        </div>
+
+      </article>
+
+    {% endif %}
+  {% endfor %}
+</section>
+
+<!-- ROTATOR SCRIPT -->
+<script>
+  document.querySelectorAll('.project-rotator').forEach(rotator => {
+    const slides = rotator.querySelectorAll('.rot-slide');
+    if (slides.length <= 1) return;
+
+    let index = 0;
+    slides[0].classList.add('opacity-100');
+
+    setInterval(() => {
+      slides[index].classList.remove('opacity-100');
+      index = (index + 1) % slides.length;
+      slides[index].classList.add('opacity-100');
+    }, 3500);
+  });
+</script>
+
+<style>
+  @media (max-width: 640px) {
+    .rot-slide,
+    .project-rotator > div {
+      height: 240px !important;
+    }
+    .project-item {
+      margin-bottom: 60px;
+    }
+  }
+</style>
