@@ -3,7 +3,6 @@ layout: project
 title: Shyam Nagar
 location: Nahra-Nahri Road, Near Kanonda Chowk (Just off Jaunti Border)
 subtitle: Stop Renting. Start Owning.
-media_ratio: 1024/768
 listing:
   highlight: "Premium registry-ready residential plots with immediate possession"
   summary: "Located on Nahra–Nahri Road near Kanonda Chowk, Shyam Nagar offers freehold plots starting at ₹15,000 per gaj with excellent future connectivity."
