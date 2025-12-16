@@ -4,9 +4,9 @@ title: Projects
 permalink: /projects/
 ---
 
-<section style="padding: 60px 0;">
+<section style="padding:40px 16px;">
 
-  <h1 style="text-align:center; font-size:28px; font-weight:800; margin-bottom:50px;">
+  <h1 style="text-align:center;font-size:26px;font-weight:800;margin-bottom:32px;">
     Our Projects
   </h1>
 
@@ -15,73 +15,77 @@ permalink: /projects/
   {% for p in projects_sorted %}
     {% if p.title %}
 
-      <!-- OUTER CENTER WRAPPER -->
-      <div style="max-width:900px; margin:0 auto 90px auto;">
+      <!-- PROJECT BLOCK -->
+      <a href="{{ p.url | relative_url }}"
+         style="display:block;max-width:420px;margin:0 auto 48px auto;text-decoration:none;color:inherit;">
 
-        <!-- CLICKABLE CARD -->
-        <a href="{{ p.url | relative_url }}"
-           style="display:block; border:1px solid #e5e7eb; border-radius:14px; overflow:hidden; text-decoration:none; color:inherit; background:#fff;">
+        <!-- TITLE -->
+        <div style="text-align:center;font-size:20px;font-weight:700;margin-bottom:12px;">
+          {{ p.title }}
+        </div>
 
-          <!-- TITLE -->
-          <div style="padding:22px; border-bottom:1px solid #eee; text-align:center;">
-            <h2 style="font-size:22px; font-weight:700; margin:0;">
-              {{ p.title }}
-            </h2>
-          </div>
+        <!-- ROTATING MEDIA (MAP + IMAGES) -->
+        <div class="project-rotator"
+             style="width:100%;height:220px;border-radius:12px;overflow:hidden;position:relative;background:#eee;">
 
-          <!-- MEDIA AREA -->
-          <div class="project-media" style="position:relative; height:360px; background:#f3f4f6;">
+          {% assign slides = "" | split: "" %}
 
-            <!-- MAP (STATIC, ALWAYS VISIBLE) -->
-            {% if p.map_image %}
-              <img src="{{ p.map_image | relative_url }}"
-                   alt="Project map"
-                   style="position:absolute; top:0; left:0; width:100%; height:120px; object-fit:cover; border-bottom:1px solid #ddd;">
-            {% endif %}
+          {% if p.map_image %}
+            {% assign slides = slides | push: p.map_image %}
+          {% endif %}
 
-            <!-- IMAGE SLIDES -->
-            <div class="project-slides" style="position:absolute; top:120px; left:0; right:0; bottom:0;">
-              {% if p.gallery %}
-                {% for img in p.gallery limit:2 %}
-                  <img src="{{ img | relative_url }}"
-                       class="proj-slide"
-                       style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0; transition:opacity .6s;">
-                {% endfor %}
-              {% elsif p.image %}
-                <img src="{{ p.image | relative_url }}"
-                     class="proj-slide"
-                     style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:1;">
-              {% endif %}
+          {% if p.gallery %}
+            {% for img in p.gallery limit:2 %}
+              {% assign slides = slides | push: img %}
+            {% endfor %}
+          {% elsif p.image %}
+            {% assign slides = slides | push: p.image %}
+          {% endif %}
+
+          {% if slides.size > 0 %}
+            {% for img in slides %}
+              <img
+                src="{{ img | relative_url }}"
+                alt="{{ p.title }}"
+                class="proj-slide"
+                style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .6s;"
+                loading="lazy">
+            {% endfor %}
+          {% else %}
+            <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#777;">
+              No image
             </div>
+          {% endif %}
+        </div>
 
-          </div>
+        <!-- TEXT -->
+        <div style="text-align:center;margin-top:12px;">
+          {% if p.listing and p.listing.highlight %}
+            <div style="font-weight:600;margin-bottom:4px;">
+              {{ p.listing.highlight }}
+            </div>
+          {% endif %}
 
-          <!-- TEXT (NEVER ROTATES) -->
-          <div style="padding:22px; text-align:center;">
-            {% if p.listing and p.listing.highlight %}
-              <div style="font-weight:600; margin-bottom:6px;">
-                {{ p.listing.highlight }}
-              </div>
-            {% endif %}
+          {% if p.listing and p.listing.summary %}
+            <div style="color:#555;font-size:14px;line-height:1.5;">
+              {{ p.listing.summary }}
+            </div>
+          {% endif %}
+        </div>
 
-            {% if p.listing and p.listing.summary %}
-              <div style="color:#444; line-height:1.5;">
-                {{ p.listing.summary }}
-              </div>
-            {% endif %}
-          </div>
-
-        </a>
-      </div>
+      </a>
 
     {% endif %}
   {% endfor %}
 </section>
 
 <script>
-  document.querySelectorAll('.project-slides').forEach(slider => {
-    const slides = slider.querySelectorAll('.proj-slide');
-    if (slides.length <= 1) return;
+  document.querySelectorAll('.project-rotator').forEach(rotator => {
+    const slides = rotator.querySelectorAll('.proj-slide');
+    if (slides.length <= 1) {
+      if (slides[0]) slides[0].style.opacity = 1;
+      return;
+    }
 
     let i = 0;
     slides[0].style.opacity = 1;
@@ -90,17 +94,18 @@ permalink: /projects/
       slides[i].style.opacity = 0;
       i = (i + 1) % slides.length;
       slides[i].style.opacity = 1;
-    }, 3500);
+    }, 3000);
   });
 </script>
 
 <style>
-  @media (max-width: 640px) {
-    .project-media {
-      height: 240px !important;
+  /* Desktop enhancement only */
+  @media (min-width: 768px) {
+    .project-rotator {
+      height: 280px !important;
     }
-    .project-media img {
-      height: 90px !important;
+    a[href^="/projects/"] {
+      max-width: 520px !important;
     }
   }
 </style>
