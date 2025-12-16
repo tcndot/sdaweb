@@ -4,15 +4,9 @@ title: Projects
 permalink: /projects/
 ---
 
-<section style="padding:36px 14px; background:#f7f9f8;">
+<section style="padding:32px 14px; background:#f7f9f8;">
 
-  <h1 style="
-      text-align:center;
-      font-size:26px;
-      font-weight:800;
-      margin-bottom:28px;
-      color:#111;
-  ">
+  <h1 style="text-align:center;font-size:26px;font-weight:800;margin-bottom:28px;">
     Our Projects
   </h1>
 
@@ -21,102 +15,92 @@ permalink: /projects/
   {% for p in projects_sorted %}
     {% if p.title %}
 
-      <!-- CARD -->
       <a href="{{ p.url | relative_url }}"
+         class="project-card"
          style="
            display:block;
            max-width:380px;
            margin:0 auto 40px auto;
-           text-decoration:none;
-           color:inherit;
-           background:#ffffff;
+           background:#fff;
            border-radius:18px;
            border:1px solid rgba(0,0,0,0.06);
-           box-shadow:
-             0 2px 4px rgba(0,0,0,0.03),
-             0 10px 24px rgba(0,0,0,0.06);
+           box-shadow:0 8px 22px rgba(0,0,0,0.06);
+           text-decoration:none;
+           color:inherit;
            overflow:hidden;
          ">
 
         <!-- TITLE -->
-        <div style="
-            text-align:center;
-            padding:14px 14px 10px;
-            font-size:20px;
-            font-weight:700;
-            color:#0f172a;
-            border-bottom:1px solid rgba(0,0,0,0.05);
-        ">
+        <div style="text-align:center;padding:14px;font-size:20px;font-weight:700;border-bottom:1px solid #eee;">
           {{ p.title }}
         </div>
 
-        <!-- MEDIA (PROPORTIONAL, NO CROPPING LOGIC CHANGE) -->
-        <div class="project-rotator"
-             style="
-               width:100%;
-               aspect-ratio: {{ p.media_ratio | default: '16/9' }};
-               position:relative;
-               background:#e5e7eb;
-             ">
+        <!-- MEDIA -->
+        <div class="project-media"
+             style="position:relative;width:100%;background:#e5e7eb;overflow:hidden;">
 
-          {% assign slides = "" | split: "" %}
-
+          <!-- MAP (SOURCE OF TRUTH) -->
           {% if p.map_image %}
-            {% assign slides = slides | push: p.map_image %}
+            <img
+              src="{{ p.map_image | relative_url }}"
+              class="project-map"
+              style="
+                width:100%;
+                height:auto;
+                display:block;
+                visibility:hidden;
+                position:absolute;
+                inset:0;
+                object-fit:contain;
+                background:#e5e7eb;
+              ">
           {% endif %}
 
-          {% if p.gallery %}
-            {% for img in p.gallery limit:2 %}
-              {% assign slides = slides | push: img %}
-            {% endfor %}
-          {% elsif p.image %}
-            {% assign slides = slides | push: p.image %}
-          {% endif %}
-
-          {% if slides.size > 0 %}
-            {% for img in slides %}
+          <!-- ROTATING IMAGES -->
+          <div class="project-slides"
+               style="position:absolute;inset:0;">
+            {% if p.gallery %}
+              {% for img in p.gallery limit:2 %}
+                <img
+                  src="{{ img | relative_url }}"
+                  class="proj-slide"
+                  style="
+                    position:absolute;
+                    inset:0;
+                    width:100%;
+                    height:100%;
+                    object-fit:contain;
+                    opacity:0;
+                    transition:opacity .6s ease;
+                  "
+                  loading="lazy">
+              {% endfor %}
+            {% elsif p.image %}
               <img
-                src="{{ img | relative_url }}"
-                alt="{{ p.title }}"
+                src="{{ p.image | relative_url }}"
                 class="proj-slide"
                 style="
                   position:absolute;
                   inset:0;
                   width:100%;
                   height:100%;
-                  display: block;
-                  object-fit: contain;
-                  background:#e5e7eb;
-                  opacity:0;
-                  transition:opacity .6s ease;
-                "
-                loading="lazy">
-            {% endfor %}
-          {% endif %}
+                  object-fit:contain;
+                  opacity:1;
+                ">
+            {% endif %}
+          </div>
+
         </div>
 
         <!-- TEXT -->
-        <div style="
-            padding:14px 16px 18px;
-            text-align:center;
-        ">
+        <div style="padding:14px 16px 18px;text-align:center;">
           {% if p.listing and p.listing.highlight %}
-            <div style="
-                font-weight:600;
-                font-size:15px;
-                color:#111827;
-                margin-bottom:6px;
-            ">
+            <div style="font-weight:600;margin-bottom:6px;">
               {{ p.listing.highlight }}
             </div>
           {% endif %}
-
           {% if p.listing and p.listing.summary %}
-            <div style="
-                font-size:14px;
-                color:#4b5563;
-                line-height:1.55;
-            ">
+            <div style="font-size:14px;color:#555;line-height:1.5;">
               {{ p.listing.summary }}
             </div>
           {% endif %}
@@ -129,28 +113,40 @@ permalink: /projects/
 </section>
 
 <script>
-  document.querySelectorAll('.project-rotator').forEach(rotator => {
-    const slides = rotator.querySelectorAll('.proj-slide');
-    if (slides.length <= 1) {
-      if (slides[0]) slides[0].style.opacity = 1;
-      return;
-    }
+  document.querySelectorAll('.project-card').forEach(card => {
+    const media = card.querySelector('.project-media');
+    const map = card.querySelector('.project-map');
+    const slides = card.querySelectorAll('.proj-slide');
 
-    let i = 0;
-    slides[0].style.opacity = 1;
+    if (!map) return;
 
-    setInterval(() => {
-      slides[i].style.opacity = 0;
-      i = (i + 1) % slides.length;
-      slides[i].style.opacity = 1;
-    }, 3000);
+    map.onload = () => {
+      const w = map.naturalWidth;
+      const h = map.naturalHeight;
+      const boxWidth = media.offsetWidth;
+      const boxHeight = boxWidth * (h / w);
+
+      media.style.height = boxHeight + 'px';
+      map.style.visibility = 'visible';
+
+      // slide rotation
+      if (slides.length > 1) {
+        let i = 0;
+        slides[0].style.opacity = 1;
+        setInterval(() => {
+          slides[i].style.opacity = 0;
+          i = (i + 1) % slides.length;
+          slides[i].style.opacity = 1;
+        }, 3000);
+      } else if (slides[0]) {
+        slides[0].style.opacity = 1;
+      }
+    };
   });
 </script>
 
 <style>
-  @media (min-width: 768px) {
-    a[href^="/projects/"] {
-      max-width: 460px !important;
-    }
+  @media (min-width:768px) {
+    .project-card { max-width:460px; }
   }
 </style>
