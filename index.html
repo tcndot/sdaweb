@@ -459,271 +459,133 @@ permalink: /
 </section>
 
 
-<!-- ===========================================================
-     PROJECTS CAROUSEL (INDEX PAGE)
-     - Swipe indicators
-     - Hold / hover to rotate images
-     - Mobile-first
-     =========================================================== -->
-<section class="sda-projects-carousel">
+<script>
+  (function(){
+    const scroller = document.getElementById('projectsScroller');
+    const cards = scroller.querySelectorAll('.sda-project-card');
+    const indicatorWrap = document.getElementById('projectIndicators');
 
-  <style>
-    .sda-projects-carousel {
-      background:#fbfbf9;
-      padding:26px 0 34px;
-      font-family:Inter, Arial, sans-serif;
-    }
+    let paused = false;
 
-    .sda-projects-head {
-      text-align:center;
-      margin-bottom:14px;
-    }
+    /* -----------------------------------------------------------
+       BUILD INDICATORS
+       ----------------------------------------------------------- */
+    cards.forEach((_, i) => {
+      const b = document.createElement('button');
+      if (i === 0) b.classList.add('active');
+      b.onclick = () => {
+        cards[i].scrollIntoView({ behavior:'smooth', inline:'center' });
+      };
+      indicatorWrap.appendChild(b);
+    });
 
-    .sda-projects-head a {
-      font-size:22px;
-      font-weight:900;
-      color:#0f3f23;
-      text-decoration:none;
-    }
+    const indicators = indicatorWrap.querySelectorAll('button');
 
-    .sda-projects-track {
-      display:flex;
-      gap:14px;
-      overflow-x:auto;
-      padding:0 calc((100vw - 320px) / 2) 10px;
-      scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;
-    }
-
-    .sda-projects-track::-webkit-scrollbar {
-      display:none;
-    }
-
-    .sda-project-card {
-      flex:0 0 78%;
-      max-width:320px;
-      background:#fff;
-      border-radius:16px;
-      box-shadow:0 10px 26px rgba(10,20,10,0.06);
-      border:1px solid rgba(0,0,0,0.05);
-      scroll-snap-align:center;
-      text-decoration:none;
-      color:inherit;
-      overflow:hidden;
-      position:relative;
-    }
-
-    .sda-project-title {
-      text-align:center;
-      font-weight:800;
-      padding:10px;
-      font-size:16px;
-      border-bottom:1px solid rgba(0,0,0,0.05);
-    }
-
-    .sda-project-media {
-      position:relative;
-      width:100%;
-      height:180px;
-      background:#e5e7eb;
-      overflow:hidden;
-    }
-
-    .sda-project-media img {
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      object-fit:contain;
-      opacity:0;
-      transition:opacity .4s ease;
-    }
-
-    .sda-project-media img.active {
-      opacity:1;
-    }
-
-    .sda-project-text {
-      padding:10px 12px 14px;
-      text-align:center;
-    }
-
-    .sda-project-text strong {
-      display:block;
-      font-size:14px;
-      margin-bottom:4px;
-    }
-
-    .sda-project-text span {
-      font-size:13px;
-      color:#555;
-      line-height:1.45;
-    }
-
-    /* indicators */
-    .sda-indicators {
-      display:flex;
-      justify-content:center;
-      gap:6px;
-      margin-top:10px;
-    }
-
-    .sda-indicators button {
-      width:8px;
-      height:8px;
-      border-radius:50%;
-      border:none;
-      background:#cfcfcf;
-    }
-
-    .sda-indicators button.active {
-      background:#0f3f23;
-    }
-
-    @media (min-width:900px) {
-      .sda-project-card {
-        flex:0 0 320px;
-      }
-    }
-  </style>
-
-  <!-- HEADING -->
-  <div class="sda-projects-head">
-    <a href="{{ '/projects/' | relative_url }}">Our Projects</a>
-  </div>
-
-  <!-- SCROLLER -->
-  <div class="sda-projects-track" id="projectsScroller">
-
-    {% assign projects_sorted = site.projects | sort: "title" %}
-    {% for p in projects_sorted %}
-      <a href="{{ p.url | relative_url }}" class="sda-project-card">
-
-        <div class="sda-project-title">{{ p.title }}</div>
-
-        <div class="sda-project-media">
-          {% if p.map_image %}
-            <img src="{{ p.map_image | relative_url }}" class="active">
-          {% endif %}
-          {% if p.gallery %}
-            {% for img in p.gallery limit:2 %}
-              <img src="{{ img | relative_url }}">
-            {% endfor %}
-          {% endif %}
-        </div>
-
-        <div class="sda-project-text">
-          {% if p.listing and p.listing.highlight %}
-            <strong>{{ p.listing.highlight }}</strong>
-          {% endif %}
-          {% if p.listing and p.listing.summary %}
-            <span>{{ p.listing.summary }}</span>
-          {% endif %}
-        </div>
-
-      </a>
-    {% endfor %}
-
-  </div>
-
-  <!-- INDICATORS -->
-  <div class="sda-indicators" id="projectIndicators"></div>
-
-  <script>
-    (function(){
-      const scroller = document.getElementById('projectsScroller');
-      const cards = scroller.querySelectorAll('.sda-project-card');
-      const indicatorWrap = document.getElementById('projectIndicators');
-
-      let paused = false;
-
-      // build indicators
-      cards.forEach((_, i) => {
-        const b = document.createElement('button');
-        if (i === 0) b.classList.add('active');
-        b.onclick = () => {
-          cards[i].scrollIntoView({ behavior:'smooth', inline:'center' });
-        };
-        indicatorWrap.appendChild(b);
+    function updateIndicator() {
+      let closest = 0;
+      let min = Infinity;
+      cards.forEach((c, i) => {
+        const r = c.getBoundingClientRect();
+        const d = Math.abs(r.left + r.width/2 - window.innerWidth/2);
+        if (d < min) { min = d; closest = i; }
       });
+      indicators.forEach(b => b.classList.remove('active'));
+      indicators[closest]?.classList.add('active');
+    }
 
-      const indicators = indicatorWrap.querySelectorAll('button');
+    scroller.addEventListener('scroll', updateIndicator);
+    scroller.addEventListener('touchstart', () => paused = true);
+    scroller.addEventListener('touchend', () => paused = false);
+    scroller.addEventListener('mouseenter', () => paused = true);
+    scroller.addEventListener('mouseleave', () => paused = false);
 
-      function updateIndicator() {
-        let closest = 0;
-        let min = Infinity;
-        cards.forEach((c, i) => {
-          const r = c.getBoundingClientRect();
-          const d = Math.abs(r.left + r.width/2 - window.innerWidth/2);
-          if (d < min) { min = d; closest = i; }
-        });
-        indicators.forEach(b => b.classList.remove('active'));
-        indicators[closest]?.classList.add('active');
+    /* -----------------------------------------------------------
+       AUTO SCROLL (SLOW + DWELL + SMOOTH LOOP)
+       -----------------------------------------------------------
+       Behaviour:
+       - Card stays centered for a while
+       - Smoothly moves to next card
+       - After last → silent jump → first
+       - No reverse, no shaking, no jitter
+       ----------------------------------------------------------- */
+
+    let currentIndex = 0;
+    const CARD_STAY_TIME = 2800;   // how long a card stays (ms)
+    const MOVE_DELAY = 300;        // small buffer before moving
+
+    function scrollToCard(index, smooth = true) {
+      cards[index].scrollIntoView({
+        behavior: smooth ? 'smooth' : 'auto',
+        inline: 'center'
+      });
+    }
+
+    function autoAdvance() {
+      if (paused) {
+        setTimeout(autoAdvance, 300);
+        return;
       }
 
-      scroller.addEventListener('scroll', updateIndicator);
-      scroller.addEventListener('touchstart', () => paused = true);
-      scroller.addEventListener('touchend', () => paused = false);
-      scroller.addEventListener('mouseenter', () => paused = true);
-      scroller.addEventListener('mouseleave', () => paused = false);
-
-      /* -----------------------------------------------------------
-         AUTO SCROLL (SMOOTH LOOP — NO DIRECTION REVERSAL)
-         -----------------------------------------------------------
-         Behaviour:
-         1 → 2 → 3 → (silent reset) → 1 → 2 → 3
-         No "coming from right" effect
-         ----------------------------------------------------------- */
-      setInterval(() => {
-        if (paused) return;
-
-        scroller.scrollBy({ left: 1.2, behavior:'smooth' });
-
-        const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-        if (scroller.scrollLeft >= maxScroll - 2) {
-          scroller.scrollTo({ left: 0, behavior:'auto' });
+      setTimeout(() => {
+        if (paused) {
+          autoAdvance();
+          return;
         }
-      }, 40);
 
-      /* -----------------------------------------------------------
-         IMAGE ROTATION (ON HOVER / HOLD)
-         -----------------------------------------------------------
-         - Starts only on interaction
-         - Stops immediately on release
-         ----------------------------------------------------------- */
-      cards.forEach(card => {
-        const imgs = card.querySelectorAll('.sda-project-media img');
-        if (imgs.length <= 1) return;
+        currentIndex++;
 
-        let i = 0;
-        let timer;
+        // reached end → silent reset
+        if (currentIndex >= cards.length) {
+          currentIndex = 0;
+          scrollToCard(currentIndex, false); // instant jump, invisible
+        } else {
+          scrollToCard(currentIndex, true);  // smooth move
+        }
 
-        const start = () => {
-          timer = setInterval(() => {
-            imgs[i].classList.remove('active');
-            i = (i + 1) % imgs.length;
-            imgs[i].classList.add('active');
-          }, 1200);
-        };
+        autoAdvance();
+      }, CARD_STAY_TIME + MOVE_DELAY);
+    }
 
-        const stop = () => {
-          clearInterval(timer);
-          imgs.forEach((img, idx) =>
-            img.classList.toggle('active', idx === 0)
-          );
-          i = 0;
-        };
+    // start auto scrolling
+    autoAdvance();
 
-        card.addEventListener('mouseenter', start);
-        card.addEventListener('mouseleave', stop);
-        card.addEventListener('touchstart', start);
-        card.addEventListener('touchend', stop);
-      });
+    /* -----------------------------------------------------------
+       IMAGE ROTATION (ON HOVER / HOLD)
+       -----------------------------------------------------------
+       - Starts only on interaction
+       - Stops immediately on release
+       ----------------------------------------------------------- */
+    cards.forEach(card => {
+      const imgs = card.querySelectorAll('.sda-project-media img');
+      if (imgs.length <= 1) return;
 
-    })();
-  </script>
+      let i = 0;
+      let timer;
 
-</section>
+      const start = () => {
+        timer = setInterval(() => {
+          imgs[i].classList.remove('active');
+          i = (i + 1) % imgs.length;
+          imgs[i].classList.add('active');
+        }, 1200);
+      };
+
+      const stop = () => {
+        clearInterval(timer);
+        imgs.forEach((img, idx) =>
+          img.classList.toggle('active', idx === 0)
+        );
+        i = 0;
+      };
+
+      card.addEventListener('mouseenter', start);
+      card.addEventListener('mouseleave', stop);
+      card.addEventListener('touchstart', start);
+      card.addEventListener('touchend', stop);
+    });
+
+  })();
+</script>
 
 
 
