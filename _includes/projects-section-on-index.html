@@ -75,7 +75,7 @@
       height:100%;
       object-fit:contain;
       opacity:0;
-      transition:opacity .4s ease;
+      transition:opacity .45s ease;
     }
 
     .sda-project-media img.active {
@@ -168,8 +168,8 @@
       if (!scroller || !cards.length) return;
 
       let paused = false;
-      let currentIndex = Math.floor(cards.length / 2); // START FROM MIDDLE
-      const CARD_STAY_TIME = 2800;
+      let currentIndex = Math.floor(cards.length / 2);
+      const CARD_STAY_TIME = 3800; // longer pause (calmer)
 
       /* ---------------- INDICATORS ---------------- */
       cards.forEach((_, i) => {
@@ -199,7 +199,7 @@
       scroller.addEventListener('mouseenter', () => paused = true);
       scroller.addEventListener('mouseleave', () => paused = false);
 
-      /* -------- HORIZONTAL-ONLY SCROLL (NO VERTICAL JUMP) -------- */
+      /* -------- HORIZONTAL ONLY SCROLL -------- */
       function scrollToCard(index, smooth = true) {
         const card = cards[index];
         const scrollerRect = scroller.getBoundingClientRect();
@@ -217,7 +217,6 @@
         });
       }
 
-      // Initial silent positioning (eternity illusion)
       scrollToCard(currentIndex, false);
 
       /* ---------------- AUTO ADVANCE ---------------- */
@@ -230,7 +229,7 @@
           currentIndex++;
           if (currentIndex >= cards.length) {
             currentIndex = 0;
-            scrollToCard(currentIndex, false); // silent reset
+            scrollToCard(currentIndex, false);
           } else {
             scrollToCard(currentIndex, true);
           }
@@ -240,25 +239,26 @@
 
       autoAdvance();
 
-      /* -------- IMAGE ROTATION (HOVER / HOLD) -------- */
+      /* -------- IMAGE ROTATION (CONTINUOUS STATE) -------- */
       cards.forEach(card => {
         const imgs = card.querySelectorAll('.sda-project-media img');
         if (imgs.length <= 1) return;
 
-        let i = 0, timer;
+        let i = 0;
+        let timer = null;
 
-        const start = () => timer = setInterval(() => {
-          imgs[i].classList.remove('active');
-          i = (i + 1) % imgs.length;
-          imgs[i].classList.add('active');
-        }, 1200);
+        const start = () => {
+          if (timer) return; // already running
+          timer = setInterval(() => {
+            imgs[i].classList.remove('active');
+            i = (i + 1) % imgs.length;
+            imgs[i].classList.add('active');
+          }, 1500);
+        };
 
         const stop = () => {
           clearInterval(timer);
-          imgs.forEach((img, idx) =>
-            img.classList.toggle('active', idx === 0)
-          );
-          i = 0;
+          timer = null; // DO NOT reset index
         };
 
         card.addEventListener('mouseenter', start);
