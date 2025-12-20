@@ -168,13 +168,13 @@
       if (!scroller || !cards.length) return;
 
       let paused = false;
-      let currentIndex = 0;
+      let currentIndex = Math.floor(cards.length / 2); // START FROM MIDDLE
       const CARD_STAY_TIME = 2800;
 
       /* ---------------- INDICATORS ---------------- */
       cards.forEach((_, i) => {
         const b = document.createElement('button');
-        if (i === 0) b.classList.add('active');
+        if (i === currentIndex) b.classList.add('active');
         b.onclick = () => scrollToCard(i, true);
         indicatorWrap.appendChild(b);
       });
@@ -216,6 +216,9 @@
           behavior: smooth ? 'smooth' : 'auto'
         });
       }
+
+      // Initial silent positioning (eternity illusion)
+      scrollToCard(currentIndex, false);
 
       /* ---------------- AUTO ADVANCE ---------------- */
       function autoAdvance() {
