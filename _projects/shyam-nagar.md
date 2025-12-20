@@ -28,7 +28,7 @@ rotating_rows:
 # These points appear in the "Details Box" at the top
 points:
   - label: "Inventory"
-    value: "59 Premium Plots + Custom Sizes"
+    value: "59 Premium Plots + <br> Custom Sizes"
   - label: "Plot Sizes"
     value: "50, 100 Gaj & Free Size"
   - label: "Price"
