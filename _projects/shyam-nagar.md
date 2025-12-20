@@ -34,7 +34,8 @@ points:
   - label: "Price"
     value: "Starting ₹15,000 / gaj"
   - label: "Dimensions"
-    value: "20ft x 45ft (100 Gaj Standard)"
+    value: "20ft x 45ft (100 gaj)
+    15 X 30ft (50 gaj)"
   - label: "Possession"
     value: "Immediate (Pay & Build)"
   - label: "Legal Status"
