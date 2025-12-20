@@ -1,6 +1,6 @@
 ---
 layout: project
-title: Shyam Nagar1
+title: Shyam Vihar
 location: Nahra-Nahri Road, Near Kanonda Chowk (Just off Jaunti Border)
 subtitle: Stop Renting. Start Owning.
 listing:
