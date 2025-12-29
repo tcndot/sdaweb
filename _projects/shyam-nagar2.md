@@ -1,6 +1,6 @@
 ---
 layout: project
-title: Shyam Nagar2
+title: Shyam Kunj
 location: Nahra-Nahri Road, Near Kanonda Chowk (Just off Jaunti Border)
 subtitle: Stop Renting. Start Owning.
 listing:
@@ -8,7 +8,7 @@ listing:
   summary: "Located on Nahra–Nahri Road near Kanonda Chowk, Shyam Nagar offers freehold plots starting at ₹15,000 per gaj with excellent future connectivity."
 
 # Top map/photo (Keeping your original paths)
-map_image: /assets/sn/map.jpeg
+map_image: /assets/sk/map.jpeg
 
 # Main hero image
 image: /assets/projects/shyam-nagar/cover.jpg
