@@ -57,7 +57,6 @@
       font-size:18px;
       font-weight:900;
       color:#1f7a3a;
-      transition:transform .2s ease;
     }
 
     details[open] summary::after {
@@ -143,16 +142,15 @@
         We accept cash, UPI, cheque, and bank transfer.
         Cash payments must be made only at our physical office premises.
         Customers must collect a valid, company-signed receipt.
-        The company is not responsible for any loss or dispute arising from cash payments
-        made outside the office or without a proper receipt.
+        The company will not be responsible for any loss or dispute arising from cash
+        payments made outside the office or without a valid receipt.
       </p>
     </details>
 
     <details>
       <summary>How can I join your company as a real estate agent?</summary>
       <p>
-        You can contact us through the Careers page on our website for partnership
-        or agent-related opportunities.
+        You can contact us through the Careers page on our website.
       </p>
     </details>
 
@@ -164,29 +162,26 @@
         or remaining payments. After full payment, the property is registered
         or documentation for GPA is completed, as applicable.
       </p>
-
-
-         <script>
-(function () {
-  const faqContainer = document.querySelector('.sda-faq-root');
-  if (!faqContainer) return;
-
-  const items = faqContainer.querySelectorAll('details');
-
-  items.forEach(item => {
-    item.addEventListener('toggle', () => {
-      if (!item.open) return;
-
-      items.forEach(other => {
-        if (other !== item) {
-          other.removeAttribute('open');
-        }
-      });
-    });
-  });
-})();
-</script>
     </details>
 
   </div>
+
+  <!-- Accordion logic: open one, close others -->
+  <script>
+    (function () {
+      const container = document.querySelector('.sda-faq-root');
+      if (!container) return;
+
+      const items = container.querySelectorAll('details');
+
+      items.forEach(item => {
+        item.addEventListener('toggle', () => {
+          if (!item.open) return;
+          items.forEach(other => {
+            if (other !== item) other.removeAttribute('open');
+          });
+        });
+      });
+    })();
+  </script>
 </section>
