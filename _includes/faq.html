@@ -164,6 +164,28 @@
         or remaining payments. After full payment, the property is registered
         or documentation for GPA is completed, as applicable.
       </p>
+
+
+         <script>
+(function () {
+  const faqContainer = document.querySelector('.sda-faq-root');
+  if (!faqContainer) return;
+
+  const items = faqContainer.querySelectorAll('details');
+
+  items.forEach(item => {
+    item.addEventListener('toggle', () => {
+      if (!item.open) return;
+
+      items.forEach(other => {
+        if (other !== item) {
+          other.removeAttribute('open');
+        }
+      });
+    });
+  });
+})();
+</script>
     </details>
 
   </div>
