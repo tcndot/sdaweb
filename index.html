@@ -462,7 +462,30 @@ permalink: /
 {% include projects-section-on-index.html %}
 
 <section class="sda-faq-contact-wrap">
+<style>
+/* ===========================================================
+   FAQ + CONTACT SPLIT LAYOUT
+   =========================================================== */
 
+.sda-faq-contact-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px 48px;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr; /* FAQ wider than form */
+  gap: 22px;
+  align-items: start;
+}
+
+/* Mobile: stack */
+@media (max-width: 880px) {
+  .sda-faq-contact-wrap {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+}
+</style>
+     
 {% include faq.html %}
 
 <!-- ===========================================================
