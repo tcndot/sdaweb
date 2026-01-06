@@ -229,10 +229,7 @@ permalink: /careers/
             const widget = uploadcare.Widget('[role=uploadcare-uploader]');
             const fileInfo = widget.value();
 
-            if (!fileInfo) {
-              alert('Please upload your resume.');
-              return;
-            }
+            
 
             try {
               const fileData = await fileInfo.promise();
