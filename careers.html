@@ -232,8 +232,12 @@ permalink: /careers/
             
 
             try {
+              let fileUrl = '';
+
+              if (fileInfo) {
               const fileData = await fileInfo.promise();
-              const fileUrl = fileData.cdnUrl;
+              fileUrl = fileData.cdnUrl;
+                }
 
               const qualificationValue = qualificationSelect.value === 'Other' ? otherQualificationInput.value.trim() : qualificationSelect.value;
 
