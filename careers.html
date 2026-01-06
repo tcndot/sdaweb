@@ -94,9 +94,29 @@ permalink: /careers/
           <label for="dob">Date of Birth *</label>
           <input type="date" id="dob" name="dob" required />
 
+             <!--
           <label for="position">Position Applied For</label>
           <input type="text" id="fixedPosition" name="position" value="Customer Relationship Manager" readonly style="background:#f3f3f3; cursor:not-allowed" />
-
+              -->
+             <label for="position">Position Applied For *</label>
+<select id="position" name="position" required>
+  <option value="Customer Relationship Manager" selected>
+    Customer Relationship Manager
+  </option>
+  <option value="Digital Marketing Executive">
+    Digital Marketing Executive
+  </option>
+  <option value="Sales Executive (Real Estate)">
+    Sales Executive (Real Estate)
+  </option>
+  <option value="Commission-Based Dealer / Channel Partner">
+    Commission-Based Dealer / Channel Partner
+  </option>
+  <option value="Video Editor (Part-Time)">
+    Video Editor (Part-Time)
+  </option>
+</select>
+             
           <label for="qualification">Highest Qualification *</label>
           <select id="qualification" name="qualification" required>
             <option value="" disabled selected>Select highest qualification</option>
