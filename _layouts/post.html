@@ -8,9 +8,9 @@
 
   <title>{{ page.title }} | {{ site.title }}</title>
 
-  <!-- Primary favicon (same as default.html) -->
-  <link rel="icon" type="image/png"
-        href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhmxjx5r3cI3VYrthQ_waQPSiKB1oAwdVlR0nFEqQTZpnukOpPUCfrb9vum8oF-Vs0wItLx9RRoIacX9Lo-qyawOZ5EfF93Fuo1pY4YTTQ9egtPofImA4f8Q8dSfZlro2arOaaNgbzi4XcN4wS6GBQ7CAwBB6Ysl2Zkbq6g9veD3eiZRFANQOfHA_aqTRQ/s837/logo4favicon.png">
+  <link rel="icon"
+      type="image/png"
+      href="{{ page.favicon | default: '/assets/logo4favicon.png' }}">
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
