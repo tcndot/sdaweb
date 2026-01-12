@@ -4,9 +4,9 @@ title: "हरियाणा में विकास की नई पहल�
 date: 2026-01-11
 permalink: /blogs/haryana-development-new-initiatives/
 excerpt: "हरियाणा सरकार ने रोहतक में साइबर सिटी, राई में होलसेल मार्केट, ईवी पार्क और आईएमटी खरखौदा विस्तार जैसी कई विकास योजनाओं की घोषणा की है।"
-author: Durgesh Mishra
+author: Staff
 image: /assets/posts/viksit-haryana-2047.jpg
-favicon: /assets/logo4favicon.png
+favicon: /assets/posts/viksit-haryana-2047.jpg
 tags: [haryana, infrastructure, development]
 categories: [haryana, infrastructure]
 published: true
