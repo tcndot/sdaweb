@@ -4,7 +4,7 @@ title: "माइक्रो लोन में बढ़ते डिफॉ�
 date: 2025-12-16
 permalink: /blogs/micro-load-default-warning/
 excerpt: "माइक्रो लोन और छोटे हाउसिंग लोन सेगमेंट में बढ़ते डिफॉल्ट रियल एस्टेट सेक्टर और लेंडर्स के लिए जोखिम का संकेत दे रहे हैं।"
-author: Durgesh Mishra
+author: Staff
 image: /assets/posts/image-of-woman-hand-on-forehead-forclosure-loan-overdue.jpeg
 favicon: /assets/posts/image-of-woman-hand-on-forehead-forclosure-loan-overdue.jpeg
 tags: [real-estate, lending, risk]
