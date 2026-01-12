@@ -1,10 +1,15 @@
 ---
-title: हरियाणा में विकास की नई पहलः रोहतक में साइबर सिटी, राई में होलसेल मार्केट और ईवी पार्क की योजना
-date: 2026-01-11
-author: Staff
 layout: post
-image: /assets/posts/viksit-haryana-2047.jpg   # आप चाहें तो बाद में सही इमेज पाथ डाल सकते हैं
-favicon: /assets/posts/viksit-haryana-2047.jpg
+title: "हरियाणा में विकास की नई पहलः रोहतक में साइबर सिटी, राई में होलसेल मार्केट और ईवी पार्क की योजना"
+date: 2026-01-11
+permalink: /blogs/haryana-development-new-initiatives/
+excerpt: "हरियाणा सरकार ने रोहतक में साइबर सिटी, राई में होलसेल मार्केट, ईवी पार्क और आईएमटी खरखौदा विस्तार जैसी कई विकास योजनाओं की घोषणा की है।"
+author: Durgesh Mishra
+image: /assets/posts/viksit-haryana-2047.jpg
+favicon: /assets/logo4favicon.png
+tags: [haryana, infrastructure, development]
+categories: [haryana, infrastructure]
+published: true
 ---
 
 हरियाणा के मुख्यमंत्री श्री नायब सिंह सैनी ने गुरुग्राम में आयोजित दो दिवसीय प्री-बजट परामर्श सत्र के दौरान विभिन्न वर्गों से प्राप्त सुझावों के आधार पर राज्य के समग्र विकास की कई महत्वपूर्ण घोषणाएं की हैं।
