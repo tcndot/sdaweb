@@ -5,8 +5,8 @@ date: 2026-01-12
 permalink: /blogs/ghaziabad-development-authority-property-auction-12-jan-26
 excerpt: हालिया नीलामी में गाजियाबाद विकास प्राधिकरण को ₹194 करोड़ से अधिक की आय हुई।
 author: Staff
-image: /assets/blogs/ghaziabad-auction.jpg
-favicon: /assets/logo4favicon.png
+image: /assets/posts/auction-done-by-ghaziabad-development-authority.jpg
+favicon: /assets/posts/auction-done-by-ghaziabad-development-authority.jpg
 tags: [ghaziabad, real-estate, investment]
 published: true
 ---
