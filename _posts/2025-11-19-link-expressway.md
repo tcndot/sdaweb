@@ -3,9 +3,13 @@ layout: post
 title: "लिंक एक्सप्रेसवे: दिल्ली को जोड़ने वाली हाई-स्पीड कड़ी"
 date: 2025-11-19
 permalink: /blogs/blog-01-link-expressway/
-author: "staff"
-image: "/assets/posts/blog1image.jpg"
-excerpt: "दिल्ली और हरियाणा के बीच कनेक्टिविटी को तेज़ करने के लिए 20 किमी लंबा हाई-स्पीड लिंक एक्सप्रेसवे प्रस्तावित है, जो दिल्ली-अमृतसर-कटरा, बेस्टर्न पेरिफेरल और द्वारका एक्सप्रेसवे-2 को सीधे जोड़ेगा।"
+excerpt: "दिल्ली और हरियाणा के बीच कनेक्टिविटी को तेज़ करने के लिए 20 किमी लंबा हाई-स्पीड लिंक एक्सप्रेसवे प्रस्तावित है, जो प्रमुख एक्सप्रेसवे को आपस में जोड़ेगा।"
+author: Durgesh Mishra
+image: /assets/posts/blog1image.jpg
+favicon: /assets/logo4favicon.png
+tags: [delhi, infrastructure, expressway]
+categories: [infrastructure, delhi-ncr]
+published: true
 ---
 
 
