@@ -91,6 +91,15 @@
       {% if page.author %} • {{ page.author }}{% endif %}
     </div>
 
+    {% if page.tags %}
+  <div class="text-sm text-gray-500 mb-6">
+    <span class="font-semibold">Tags:</span>
+    {% for tag in page.tags %}
+      <span class="mr-2">#{{ tag }}</span>
+    {% endfor %}
+  </div>
+{% endif %}
+    
     {% if page.image %}
       <img src="{{ page.image }}" class="rounded-lg shadow mb-8 w-full" alt="">
     {% endif %}
