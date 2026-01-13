@@ -1,6 +1,6 @@
 ---
 layout: post
-title: DDA की ‘Towering Heights’ परियोजना: निवेशकों और आम नागरिकों दोनों के लिए क्या मायने
+title: "DDA की ‘Towering Heights’ परियोजना: निवेशकों और आम नागरिकों दोनों के लिए क्या मायने"
 date: 2026-01-13
 permalink: /blogs/dda-towering-heights-investor-common-man-13-jan-26
 excerpt: DDA की नई ऊँची आवासीय परियोजना का निवेश और आम लोगों पर संभावित प्रभाव का विश्लेषण।
