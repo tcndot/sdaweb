@@ -6,7 +6,7 @@ permalink: /blogs/dda-towering-heights-investor-common-man-13-jan-26
 excerpt: DDA की नई ऊँची आवासीय परियोजना का निवेश और आम लोगों पर संभावित प्रभाव का विश्लेषण।
 author: Staff
 image: /assets/blogs/dda-towering-heights.jpg
-favicon: /assets/logo4favicon.png
+favicon: /assets/blogs/dda-towering-heights.jpg
 tags: [delhi, real-estate, investment]
 description: Towering Heights परियोजना के दूसरे चरण में निवेश अवसर, आवासीय प्रभाव और आम नागरिकों के लिए इसके अर्थ का विस्तृत विश्लेषण।
 published: true
