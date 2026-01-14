@@ -5,8 +5,8 @@ date: 2026-01-14
 permalink: /blogs/haryana-real-estate-middle-class-investors-14-jan-26
 excerpt: हरियाणा में EDC सुधार की मांग से आवास लागत और निवेश अवसरों में बदलाव संभव है, जो मध्यम वर्गीय निवेशकों के लिए महत्वपूर्ण हो सकता है।
 author: Staff
-image: /assets/blogs/haryana-real-estate-investment.jpg
-favicon: /assets/logo4favicon.png
+image: /assets/posts/family-of-4-has-a-home-key-in-father-hand.jpg
+favicon: /assets/posts/family-of-4-has-a-home-key-in-father-hand.jpg
 tags: [haryana, real-estate, investment]
 published: true
 ---
