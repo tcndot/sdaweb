@@ -84,4 +84,4 @@ DDA का यह फैसला बताता है कि दिल्ल�
 
 जल्दबाज़ी में सौदा करने के बजाय, स्पष्ट नियम और दस्तावेज़ वाली प्रॉपर्टी को प्राथमिकता देना समझदारी होगी।
 
-Source: <a href="https://dda.gov.in/sites/default/files/LandDisposal/new_doc_01-12-2026_18.01.pdf" style="color: blue; text-decoration: underline;">DDA Notice dated 09.01.26</a>
+Source: <a href="https://dda.gov.in/sites/default/files/LandDisposal/new_doc_01-12-2026_18.01.pdf" target="_blank" style="color: blue; text-decoration: underline;">DDA Notice dated 09.01.26</a>
