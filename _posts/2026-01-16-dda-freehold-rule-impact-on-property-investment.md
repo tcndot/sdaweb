@@ -5,8 +5,8 @@ date: 2026-01-16
 permalink: /blogs/dda-freehold-rule-impact-on-property-investment-16-jan-26
 excerpt: DDA ने फ्रीहोल्ड कन्वर्ज़न रोका है और सर्किल रेट लागू किए हैं — जानिए इससे खरीदार और निवेशक कैसे प्रभावित होंगे।
 author: Staff
-image: /assets/logo4favicon.png
-favicon: /assets/logo4favicon.png
+image: /assets/posts/dda-freehold-conversion-halted-delhi.jpg
+favicon: /assets/posts/dda-freehold-conversion-halted-delhi.jpg
 tags: [delhi, real-estate, investment]
 published: true
 ---
