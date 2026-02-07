@@ -240,19 +240,8 @@ If you do not have a resume, briefly describe your experience above.
               return;
             }
 
-            // Uploadcare widget instance
-            const widget = uploadcare.Widget('[role=uploadcare-uploader]');
-            const fileInfo = widget.value();
-
-            
 
             try {
-              let fileUrl = '';
-
-              if (fileInfo) {
-              const fileData = await fileInfo.promise();
-              fileUrl = fileData.cdnUrl;
-                }
 
               const qualificationValue = qualificationSelect.value === 'Other' ? otherQualificationInput.value.trim() : qualificationSelect.value;
 
@@ -264,7 +253,6 @@ If you do not have a resume, briefly describe your experience above.
                 dob: dobInput.value,
                 position: form.position ? form.position.value.trim() : 'Customer Relationship Manager',
                 qualification: qualificationValue,
-                resumeUrl: fileUrl,
                 coverLetter: form.coverLetter.value.trim(),
                 consentGiven: form.consent.checked
               };
