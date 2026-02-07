@@ -188,7 +188,7 @@ If you are passionate, disciplined, and willing to build a long-term career with
       <!--script src="uploadcare.full.min.js" charset="utf-8"></script-->
 
       <!-- Scoped JS for this form only -->
-      <script>
+     <!-- <script>
         (function(){
           const form = document.getElementById('job-application-form');
           const submitBtn = document.getElementById('submitBtn');
@@ -301,7 +301,94 @@ otherQualificationContainer.style.display = "none";
             }
           });
         })();
-      </script>
+      </script> -->
+      <script>
+  (function(){
+    const form = document.getElementById('job-application-form');
+    const submitBtn = document.getElementById('submitBtn');
+    const consent = document.getElementById('consent');
+    const confirmation = document.getElementById('confirmationMessage');
+    const qualSelect = document.getElementById('qualification');
+    const otherQual = document.getElementById('otherQualificationContainer');
+    const otherInput = document.getElementById('otherQualification');
+    const dob = document.getElementById('dob');
+
+    // DOB ≥ 18 years
+    const today = new Date();
+    today.setFullYear(today.getFullYear() - 18);
+    dob.max = today.toISOString().split('T')[0];
+
+    // Show/hide Other qualification
+    qualSelect.addEventListener('change', () => {
+      if (qualSelect.value === 'Other') {
+        otherQual.style.display = 'block';
+        otherInput.required = true;
+      } else {
+        otherQual.style.display = 'none';
+        otherInput.required = false;
+        otherInput.value = '';
+      }
+    });
+
+    // Submit button only active after consent
+    consent.addEventListener('change', () => {
+      submitBtn.disabled = !consent.checked;
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      // Extra age check (just in case)
+      if (new Date(dob.value) > today) {
+        alert('You must be at least 18 years old.');
+        dob.focus();
+        return;
+      }
+
+      const qual = qualSelect.value === 'Other' ? otherInput.value.trim() : qualSelect.value;
+
+      const data = {
+        fullName: form.fullName.value.trim(),
+        email: form.email.value.trim(),
+        phone: form.phone.value.trim(),
+        gender: form.gender.value.trim(),
+        dob: dob.value,
+        position: form.position.value.trim(),
+        qualification: qual || '(not specified)',
+        coverLetter: form.coverLetter.value.trim(),
+        consentGiven: consent.checked,
+        _subject: `New Job Application - ${form.position.value}`,
+        note: "Applicant will send resume via WhatsApp / email"
+      };
+
+      try {
+        const res = await fetch("https://formsubmit.co/ajax/shivammishrasda+jobapp@gmail.com", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify(data)
+        });
+
+        if (res.ok) {
+          confirmation.textContent = "Thank you! Application received.\nPlease send your resume now to WhatsApp 9953439796 or email info@sdapromoters.com";
+          confirmation.style.display = "block";
+          form.reset();
+          submitBtn.disabled = true;
+          submitBtn.style.display = "none";
+          otherQual.style.display = "none";
+        } else {
+          throw new Error();
+        }
+      } catch (err) {
+        alert("Form submission failed.\nPlease send your details + resume directly on WhatsApp: 9953439796");
+      }
+    });
+  })();
+</script>
       <!-- === End job application form === -->
 
     </div>
