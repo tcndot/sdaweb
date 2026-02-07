@@ -176,289 +176,36 @@ If you are passionate, disciplined, and willing to build a long-term career with
   <a href="https://wa.me/919953439796" target="_blank" style="color:#128c7e; text-decoration:underline;">9953439796</a><br>
   or email it to <a href="mailto:info@sdapromoters.com" style="color:#1e40af;">info@sdapromoters.com</a>
 </p>
-               <!-- ===== Resume fallback (WhatsApp) - paste directly below the form ===== -->
-<div id="resume-wa-fallback" aria-live="polite" style="max-width:760px;margin:18px 0;padding:14px;border-radius:12px;border:1px solid rgba(0,0,0,0.06);background:linear-gradient(180deg,#f7fff7,#ffffff);box-shadow:0 8px 20px rgba(8,24,12,0.04);font-family:Inter, Arial, Helvetica, sans-serif">
-  <!--div style="display:flex;gap:12px;align-items:center"--> 
-
-          <div class="consent">
-            <input type="checkbox" id="consent" name="consent" required />
-            <label for="consent" style="margin:0;font-size:0.95rem;color:#555">I consent to the processing of my personal data submitted in this application, to be contacted for hiring purposes.</label>
-          </div>
-
-          <button type="submit" id="submitBtn" disabled>Submit Application</button>
-            <!-- <input type="hidden" name="Resume Link" id="resume-url-field" /> -->
-          <div id="confirmationMessage" class="confirmation" role="status" aria-live="polite"></div>
-        </form>
-      </div>
-
-      <!-- Uploadcare script (keeps your existing upload flow) -->
-      <!--script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script-->
-      <!--script src="https://ucarecdn.com/libs/widget/3.x/uploadcare.full.min.js" charset="utf-8"></script-->
-      <!--script src="uploadcare.full.min.js" charset="utf-8"></script-->
-
-      <!-- Scoped JS for this form only -->
-     <!-- <script>
-        (function(){
-          const form = document.getElementById('job-application-form');
-          const submitBtn = document.getElementById('submitBtn');
-          const consentCheckbox = document.getElementById('consent');
-          const confirmationMessage = document.getElementById('confirmationMessage');
-          const qualificationSelect = document.getElementById('qualification');
-          const otherQualificationContainer = document.getElementById('otherQualificationContainer');
-          const otherQualificationInput = document.getElementById('otherQualification');
-          const dobInput = document.getElementById('dob');
-
-          // Set max date for DOB (>=18)
-          function setMaxDOB() {
-            const today = new Date();
-            today.setFullYear(today.getFullYear() - 18);
-            const yyyy = today.getFullYear();
-            const mm = String(today.getMonth() + 1).padStart(2, '0');
-            const dd = String(today.getDate()).padStart(2, '0');
-            dobInput.max = `${yyyy}-${mm}-${dd}`;
-          }
-          setMaxDOB();
-
-          // Show/hide other qualification
-          qualificationSelect.addEventListener('change', () => {
-            if (qualificationSelect.value === 'Other') {
-              otherQualificationContainer.style.display = 'block';
-              otherQualificationInput.required = true;
-            } else {
-              otherQualificationContainer.style.display = 'none';
-              otherQualificationInput.required = false;
-              otherQualificationInput.value = '';
-            }
-          });
-
-          // Enable submit only when consent checked
-          consentCheckbox.addEventListener('change', () => {
-            submitBtn.disabled = !consentCheckbox.checked;
-          });
-
-          // Submit handler (uses Uploadcare to upload file, then composes payload)
-          form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            if (!form.checkValidity()) {
-              form.reportValidity();
-              return;
-            }
-
-            // DOB age check
-            const dobDate = new Date(dobInput.value);
-            const cutoffDate = new Date();
-            cutoffDate.setFullYear(cutoffDate.getFullYear() - 18);
-            if (dobDate > cutoffDate) {
-              alert('You must be at least 18 years old to apply.');
-              dobInput.focus();
-              return;
-            }
-
-            // Uploadcare widget instance
-            const widget = uploadcare.Widget('[role=uploadcare-uploader]');
-            const fileInfo = widget.value();
-
-            
-
-            try {
-              let fileUrl = '';
-
-              if (fileInfo) {
-              const fileData = await fileInfo.promise();
-              fileUrl = fileData.cdnUrl;
-                }
-
-              const qualificationValue = qualificationSelect.value === 'Other' ? otherQualificationInput.value.trim() : qualificationSelect.value;
-
-              const payload = {
-                fullName: form.fullName.value.trim(),
-                email: form.email.value.trim(),
-                phone: form.phone.value.trim(),
-                gender: form.gender.value.trim(),
-                dob: dobInput.value,
-                position: form.position ? form.position.value.trim() : 'Customer Relationship Manager',
-                qualification: qualificationValue,
-                resumeUrl: fileUrl,
-                coverLetter: form.coverLetter.value.trim(),
-                consentGiven: form.consent.checked
-              };
-
-              // Send to FormSubmit
-await fetch("https://formsubmit.co/ajax/shivammishrasda+jobapp@gmail.com", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Accept": "application/json"
-  },
-  body: JSON.stringify(payload)
-});
-
-// Success message
-confirmationMessage.textContent = "Your application has been submitted successfully. We will contact you soon.";
-confirmationMessage.style.display = "block";
-
-// reset form
-form.reset();
-submitBtn.disabled = true;
-submitBtn.style.display = "none";
-otherQualificationContainer.style.display = "none";
-
-            } catch (err) {
-              console.error(err);
-              alert('Error uploading resume. Please try again.');
-            }
-          });
-        })();
-      </script> -->
-      <script>
-  (function(){
-    const form = document.getElementById('job-application-form');
-    const submitBtn = document.getElementById('submitBtn');
-    const consent = document.getElementById('consent');
-    const confirmation = document.getElementById('confirmationMessage');
-    const qualSelect = document.getElementById('qualification');
-    const otherQual = document.getElementById('otherQualificationContainer');
-    const otherInput = document.getElementById('otherQualification');
-    const dob = document.getElementById('dob');
-
-    // DOB ≥ 18 years
-    const today = new Date();
-    today.setFullYear(today.getFullYear() - 18);
-    dob.max = today.toISOString().split('T')[0];
-
-    // Show/hide Other qualification
-    qualSelect.addEventListener('change', () => {
-      if (qualSelect.value === 'Other') {
-        otherQual.style.display = 'block';
-        otherInput.required = true;
-      } else {
-        otherQual.style.display = 'none';
-        otherInput.required = false;
-        otherInput.value = '';
-      }
-    });
-
-    // Submit button only active after consent
-    consent.addEventListener('change', () => {
-      submitBtn.disabled = !consent.checked;
-    });
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-
-      // Extra age check (just in case)
-      if (new Date(dob.value) > today) {
-        alert('You must be at least 18 years old.');
-        dob.focus();
-        return;
-      }
-
-      const qual = qualSelect.value === 'Other' ? otherInput.value.trim() : qualSelect.value;
-
-      const data = {
-        fullName: form.fullName.value.trim(),
-        email: form.email.value.trim(),
-        phone: form.phone.value.trim(),
-        gender: form.gender.value.trim(),
-        dob: dob.value,
-        position: form.position.value.trim(),
-        qualification: qual || '(not specified)',
-        coverLetter: form.coverLetter.value.trim(),
-        consentGiven: consent.checked,
-        _subject: `New Job Application - ${form.position.value}`,
-        note: "Applicant will send resume via WhatsApp / email"
-      };
-
-      try {
-        const res = await fetch("https://formsubmit.co/ajax/shivammishrasda+jobapp@gmail.com", {
-          method: "POST",
-          headers: { "Content-Type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify(data)
-        });
-
-        if (res.ok) {
-          confirmation.textContent = "Thank you! Application received.\nPlease send your resume now to WhatsApp 9953439796 or email info@sdapromoters.com";
-          confirmation.style.display = "block";
-          form.reset();
-          submitBtn.disabled = true;
-          submitBtn.style.display = "none";
-          otherQual.style.display = "none";
-        } else {
-          throw new Error();
-        }
-      } catch (err) {
-        alert("Form submission failed.\nPlease send your details + resume directly on WhatsApp: 9953439796");
-      }
-    });
-  })();
-</script>
-      <!-- === End job application form === -->
-
-    </div>
-  </section>
-   <style>
-  .wa-fallback-row {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-  }
-
-  @media (max-width: 640px) {
-    .wa-fallback-row {
-      display: block;   /* stack items vertically */
-    }
-    .wa-fallback-row > * {
-      margin-top: 12px;
-    }
-  }
-     @media (max-width: 640px) {
-  .wa-btn-box {
-    margin-top: 16px;
-  }
-}
-
-</style>
-
-   
-
-    <!-- WhatsApp icon (inline SVG) -->
-    <span aria-hidden="true" style="flex:0 0 auto">
-      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" role="img" aria-hidden="true">
+             <!-- WhatsApp fallback - moved here so it's clearly visible after the important note -->
+<div id="resume-wa-fallback" style="max-width:760px; margin:24px 0; padding:16px; border-radius:12px; border:1px solid #d1fae5; background:#f0fdf4; box-shadow:0 4px 12px rgba(0,0,0,0.05);">
+  <div class="wa-fallback-row" style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+    <!-- WhatsApp icon -->
+    <span style="flex:0 0 auto;">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
         <path d="M20.52 3.48A11.94 11.94 0 0012 0C5.37 0 .02 4.9 0 11.03c0 1.94.5 3.83 1.44 5.49L0 24l7.73-1.98A11.92 11.92 0 0012 24c6.63 0 11.98-4.9 12-11.03 0-1.95-.5-3.84-1.48-5.49z" fill="#25D366"/>
         <path d="M17.5 14.02c-.29-.15-1.72-.85-1.99-.95-.27-.1-.47-.15-.67.15-.19.29-.74.95-.9 1.14-.16.19-.31.21-.59.07-.29-.15-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2-.17-.29-.02-.45.13-.6.13-.12.29-.31.43-.46.14-.15.19-.26.29-.44.1-.19 0-.33-.05-.47-.05-.13-.67-1.62-.92-2.21-.24-.58-.48-.5-.66-.51l-.57-.01c-.19 0-.5.07-.76.37-.26.29-.99.97-.99 2.36 0 1.39 1.02 2.73 1.16 2.92.14.19 2.01 3.04 4.88 4.27 2.87 1.24 2.87.83 3.39.78.52-.04 1.68-.68 1.92-1.34.24-.66.24-1.22.17-1.34-.07-.12-.27-.19-.56-.34z" fill="#fff"/>
       </svg>
     </span>
 
-    <div style="flex:1 1 auto">
-      <div style="font-weight:800;color:#0b3a18;margin-bottom:6px">Problem submitting the form?</div>
-      <div style="color:#556;line-height:1.35">
-        If the form fails or the upload doesn't work, send your resume directly to our WhatsApp and we'll confirm receipt.
-        <div style="margin-top:8px;font-size:0.95rem;color:#444">
-          अगर फॉर्म सबमिट नहीं हो रहा है तो अपना रिज़्यूमे सीधे व्हाट्सऐप पर भेज दें — हम रिसीप्ट कॉन्फर्म करेंगे।
+    <div style="flex:1;">
+      <div style="font-weight:700; color:#065f46; margin-bottom:6px;">Having trouble with the form?</div>
+      <div style="color:#374151;">
+        Just send your resume + basic details directly on WhatsApp — we’ll confirm right away.
+        <div style="margin-top:8px; font-size:0.95rem; color:#4b5563;">
+          अगर फॉर्म काम नहीं कर रहा तो रिज्यूमे व्हाट्सएप पर भेज दें — हम तुरंत कन्फर्म करेंगे।
         </div>
       </div>
     </div>
 
-    <!-- WhatsApp link button -->
-    <!--div style="flex:0 0 auto"-->
-      <div class="wa-btn-box">
-
-      <!-- NOTE: Number uses India country code +91 -->
-      <a href="https://wa.me/919953439796?text=Hello%2C%20I%20am%20unable%20to%20submit%20my%20job%20application%20via%20the%20website.%20Please%20help.%20Name%3A%20%5BYour%20Name%5D" 
-         target="_blank" rel="noopener" 
-         style="display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:linear-gradient(135deg,#25d366,#128c7e);color:#fff;font-weight:800;text-decoration:none;box-shadow:0 8px 22px rgba(37,211,102,0.12)">
-        <span style="font-size:0.98rem">Send on WhatsApp</span>
+    <div style="flex:0 0 auto; margin-left:auto;">
+      <a href="https://wa.me/919953439796?text=Hello%2C%20I%20want%20to%20apply%20for%20a%20job%20at%20SDA%20Infra.%20Name%3A%20[Your%20Name]%20Position%3A%20[Position]" 
+         target="_blank" rel="noopener"
+         style="display:inline-flex; align-items:center; gap:10px; padding:12px 20px; border-radius:10px; background:linear-gradient(135deg,#25d366,#128c7e); color:white; font-weight:700; text-decoration:none; box-shadow:0 4px 12px rgba(37,211,102,0.3);">
+        📲 Send Resume on WhatsApp
       </a>
     </div>
   </div>
 </div>
-<!-- ===== End resume fallback box ===== -->
   
   <!-- OPENINGS (self-contained) -->
   <section id="c-openings" aria-labelledby="c-openings-h" style="margin-bottom:18px;">
