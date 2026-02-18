@@ -1,11 +1,11 @@
 ---
 layout: post
-title: DDA फ्लैट अब ₹12 लाख तक सस्ते: क्या यह दिल्ली के कामकाजी परिवारों के लिए सही निवेश मौका है?
+title: "DDA फ्लैट अब ₹12 लाख तक सस्ते: क्या यह दिल्ली के कामकाजी परिवारों के लिए सही निवेश मौका है?"
 date: 2026-02-18
 permalink: /blogs/dda-flats-price-cut-investment-opportunity-18-feb-26
 excerpt: DDA ने पार्किंग शुल्क हटाकर फ्लैट की कीमतें 5 से 12 लाख रुपये तक घटाईं। क्या यह दिल्ली के कामकाजी परिवारों के लिए सही समय है?
 author: Staff
-image: /assets/blogs/dda-price-cut.jpg
+image: /assets/posts/dda-affordable-housing-delhi-exterior.jpg
 favicon: /assets/logo4favicon.png
 tags: [delhi, real-estate, investment, dda]
 published: true
