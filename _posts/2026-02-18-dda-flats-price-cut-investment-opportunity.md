@@ -6,7 +6,7 @@ permalink: /blogs/dda-flats-price-cut-investment-opportunity-18-feb-26
 excerpt: DDA ने पार्किंग शुल्क हटाकर फ्लैट की कीमतें 5 से 12 लाख रुपये तक घटाईं। क्या यह दिल्ली के कामकाजी परिवारों के लिए सही समय है?
 author: Staff
 image: /assets/posts/dda-affordable-housing-delhi-exterior.jpg
-favicon: /assets/logo4favicon.png
+favicon: /assets/posts/dda-affordable-housing-delhi-exterior-favicon.jpg
 tags: [delhi, real-estate, investment, dda]
 published: true
 ---
