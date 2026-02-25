@@ -176,7 +176,7 @@ h1 {
 
     <!-- Google Review -->
     <a class="btn secondary small"
-       href="https://maps.app.goo.gl/AqHYuZKDaBx1jHn49"
+       href="https://maps.app.goo.gl/x627ZMtzSiNzeufo6"
        target="_blank">
        ⭐ Review Us on Google
     </a>
