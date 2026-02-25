@@ -24,11 +24,7 @@ body {
   text-align: center;
 }
 
-.logo {
-  width: 100px;
-  border-radius: 50%;
-  margin-bottom: 15px;
-}
+
 
 h1 {
   margin-bottom: 6px;
