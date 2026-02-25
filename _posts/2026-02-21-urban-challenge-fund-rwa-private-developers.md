@@ -6,7 +6,7 @@ permalink: /blogs/urban-challenge-fund-rwa-private-developers-21-feb-26
 excerpt: केंद्र सरकार ने शहरी विकास परियोजनाओं में RWAs और निजी डेवलपर्स की भागीदारी को मंजूरी दी है।
 author: Staff
 image: /assets/posts/high-skyline-looks-like-dubai-but-can-be-used-as-future-model-of-delhi.jpg
-favicon: /assets/posts/high-skyline-looks-like-dubai-but-can-be-used-as-future-model-of-delhi.jpg
+favicon: /assets/posts/high-skyline-looks-like-dubai-but-can-be-used-as-future-model-of-delhi-favicon.jpg
 tags: [india, urban-policy, real-estate, rwas]
 published: true
 ---
