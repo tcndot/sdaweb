@@ -145,7 +145,7 @@ h1 {
 <div class="connect-wrapper">
   <div class="connect-container">
 
-    <img src="/assets/logo.png" class="logo">
+    
 
     <h1>SDA DEVELOPERS AND PROMOTERS</h1>
     <div class="tagline">
