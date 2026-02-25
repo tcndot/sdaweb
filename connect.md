@@ -147,7 +147,7 @@ h1 {
 
     <img src="/assets/logo.jpg" class="logo">
 
-    <h1>SDA DEVELOPERS</h1>
+    <h1>SDA DEVELOPERS AND PROMOTERS</h1>
     <div class="tagline">
       Plots in Delhi NCR | Direct Developer Deals
     </div>
