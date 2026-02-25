@@ -15,7 +15,7 @@ body {
 .connect-container {
   max-width: 420px;
   margin: auto;
-  padding: 40px 20px;
+  padding: 50px 20px;
   text-align: center;
 }
 
@@ -26,23 +26,29 @@ body {
 }
 
 h1 {
-  margin-bottom: 5px;
+  margin-bottom: 6px;
+  font-size: 24px;
 }
 
 .tagline {
   opacity: 0.9;
   font-size: 14px;
-  margin-bottom: 30px;
+  margin-bottom: 35px;
 }
 
 .btn {
   display: block;
   padding: 16px;
   margin: 15px 0;
-  border-radius: 10px;
+  border-radius: 12px;
   text-decoration: none;
   font-weight: 600;
   font-size: 16px;
+  transition: 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
 }
 
 .primary {
@@ -60,6 +66,26 @@ h1 {
   padding: 14px;
 }
 
+.divider {
+  margin: 35px 0 15px;
+  opacity: 0.6;
+  font-size: 13px;
+}
+
+.social-links a {
+  display: inline-block;
+  margin: 10px 12px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  opacity: 0.9;
+}
+
+.social-links a:hover {
+  opacity: 1;
+}
+
 </style>
 
 <div class="connect-container">
@@ -71,24 +97,24 @@ h1 {
     Plots in Delhi NCR | Direct Developer Deals
   </div>
 
-  <!-- WhatsApp Channel (TOP PRIORITY) -->
+  <!-- WhatsApp Channel -->
   <a class="btn primary"
      href="https://whatsapp.com/channel/0029VbC4YrpHltYI8yGFyG3D"
      target="_blank">
-     🔔 Join Our WhatsApp Channel  
+     🔔 Join Our WhatsApp Channel
      <div style="font-size:12px; font-weight:400;">
-       Get latest offers & price updates
+       Latest offers & price updates
      </div>
   </a>
 
-  <!-- Direct Chat -->
+  <!-- Direct WhatsApp Chat -->
   <a class="btn secondary"
      href="https://wa.me/919999944622"
      target="_blank">
      💬 Chat Directly on WhatsApp
   </a>
 
-  <!-- Reviews -->
+  <!-- Google Review -->
   <a class="btn secondary small"
      href="https://maps.app.goo.gl/AqHYuZKDaBx1jHn49"
      target="_blank">
@@ -99,7 +125,21 @@ h1 {
   <a class="btn secondary small"
      href="https://www.youtube.com/@sdapromoters"
      target="_blank">
-     ▶ Watch Our Projects on YouTube
+     ▶ Watch Projects on YouTube
   </a>
+
+  <div class="divider">
+    Follow Us
+  </div>
+
+  <div class="social-links">
+    <a href="https://www.instagram.com/sdapromoters?igsh=d293b3Q4Zjc1YTdp" target="_blank">
+      📸 Instagram
+    </a>
+
+    <a href="https://www.facebook.com/sda.rameshnagar" target="_blank">
+      📘 Facebook
+    </a>
+  </div>
 
 </div>
