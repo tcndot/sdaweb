@@ -1,10 +1,10 @@
 ---
 layout: project
-title: Shyam Kunj
+title: श्याम कुंज
 location: Nahra-Nahri Road, Near Kanonda Chowk (Just off Delhi Border)
-subtitle: Land today, legacy tomorrow.
+subtitle: Land today, Legacy tomorrow.
 listing:
-  highlight: "stop renting and build your future instead"
+  highlight: "छोड़ें किराया और बनाऐं अपने सपनों का घर"
   summary: "affordable plots offering long term booming investment returns. Located near delhi border and starting at 20,000 rs for those who want to participate in the story of growth"
 
 # Top map/photo (Keeping your original paths)
