@@ -2,7 +2,7 @@
 layout: project
 title: श्याम विहार
 location: नहरा-नहरी रोड, कानौंदा चौक (दिल्ली बाॅर्डर से 1कि मि से कम दूरी)
-subtitle: Book your plot build your future
+subtitle: प्लाॅट लें अपने कल के लिए
 listing:
   highlight: "possession ready plots in high growth delhi ncr area"
   summary: "Located near Delhi Border this project is going to be huge due to Massive investment of govt and private players for eg. maruti this location is becoming the next high growth location in Delhi NCR region. Starting at 12,000 rs"
