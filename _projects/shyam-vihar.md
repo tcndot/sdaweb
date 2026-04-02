@@ -1,7 +1,7 @@
 ---
 layout: project
-title: Shyam Vihar
-location: Nahra-Nahri Road, Near Kanonda Chowk (Less than 1 Km from Delhi Border)
+title: श्याम विहार
+location: नहरा-नहरी रोड, कानौंदा चौक (दिल्ली बाॅर्डर से 1कि मि से कम दूरी)
 subtitle: Book your plot build your future
 listing:
   highlight: "possession ready plots in high growth delhi ncr area"
