@@ -1,7 +1,7 @@
 ---
 layout: project
 title: Shyam Vihar
-location: Nahra-Nahri Road, Near Kanonda Chowk (500m from Delhi Border)
+location: Nahra-Nahri Road, Near Kanonda Chowk (Less than 1 Km from Delhi Border)
 subtitle: Book your plot build your future
 listing:
   highlight: "possession ready plots in high growth delhi ncr area"
@@ -28,11 +28,11 @@ rotating_rows:
 # These points appear in the "Details Box" at the top
 points:
   - label: "Inventory"
-    value: "59 Premium Plots + Custom Sizes"
+    value: "25X100 Gaj Plots, 77X50 Gaj Plots + Custom Sizes"
   - label: "Plot Sizes"
     value: "50, 100 Gaj & Free Size"
   - label: "Price"
-    value: "Starting ₹15,000 / gaj"
+    value: "Starting ₹12,000 / gaj"
   - label: "Dimensions"
     value: "20ft x 45ft (100 Gaj Standard)"
   - label: "Possession"
@@ -40,7 +40,7 @@ points:
   - label: "Legal Status"
     value: "Freehold / Registry Ready"
   - label: "Road Width"
-    value: "15-25 ft Internal Roads"
+    value: "16-25 ft Internal Roads"
 
 # These appear in the Q&A box at the bottom
 qa:
