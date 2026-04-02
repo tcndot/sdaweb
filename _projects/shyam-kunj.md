@@ -28,19 +28,19 @@ rotating_rows:
 # These points appear in the "Details Box" at the top
 points:
   - label: "Inventory"
-    value: "59 Premium Plots + Custom Sizes"
+    value: "8 L shaped Premium Plots + Free Custom Sizes"
   - label: "Plot Sizes"
-    value: "50, 100 Gaj & Free Size"
+    value: "128.45 Gaj & Free Size"
   - label: "Price"
-    value: "Starting ₹15,000 / gaj"
+    value: "Starting ₹20,000 / gaj"
   - label: "Dimensions"
-    value: "20ft x 45ft (100 Gaj Standard)"
+    value: "34ft x 34ft (128.45 Gaj Standard) & Free size Plots"
   - label: "Possession"
     value: "Immediate (Pay & Build)"
   - label: "Legal Status"
     value: "Freehold / Registry Ready"
   - label: "Road Width"
-    value: "15-25 ft Internal Roads"
+    value: "18-25 ft Internal Roads"
 
 # These appear in the Q&A box at the bottom
 qa:
